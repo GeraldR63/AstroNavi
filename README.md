@@ -9,3 +9,4 @@ This is an app for navigators. Not more and not less.
 
 I'm working on some parts up to now. Next release will generate printable "Sight Reduction Forms" and than I will implenent an Almanac independent calculation which is NOT recommended to use.
 
+Today I fight with different displays.

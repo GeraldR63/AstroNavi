@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pbNextCB"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="#E91E63"
+    tools:context=".NauticalAlmanac">
+
+    <TextView
+        android:id="@+id/textview_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/button_second"
+        android:layout_width="279dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="556dp"
+        android:text="Simple Nav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="92dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="48dp"
+        android:text="DR Long Lat"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="95dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:text="Date Time"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfDate"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="#4CAF50"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="dd.mm.yyyy"
+        app:layout_constraintStart_toStartOf="@+id/textView10"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfDRLong"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="44dp"
+        android:backgroundTint="#4CAF50"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="-015°00.0'00.0&quot;"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfDRLat"
+        android:layout_width="111dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="244dp"
+        android:layout_marginTop="44dp"
+        android:backgroundTint="#4CAF50"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="+032°00.0'00.0&quot;"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="73dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="88dp"
+        android:text="Heading"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfHeading"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="80dp"
+        android:backgroundTint="#4CAF50"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="325°"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/dfDate" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="132dp"
+        android:text="Speed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfSpeed"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="124dp"
+        android:backgroundTint="#4CAF50"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="20"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfTime"
+        android:layout_width="112dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="244dp"
+        android:layout_marginTop="4dp"
+        android:backgroundTint="#4CAF50"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="hh24:mi:ss"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioButton
+        android:id="@+id/cb1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="168dp"
+        android:text="CB#1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioButton
+        android:id="@+id/cb2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="168dp"
+        android:text="CB#2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioButton
+        android:id="@+id/cb3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="168dp"
+        android:text="CB#3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="272dp"
+        android:text="Fix (Time)"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfFixTime"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="268dp"
+        android:backgroundTint="#4CAF50"
+        android:ems="10"
+        android:inputType="time"
+        android:text="21:00:00"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="228dp"
+        android:text="Name of CB"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfCBName"
+        android:layout_width="252dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="224dp"
+        android:backgroundTint="#E91E63"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Regulus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/pbPrevCB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="204dp"
+        android:layout_marginTop="168dp"
+        android:text="Prev"
+        app:layout_constraintStart_toStartOf="@+id/cb1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/pbNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="296dp"
+        android:layout_marginTop="168dp"
+        android:text="Next"
+        app:layout_constraintStart_toStartOf="@+id/cb1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="45dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="208dp"
+        android:layout_marginTop="272dp"
+        android:text="Time"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfObservedTime"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="256dp"
+        android:layout_marginTop="264dp"
+        android:backgroundTint="#4CAF50"
+        android:ems="10"
+        android:inputType="time"
+        android:text="20:39:23"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="352dp"
+        android:text="Hc-omput"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfHo"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="344dp"
+        android:backgroundTint="#4CAF50"
+        android:ems="10"
+        android:hint="Sextant Ho computed"
+        android:inputType="text|time"
+        android:text="027°46'02.01&quot;"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="396dp"
+        android:text="GHA Aries"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfGHAAries"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="388dp"
+        android:backgroundTint="#4CAF50"
+        android:ems="10"
+        android:inputType="text|time"
+        android:text="+232°40'05.42&quot;"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="208dp"
+        android:layout_marginTop="396dp"
+        android:text="Aries+1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfGHAAriesPlus1"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="256dp"
+        android:layout_marginTop="388dp"
+        android:backgroundTint="#4CAF50"
+        android:ems="10"
+        android:inputType="text|time"
+        android:text="+207°36'48.1&quot;"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="440dp"
+        android:text="SHA"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfSHA"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="428dp"
+        android:backgroundTint="#4CAF50"
+        android:ems="10"
+        android:inputType="text|time"
+        android:text="+137°19'00.0&quot;"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="212dp"
+        android:layout_marginTop="440dp"
+        android:text="Decl."
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfDeclinationNA"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="256dp"
+        android:layout_marginTop="428dp"
+        android:backgroundTint="#4CAF50"
+        android:ems="10"
+        android:inputType="text|time"
+        android:text="+324°03'00.00&quot;"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="58dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="520dp"
+        android:text="Status"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfStatus"
+        android:layout_width="310dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="516dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Good"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="476dp"
+        android:text="Position"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfPosition"
+        android:layout_width="310dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="468dp"
+        android:backgroundTint="#E91E63"
+        android:ems="10"
+        android:inputType="text|time"
+        android:text="-15°1'8.1&quot; 31°37'11.3&quot;"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="208dp"
+        android:layout_marginTop="308dp"
+        android:text="Date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfObservedDate"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="256dp"
+        android:layout_marginTop="304dp"
+        android:backgroundTint="#4CAF50"
+        android:ems="10"
+        android:inputType="date"
+        android:text="01.01.2023"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/pbCalcNA"
+        android:layout_width="134dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="248dp"
+        android:layout_marginTop="84dp"
+        android:text="Calc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/pbDefaultsNA"
+        android:layout_width="134dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="248dp"
+        android:layout_marginTop="124dp"
+        android:text="Example NA"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/checkBoxCalcMode"
+        android:layout_width="193dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="304dp"
+        android:text="By NA or Calculated"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/pbSextant"
+        android:layout_width="130dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="256dp"
+        android:layout_marginTop="344dp"
+        android:text="Ho2Hc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

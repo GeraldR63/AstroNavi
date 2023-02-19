@@ -1,6 +1,7 @@
 # AstroNavi
 README
 
+MOST RECENT VERSION WILL BE FOUND IN THE MASTER BRANCH! The MAIN branch will be updated by me only after major changes.
 
 This is a simple AstroNavigation utility.
 It's designed for Blue Water Sailors and Professionals using Nautical Almanac or Long Term Almanac

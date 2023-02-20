@@ -3,8 +3,21 @@ README
 
 Version History Log:
 
-Date      Time     Author Comment
-20230220  16:53    RN     Latest release uploaded. Some fixes related to character size to support as much as possible devices.
+ <table>
+  <tr>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Author</th>
+    <th>Comments</th>
+  </tr>
+  <tr>
+    <td>20230220</td>
+    <td>16:53</td>
+    <td>RN</td>
+    <td>Latest release uploaded. Some fixes related to character size to support as much as possible devices.</td>
+  </tr>
+</table> 
+
 
 MOST RECENT VERSION WILL BE FOUND IN THE MASTER BRANCH! The MAIN branch will be updated by me only after major changes.
 

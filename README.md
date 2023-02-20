@@ -38,7 +38,7 @@ Small differences come from using up to 16 figures after the decimal point. The 
 Download just "app-release.apk". I guess that your mobile will install it automatically.
 See: https://github.com/GeraldR63/AstroNavi/blob/master/app/release/app-release.apk for most recent.
 
-This APP is under construction. Planned are to generate a complete "Sight Reduction Form" as required for a logbook plus a calculation without using a book like Nautical Almanac or Long Term Almanac. But that's bad practise. Computers help humans. We are not the slaves of computers. That's the major mistake younger people make by using computers. My software supports a Navigator but the goal ist not to make them stupids.
+This APP is under construction. Planned are to generate a complete "Sight Reduction Form" as required for a logbook plus a calculation without using a book like Nautical Almanac or Long Term Almanac. But that's bad practise. Computers help humans. We are not the slaves of computers. That's the major mistake younger people make by using computers. My software supports Navigators but the goal ist not to make them stupids.
 
 I attached also an ooCalc document which can als be used by Navigators. It's doing the same but shows each calculation step. It also contains an empty sheet with instructions how to calculate everything by yourself.
 

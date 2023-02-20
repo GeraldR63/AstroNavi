@@ -10,11 +10,12 @@
 
     <Button
         android:id="@+id/button_first"
-        android:layout_width="279dp"
+        android:layout_width="180dp"
         android:layout_height="40dp"
         android:layout_marginTop="560dp"
         android:text="Get a Fix"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -91,15 +92,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/pbCalc"
-        android:layout_width="279dp"
+        android:id="@+id/pbIncCharset"
+        android:layout_width="50dp"
         android:layout_height="40dp"
-        android:layout_marginTop="616dp"
-        android:text="Calc"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="560dp"
+        android:text="+"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Calc" />
+        tools:text="+" />
 
     <CheckBox
         android:id="@+id/cbNS"
@@ -332,6 +333,16 @@
         android:layout_marginStart="76dp"
         android:layout_marginTop="20dp"
         android:text="This software is designed best practice."
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/pbDecCharset"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="304dp"
+        android:layout_marginTop="560dp"
+        android:text="-"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

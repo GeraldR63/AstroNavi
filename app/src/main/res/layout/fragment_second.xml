@@ -10,11 +10,12 @@
 
     <Button
         android:id="@+id/button_second"
-        android:layout_width="279dp"
+        android:layout_width="180dp"
         android:layout_height="40dp"
-        android:layout_marginTop="556dp"
+        android:layout_marginTop="564dp"
         android:text="Simple Nav"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.415"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,9 +42,8 @@
     <EditText
         android:id="@+id/dfDate"
         android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_height="43dp"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="4dp"
         android:backgroundTint="#4CAF50"
         android:ems="10"
         android:inputType="textPersonName"
@@ -54,7 +54,7 @@
     <EditText
         android:id="@+id/dfDRLong"
         android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_height="43dp"
         android:layout_marginStart="104dp"
         android:layout_marginTop="44dp"
         android:backgroundTint="#4CAF50"
@@ -67,7 +67,7 @@
     <EditText
         android:id="@+id/dfDRLat"
         android:layout_width="111dp"
-        android:layout_height="40dp"
+        android:layout_height="43dp"
         android:layout_marginStart="244dp"
         android:layout_marginTop="44dp"
         android:backgroundTint="#4CAF50"
@@ -90,7 +90,7 @@
     <EditText
         android:id="@+id/dfHeading"
         android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_height="43dp"
         android:layout_marginStart="104dp"
         android:layout_marginTop="80dp"
         android:backgroundTint="#4CAF50"
@@ -113,7 +113,7 @@
     <EditText
         android:id="@+id/dfSpeed"
         android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_height="43dp"
         android:layout_marginStart="104dp"
         android:layout_marginTop="124dp"
         android:backgroundTint="#4CAF50"
@@ -126,9 +126,8 @@
     <EditText
         android:id="@+id/dfTime"
         android:layout_width="112dp"
-        android:layout_height="40dp"
+        android:layout_height="43dp"
         android:layout_marginStart="244dp"
-        android:layout_marginTop="4dp"
         android:backgroundTint="#4CAF50"
         android:ems="10"
         android:inputType="textPersonName"
@@ -179,9 +178,9 @@
     <EditText
         android:id="@+id/dfFixTime"
         android:layout_width="100dp"
-        android:layout_height="40dp"
+        android:layout_height="43dp"
         android:layout_marginStart="72dp"
-        android:layout_marginTop="268dp"
+        android:layout_marginTop="264dp"
         android:backgroundTint="#4CAF50"
         android:ems="10"
         android:inputType="time"
@@ -202,9 +201,9 @@
     <EditText
         android:id="@+id/dfCBName"
         android:layout_width="252dp"
-        android:layout_height="40dp"
+        android:layout_height="43dp"
         android:layout_marginStart="128dp"
-        android:layout_marginTop="224dp"
+        android:layout_marginTop="218dp"
         android:backgroundTint="#E91E63"
         android:ems="10"
         android:inputType="textPersonName"
@@ -245,7 +244,7 @@
     <EditText
         android:id="@+id/dfObservedTime"
         android:layout_width="100dp"
-        android:layout_height="40dp"
+        android:layout_height="43dp"
         android:layout_marginStart="256dp"
         android:layout_marginTop="264dp"
         android:backgroundTint="#4CAF50"
@@ -268,9 +267,9 @@
     <EditText
         android:id="@+id/dfHo"
         android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_height="43dp"
         android:layout_marginStart="76dp"
-        android:layout_marginTop="344dp"
+        android:layout_marginTop="338dp"
         android:backgroundTint="#4CAF50"
         android:ems="10"
         android:hint="Sextant Ho computed"
@@ -283,6 +282,7 @@
         android:id="@+id/textView21"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="396dp"
         android:text="GHA Aries"
         app:layout_constraintStart_toStartOf="parent"
@@ -291,9 +291,9 @@
     <EditText
         android:id="@+id/dfGHAAries"
         android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_height="43dp"
         android:layout_marginStart="76dp"
-        android:layout_marginTop="388dp"
+        android:layout_marginTop="385dp"
         android:backgroundTint="#4CAF50"
         android:ems="10"
         android:inputType="text|time"
@@ -314,9 +314,9 @@
     <EditText
         android:id="@+id/dfGHAAriesPlus1"
         android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_height="43dp"
         android:layout_marginStart="256dp"
-        android:layout_marginTop="388dp"
+        android:layout_marginTop="385dp"
         android:backgroundTint="#4CAF50"
         android:ems="10"
         android:inputType="text|time"
@@ -337,7 +337,7 @@
     <EditText
         android:id="@+id/dfSHA"
         android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_height="43dp"
         android:layout_marginStart="76dp"
         android:layout_marginTop="428dp"
         android:backgroundTint="#4CAF50"
@@ -360,7 +360,7 @@
     <EditText
         android:id="@+id/dfDeclinationNA"
         android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_height="43dp"
         android:layout_marginStart="256dp"
         android:layout_marginTop="428dp"
         android:backgroundTint="#4CAF50"
@@ -383,9 +383,9 @@
     <EditText
         android:id="@+id/dfStatus"
         android:layout_width="310dp"
-        android:layout_height="42dp"
+        android:layout_height="43dp"
         android:layout_marginStart="76dp"
-        android:layout_marginTop="516dp"
+        android:layout_marginTop="520dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Good"
@@ -405,9 +405,9 @@
     <EditText
         android:id="@+id/dfPosition"
         android:layout_width="310dp"
-        android:layout_height="45dp"
+        android:layout_height="43dp"
         android:layout_marginStart="76dp"
-        android:layout_marginTop="468dp"
+        android:layout_marginTop="474dp"
         android:backgroundTint="#E91E63"
         android:ems="10"
         android:inputType="text|time"
@@ -428,9 +428,9 @@
     <EditText
         android:id="@+id/dfObservedDate"
         android:layout_width="100dp"
-        android:layout_height="40dp"
+        android:layout_height="43dp"
         android:layout_marginStart="256dp"
-        android:layout_marginTop="304dp"
+        android:layout_marginTop="302dp"
         android:backgroundTint="#4CAF50"
         android:ems="10"
         android:inputType="date"
@@ -475,6 +475,26 @@
         android:layout_marginStart="256dp"
         android:layout_marginTop="344dp"
         android:text="Ho2Hc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/pbIncrNACharset"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="564dp"
+        android:text="+"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/pbDecrNACharset"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="292dp"
+        android:layout_marginTop="564dp"
+        android:text="-"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

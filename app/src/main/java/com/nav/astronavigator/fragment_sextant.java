@@ -62,12 +62,30 @@ public class fragment_sextant extends Fragment {
     Button pbReset;
     Boolean back2Simple=false;
 
+    Button pbIncrCharset;
+    Button pbDecrCharset;
+
     public static float pxFromDp(float dp, Context mContext) {
         return dp * mContext.getResources().getDisplayMetrics().density;
     }
 
-    int dp=8;  // Schriftgroesse
+    // int dp=8;  // Schriftgroesse
 
+    public void setTextSize (int dp)
+    {
+        pbBack.setTextSize(pxFromDp(dp, getActivity()));
+        pbReset.setTextSize(pxFromDp(dp, getActivity()));
+        dfCB.setTextSize(pxFromDp(dp, getActivity()));
+        dfHo.setTextSize(pxFromDp(dp, getActivity()));
+        dfIndexCorrectionIC.setTextSize(pxFromDp(dp, getActivity()));
+        dfDIP.setTextSize(pxFromDp(dp, getActivity()));
+        dfSextantAltitudeSA.setTextSize(pxFromDp(dp, getActivity()));
+        dfLIMB.setTextSize(pxFromDp(dp, getActivity()));
+        dfAtmosphericCorrections.setTextSize(pxFromDp(dp, getActivity()));
+        dfAdditionalCorrections.setTextSize(pxFromDp(dp, getActivity()));
+        dfHc.setTextSize(pxFromDp(dp, getActivity()));
+        dfHcDMS.setTextSize(pxFromDp(dp, getActivity()));
+    }
 
     public fragment_sextant() {
         // Required empty public constructor
@@ -168,39 +186,42 @@ public class fragment_sextant extends Fragment {
         }
 
 
+        pbIncrCharset = getView().findViewById(R.id.pbIncSCCharset);
+        pbDecrCharset = getView().findViewById(R.id.pbDecSCCharset);
+
         pbBack = getView().findViewById(R.id.pbBackToSecondFrag);
-        pbBack.setTextSize(pxFromDp(dp, getActivity()));
+
         pbReset = getView().findViewById(R.id.pbReset);
-        pbReset.setTextSize(pxFromDp(dp, getActivity()));
+
 
         dfCB=getView().findViewById(R.id.dfCBCorrections);
-        dfCB.setTextSize(pxFromDp(dp, getActivity()));
+
         dfCB.setText("CB#"+postFix.substring(1,2));
         dfCB.setEnabled(false);
         //dfCB.setBackgroundColor(Color.GRAY);
         dfHo=getView().findViewById(R.id.dfHoCorr);
-        dfHo.setTextSize(pxFromDp(dp, getActivity()));
+
         dfIndexCorrectionIC=getView().findViewById(R.id.dfIndexCorr);
-        dfIndexCorrectionIC.setTextSize(pxFromDp(dp, getActivity()));
+
         dfDIP=getView().findViewById(R.id.dfDIPCorr);
-        dfDIP.setTextSize(pxFromDp(dp, getActivity()));
+
         dfSextantAltitudeSA=getView().findViewById(R.id.dfSextantAltitude);
-        dfSextantAltitudeSA.setTextSize(pxFromDp(dp, getActivity()));
+
         dfSextantAltitudeSA.setEnabled(false);
         dfSextantAltitudeSA.setTextColor(Color.BLACK);
         //dfSextantAltitudeSA.setBackgroundColor(Color.GRAY);
         dfLIMB=getView().findViewById(R.id.dfLIMB);
-        dfLIMB.setTextSize(pxFromDp(dp, getActivity()));
+
         dfAtmosphericCorrections=getView().findViewById(R.id.dfAtmosphericCorr);
-        dfAtmosphericCorrections.setTextSize(pxFromDp(dp, getActivity()));
+
         dfAdditionalCorrections=getView().findViewById(R.id.dfAdditionalCorr);
-        dfAdditionalCorrections.setTextSize(pxFromDp(dp, getActivity()));
+
         dfHc=getView().findViewById(R.id.dfHCCorrected);
-        dfHc.setTextSize(pxFromDp(dp, getActivity()));
+
         dfHc.setEnabled(false);
         dfHc.setTextColor(Color.BLACK);
         dfHcDMS=getView().findViewById(R.id.dfHCDMS);
-        dfHcDMS.setTextSize(pxFromDp(dp, getActivity()));
+
         dfHcDMS.setTextColor(Color.BLACK);
         dfHcDMS.setEnabled(false);
         //dfHc.setBackgroundColor(Color.GRAY);
@@ -348,6 +369,37 @@ public class fragment_sextant extends Fragment {
             }
         });
 
+        pbIncrCharset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Integer n=Integer.valueOf(sharedpreferences.getString("CharSize", "9"))+1;
+
+                n=(n>=40?n=40:n);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("CharSize",n.toString());
+                editor.apply();
+                editor.commit();
+                setTextSize(n);
+            }
+        });
+
+        pbDecrCharset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Integer n=Integer.valueOf(sharedpreferences.getString("CharSize", "9"))-1;
+
+                n=(n<=2?n=2:n);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("CharSize",n.toString());
+                editor.apply();
+                editor.commit();
+                setTextSize(n);
+
+            }
+        });
+
+
+        setTextSize(Integer.valueOf(sharedpreferences.getString("CharSize", "9")));
         displayCalculation(dfHc, dfSextantAltitudeSA, null);
     }
 

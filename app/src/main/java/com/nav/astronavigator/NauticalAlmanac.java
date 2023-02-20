@@ -52,6 +52,8 @@ public class NauticalAlmanac extends Fragment {
      CheckBox    checkBoxCalcMode;
      Button      pbDefaultsNA;
      Button      pbSextant;
+     Button      pbIncrCharset;
+     Button      pbDecrCharset;
 
      TextView mdfFixTime;
      TextView mdfObservedTime;
@@ -133,95 +135,100 @@ public class NauticalAlmanac extends Fragment {
         return dp * mContext.getResources().getDisplayMetrics().density;
     }
 
-    int dp=8;
+    //int dp=8;
+
+    public void setTextSize (int dp)
+    {
+        mdfDate.setTextSize(pxFromDp(dp, getActivity()));
+        mdfTime.setTextSize(pxFromDp(dp, getActivity()));
+        mdfDRLat.setTextSize(pxFromDp(dp, getActivity()));
+        mdfDRLong.setTextSize(pxFromDp(dp, getActivity()));
+        mdfHeading.setTextSize(pxFromDp(dp, getActivity()));
+        mdfSpeed.setTextSize(pxFromDp(dp, getActivity()));
+        pbCalcNA.setTextSize(pxFromDp(dp, getActivity()));
+        //checkBoxCalcMode.setTextSize(pxFromDp(dp, getActivity()));
+        pbDefaultsNA.setTextSize(pxFromDp(dp, getActivity()));
+        pbSextant.setTextSize(pxFromDp(dp, getActivity()));
+        pbNextCB.setTextSize(pxFromDp(dp, getActivity()));
+        pbPrevCB.setTextSize(pxFromDp(dp, getActivity()));
+        /*
+        CB1.setTextSize(pxFromDp(dp, getActivity()));
+        CB2.setTextSize(pxFromDp(dp, getActivity()));
+        CB3.setTextSize(pxFromDp(dp, getActivity()));
+        */
+
+        mdfCBName.setTextSize(pxFromDp(dp, getActivity()));
+        mdfFixTime.setTextSize(pxFromDp(dp, getActivity()));
+        mdfObservedTime.setTextSize(pxFromDp(dp, getActivity()));
+        mdfObservedDate.setTextSize(pxFromDp(dp, getActivity()));
+        mdfHo.setTextSize(pxFromDp(dp, getActivity()));
+        /*
+        TextView21.setTextSize(pxFromDp(dp, getActivity()));
+        TextView22.setTextSize(pxFromDp(dp, getActivity()));
+        TextView23.setTextSize(pxFromDp(dp, getActivity()));
+        TextView24.setTextSize(pxFromDp(dp, getActivity()));
+         */
+        mdfGHAAries.setTextSize(pxFromDp(dp, getActivity()));
+        mdfGHAAriesPlus1.setTextSize(pxFromDp(dp, getActivity()));
+        mdfSHA.setTextSize(pxFromDp(dp, getActivity()));
+        mdfDeclinationNA.setTextSize(pxFromDp(dp, getActivity()));
+        mdfPosition.setTextSize(pxFromDp(dp, getActivity()));
+        mdfStatus.setTextSize(pxFromDp(dp, getActivity()));
+    }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
 
         mdfDate=getView().findViewById(R.id.dfDate);
-        mdfDate.setTextSize(pxFromDp(dp, getActivity()));
         mdfTime=getView().findViewById(R.id.dfTime);
-        mdfTime.setTextSize(pxFromDp(dp, getActivity()));
-
         mdfDRLat=getView().findViewById(R.id.dfDRLat);
-        mdfDRLat.setTextSize(pxFromDp(dp, getActivity()));
         mdfDRLong=getView().findViewById(R.id.dfDRLong);
-        mdfDRLong.setTextSize(pxFromDp(dp, getActivity()));
-
         mdfHeading=getView().findViewById(R.id.dfHeading);
-        mdfHeading.setTextSize(pxFromDp(dp, getActivity()));
         mdfSpeed=getView().findViewById(R.id.dfSpeed);
-        mdfSpeed.setTextSize(pxFromDp(dp, getActivity()));
-
         pbCalcNA=getView().findViewById(R.id.pbCalcNA);
-        pbCalcNA.setTextSize(pxFromDp(dp, getActivity()));
         checkBoxCalcMode=getView().findViewById(R.id.checkBoxCalcMode); //Calculation NA oder P.Lutus
-        checkBoxCalcMode.setTextSize(pxFromDp(dp, getActivity()));
         checkBoxCalcMode.setChecked(true);                              //Default NA usage
         pbDefaultsNA=getView().findViewById(R.id.pbDefaultsNA);
-        pbDefaultsNA.setTextSize(pxFromDp(dp, getActivity()));
         pbSextant=getView().findViewById(R.id.pbSextant);
-        pbSextant.setTextSize(pxFromDp(dp, getActivity()));
-
         pbNextCB=getView().findViewById(R.id.pbNext);
-        pbNextCB.setTextSize(pxFromDp(dp, getActivity()));
         pbPrevCB=getView().findViewById(R.id.pbPrevCB);
-        pbPrevCB.setTextSize(pxFromDp(dp, getActivity()));
-
+        pbIncrCharset=getView().findViewById(R.id.pbIncrNACharset);
+        pbDecrCharset=getView().findViewById(R.id.pbDecrNACharset);
         CB1=getView().findViewById(R.id.cb1);
-        CB1.setTextSize(pxFromDp(dp, getActivity()));
         CB2=getView().findViewById(R.id.cb2);
-        CB2.setTextSize(pxFromDp(dp, getActivity()));
         CB3=getView().findViewById(R.id.cb3);
-        CB3.setTextSize(pxFromDp(dp, getActivity()));
-
         mdfCBName=getView().findViewById(R.id.dfCBName);
-        mdfCBName.setTextSize(pxFromDp(dp, getActivity()));
         mdfCBName.setEnabled(false);
         mdfCBName.setTextColor(Color.BLACK);
 
         CB1.setChecked(true);
 
         mdfFixTime=getView().findViewById(R.id.dfFixTime);
-        mdfFixTime.setTextSize(pxFromDp(dp, getActivity()));
         mdfObservedTime=getView().findViewById(R.id.dfObservedTime);
-        mdfObservedTime.setTextSize(pxFromDp(dp, getActivity()));
         mdfObservedDate=getView().findViewById(R.id.dfObservedDate);
-        mdfObservedDate.setTextSize(pxFromDp(dp, getActivity()));
 
         mdfHo=getView().findViewById(R.id.dfHo);
-        mdfHo.setTextSize(pxFromDp(dp, getActivity()));
         // mdfCBBearing=getView().findViewById(R.id.dfCBbearing);
 
         TextView21=getView().findViewById(R.id.textView21);
-        TextView21.setTextSize(pxFromDp(dp, getActivity()));
         TextView22=getView().findViewById(R.id.textView22);
-        TextView22.setTextSize(pxFromDp(dp, getActivity()));
         TextView23=getView().findViewById(R.id.textView23);
-        TextView23.setTextSize(pxFromDp(dp, getActivity()));
         TextView24=getView().findViewById(R.id.textView24);
-        TextView24.setTextSize(pxFromDp(dp, getActivity()));
 
         mdfGHAAries=getView().findViewById(R.id.dfGHAAries);
-        mdfGHAAries.setTextSize(pxFromDp(dp, getActivity()));
         mdfGHAAriesPlus1=getView().findViewById(R.id.dfGHAAriesPlus1);
-        mdfGHAAriesPlus1.setTextSize(pxFromDp(dp, getActivity()));
         mdfSHA=getView().findViewById(R.id.dfSHA);
-        mdfSHA.setTextSize(pxFromDp(dp, getActivity()));
         mdfDeclinationNA=getView().findViewById(R.id.dfDeclinationNA);
-        mdfDeclinationNA.setTextSize(pxFromDp(dp, getActivity()));
-
-
 
         mdfPosition=getView().findViewById(R.id.dfPosition);
-        mdfPosition.setTextSize(pxFromDp(dp, getActivity()));
         mdfPosition.setEnabled(false);
         mdfPosition.setTextColor(Color.BLACK);
         mdfStatus=getView().findViewById(R.id.dfStatus);
-        mdfStatus.setTextSize(pxFromDp(dp, getActivity()));
+
         mdfStatus.setEnabled(false);
         mdfStatus.setTextColor(Color.BLACK);
+
 
 
         pbDefaultsNA.setOnClickListener(new View.OnClickListener() {
@@ -400,6 +407,36 @@ public class NauticalAlmanac extends Fragment {
             }
         });
 
+        pbIncrCharset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Integer n=Integer.valueOf(sharedpreferences.getString("CharSize", "9"))+1;
+
+                n=(n>=40?n=40:n);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("CharSize",n.toString());
+                editor.apply();
+                editor.commit();
+                setTextSize(n);
+            }
+        });
+
+        pbDecrCharset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Integer n=Integer.valueOf(sharedpreferences.getString("CharSize", "9"))-1;
+
+                n=(n<=2?n=2:n);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("CharSize",n.toString());
+                editor.apply();
+                editor.commit();
+                setTextSize(n);
+
+            }
+        });
+
+
 
         mdfDate.setText( sharedpreferences.getString("date", "01.01.2023"));
         mdfTime.setText( sharedpreferences.getString("time", "11:55:00"));
@@ -408,7 +445,7 @@ public class NauticalAlmanac extends Fragment {
         mdfHeading.setText( sharedpreferences.getString("DRHeading", "172°"));
         mdfSpeed.setText( sharedpreferences.getString("DRSpeed", "18.5kn"));
         mdfPosition.setText( sharedpreferences.getString("LastPosition", "000°00'00.0\" 000°00'00.0\""));
-
+        setTextSize(Integer.valueOf(sharedpreferences.getString("CharSize", "9")));
 
         if (sharedpreferences.getString("CB1active", "false").equals("true"))
         {

@@ -46,6 +46,9 @@ public class AstroNavigator extends Fragment {
     private TextView textDecimalDiffGMT;
     private TextView mdfDistance;
     private TextView textDecimalGHA;
+    private Button pbIncrCharset;
+    private Button pbDecrCharset;
+    private Button pbButtonFirst;
 
 
     public static final String MyPREFERENCES = "AstroNavPrefs" ;
@@ -156,31 +159,52 @@ public class AstroNavigator extends Fragment {
         return dp * mContext.getResources().getDisplayMetrics().density;
     }
 
-    int dp=8;
+
+
+    public void setTextSize (int dp)
+    {
+        mdfSextant.setTextSize(pxFromDp(dp, getActivity()));
+        mdfDeclination.setTextSize(pxFromDp(dp, getActivity()));
+        mdfGHA.setTextSize(pxFromDp(dp, getActivity()));
+        mdfLatitude.setTextSize(pxFromDp(dp, getActivity()));
+        mdfLongitude.setTextSize(pxFromDp(dp, getActivity()));
+        mdfLocalHighNoon.setTextSize(pxFromDp(dp, getActivity()));
+        pbHo2Hc.setTextSize(pxFromDp(dp, getActivity()));
+        mdfDistance.setTextSize(pxFromDp(dp, getActivity()));
+
+        textDecimalSextant.setTextSize(pxFromDp(dp, getActivity()));
+        textDecimalLatitude.setTextSize(pxFromDp(dp, getActivity()));
+        textDecimalLongitude.setTextSize(pxFromDp(dp, getActivity()));
+        textDecimalDiffGMT.setTextSize(pxFromDp(dp, getActivity()));
+        textDecimalGHA.setTextSize(pxFromDp(dp, getActivity()));
+    }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState)
 
     {
         super.onViewCreated(view, savedInstanceState);
         mdfSextant=view.findViewById(R.id.dfSextant);
-        mdfSextant.setTextSize(pxFromDp(dp, getActivity()));
+
         mdfDeclination=view.findViewById(R.id.dfDeclination);
-        mdfDeclination.setTextSize(pxFromDp(dp, getActivity()));
+
         mdfGHA=view.findViewById(R.id.dfGHA);
-        mdfGHA.setTextSize(pxFromDp(dp, getActivity()));
+
         mdfGHA.setEnabled(false);
         mcbSouth=view.findViewById(R.id.cbNS);
-        mcbSouth=view.findViewById(R.id.cbNS);
+        //mcbSouth=view.findViewById(R.id.cbNS);
         mdfLatitude=view.findViewById(R.id.dfLatitude);
-        mdfLatitude.setTextSize(pxFromDp(dp, getActivity()));
+
         mdfLatitude.setEnabled(false);
         mdfLongitude=view.findViewById(R.id.dfLongitude);
-        mdfLongitude.setTextSize(pxFromDp(dp, getActivity()));
+
         mdfLongitude.setEnabled(false);
         mdfLocalHighNoon=view.findViewById(R.id.dfLocalHighNoon);
-        mdfLocalHighNoon.setTextSize(pxFromDp(dp, getActivity()));
+
+        pbButtonFirst=view.findViewById(R.id.button_first);
         pbHo2Hc=view.findViewById(R.id.pbHo2Hc);
-        pbHo2Hc.setTextSize(pxFromDp(dp, getActivity()));
+        pbIncrCharset=view.findViewById(R.id.pbIncCharset);
+        pbDecrCharset=view.findViewById(R.id.pbDecCharset);
+
 
         textDecimalSextant=view.findViewById(R.id.textDecimalSextant);
         textDecimalLatitude=view.findViewById(R.id.textDecimalLatitude);
@@ -189,7 +213,7 @@ public class AstroNavigator extends Fragment {
         textDecimalGHA=view.findViewById(R.id.textDecimalGHA);
 
         mdfDistance=view.findViewById(R.id.dfDistance);
-        mdfDistance.setTextSize(pxFromDp(dp, getActivity()));
+
 
 
         /*
@@ -243,7 +267,7 @@ public class AstroNavigator extends Fragment {
             }
         });
 
-        binding.pbHo2Hc.setOnClickListener(new View.OnClickListener(){
+        pbHo2Hc.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
             {
@@ -258,6 +282,7 @@ public class AstroNavigator extends Fragment {
                 // Nach der Berechnung von Hc diese anzeigen.
                 mdfSextant.setText( sharedpreferences.getString("sextant", "000°00'00.00\""));
                 calculate(view);
+                setTextSize(Integer.valueOf(sharedpreferences.getString("CharSize", "9")));
             }
         });
 
@@ -272,7 +297,7 @@ public class AstroNavigator extends Fragment {
             }
         });
 
-        binding.buttonFirst.setOnClickListener(new View.OnClickListener() {
+        pbButtonFirst.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(AstroNavigator.this)
@@ -280,11 +305,43 @@ public class AstroNavigator extends Fragment {
             }
         });
 
+        pbIncrCharset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Integer n=Integer.valueOf(sharedpreferences.getString("CharSize", "9"))+1;
+
+                n=(n>=40?n=40:n);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("CharSize",n.toString());
+                editor.apply();
+                editor.commit();
+                setTextSize(n);
+            }
+        });
+
+        pbDecrCharset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Integer n=Integer.valueOf(sharedpreferences.getString("CharSize", "9"))-1;
+
+                n=(n<=2?n=2:n);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("CharSize",n.toString());
+                editor.apply();
+                editor.commit();
+                setTextSize(n);
+
+            }
+        });
+
+
+
 
         //SharedPreferences prefs = this.getSharedPreferences("general_settings", Context.MODE_PRIVATE);
         mdfSextant.setText( sharedpreferences.getString("sextant", "021°00'00.00\""));
         mdfDeclination.setText( sharedpreferences.getString("declination", "022°00'00.00\""));
         mdfLocalHighNoon.setText( sharedpreferences.getString("LocalHighNoon", "12:00:00"));
+        setTextSize(Integer.valueOf(sharedpreferences.getString("CharSize", "9")));
 
         if (sharedpreferences.getString("NS", "S").equals("S"))
         {  mcbSouth.setChecked(true);        }

@@ -34,10 +34,10 @@
 
     <EditText
         android:id="@+id/dfHoCorr"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_width="150dp"
+        android:layout_height="43dp"
         android:layout_marginStart="176dp"
-        android:layout_marginTop="144dp"
+        android:layout_marginTop="152dp"
         android:ems="10"
         android:inputType="text|time"
         android:text="000°00'00.00&quot;"
@@ -49,17 +49,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="192dp"
+        android:layout_marginTop="208dp"
         android:text="Index Error IC"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/dfIndexCorr"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_width="150dp"
+        android:layout_height="43dp"
         android:layout_marginStart="176dp"
-        android:layout_marginTop="184dp"
+        android:layout_marginTop="196dp"
         android:ems="10"
         android:inputType="text|time"
         android:text="000°00'00.00&quot;"
@@ -68,20 +68,20 @@
 
     <Button
         android:id="@+id/pbBackToSecondFrag"
-        android:layout_width="279dp"
+        android:layout_width="180dp"
         android:layout_height="40dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="444dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="484dp"
         android:text="Back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/dfLIMB"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_width="150dp"
+        android:layout_height="43dp"
         android:layout_marginStart="176dp"
-        android:layout_marginTop="304dp"
+        android:layout_marginTop="328dp"
         android:ems="10"
         android:inputType="text|time"
         android:text="000°00'00.00&quot;"
@@ -90,10 +90,10 @@
 
     <EditText
         android:id="@+id/dfAtmosphericCorr"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_width="150dp"
+        android:layout_height="43dp"
         android:layout_marginStart="176dp"
-        android:layout_marginTop="344dp"
+        android:layout_marginTop="372dp"
         android:ems="10"
         android:inputType="text|time"
         android:text="000°00'00.00&quot;"
@@ -105,7 +105,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="428dp"
         android:text="Additional Corrections"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -125,17 +125,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="236dp"
+        android:layout_marginTop="252dp"
         android:text="DIP"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/dfDIPCorr"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_width="150dp"
+        android:layout_height="43dp"
         android:layout_marginStart="176dp"
-        android:layout_marginTop="224dp"
+        android:layout_marginTop="240dp"
         android:ems="10"
         android:inputType="datetime|text|time"
         android:text="000°00'00.00&quot;"
@@ -146,18 +146,18 @@
         android:id="@+id/textView30"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="356dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="388dp"
         android:text="Atmospheric Correction"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/dfAdditionalCorr"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_width="150dp"
+        android:layout_height="43dp"
         android:layout_marginStart="176dp"
-        android:layout_marginTop="387dp"
+        android:layout_marginTop="416dp"
         android:ems="10"
         android:inputType="text|time"
         android:text="000°00'00.00&quot;"
@@ -169,7 +169,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="308dp"
+        android:layout_marginTop="340dp"
         android:text="LIMB (SUN/MOON)"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -178,18 +178,18 @@
         android:id="@+id/textView28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="276dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="296dp"
         android:text="Sextant Altitude SA"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/dfSextantAltitude"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_width="150dp"
+        android:layout_height="43dp"
         android:layout_marginStart="176dp"
-        android:layout_marginTop="264dp"
+        android:layout_marginTop="284dp"
         android:ems="10"
         android:inputType="text|time"
         android:text="000°00'00.00&quot;"
@@ -198,10 +198,10 @@
 
     <EditText
         android:id="@+id/dfHCCorrected"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_width="150dp"
+        android:layout_height="43dp"
         android:layout_marginStart="176dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="108dp"
         android:editable="false"
         android:ems="10"
         android:inputType="textPersonName"
@@ -241,13 +241,33 @@
 
     <EditText
         android:id="@+id/dfHCDMS"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
+        android:layout_width="150dp"
+        android:layout_height="43dp"
         android:layout_marginStart="176dp"
         android:layout_marginTop="64dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="000°00.0'00.00\&quot;"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/pbIncSCCharset"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="484dp"
+        android:text="+"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/pbDecSCCharset"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="288dp"
+        android:layout_marginTop="484dp"
+        android:text="-"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

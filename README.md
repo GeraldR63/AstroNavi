@@ -43,3 +43,8 @@ This APP is under construction. Planned are to generate a complete "Sight Reduct
 I attached also an ooCalc document which can also be used by Navigators. It's doing the same but shows each calculation step. It also contains an empty sheet with instructions how to calculate everything by yourself.
 
 See: https://github.com/GeraldR63/AstroNavi/blob/main/Position.20211217.inkl.2.Iteration.Grad.Minutes.BestOf.ods
+
+Process flow to have an Astronavigation
+
+<img src="https://github.com/GeraldR63/AstroNavi/blob/main/Screenshot_20230220-123404.jpg" width="256" height="512">
+

@@ -1,6 +1,11 @@
 # AstroNavi
 README
 
+Version History Log:
+
+Date      Time     Author Comment
+20230220  16:53    RN     Latest release uploaded. Some fixes related to character size to support as much as possible devices.
+
 MOST RECENT VERSION WILL BE FOUND IN THE MASTER BRANCH! The MAIN branch will be updated by me only after major changes.
 
 This is a simple AstroNavigation utility.

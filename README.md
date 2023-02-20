@@ -1,6 +1,8 @@
 # AstroNavi
 README
 
+One point at the beginning: All of this looks very complicated but it isn't. You can solve the Astronavigational Problem simple up to as complex as possible. It depends on your sighting and requirements. If you are at open water than it's probably not required to know your position exactly. If you are nearby shallow water or a reef it probably matters. However this method give you the chance to have a very fast calculation using just basic arithmetic and also much more complex spheric geometry. But look at the Excel. Even someone having no clue of spheric geometry can use the template to do all of the math. Print the spreadsheet and go on. This software is designed to check humans calculation.
+
 Version History Log:
 
  <table>

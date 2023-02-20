@@ -46,5 +46,5 @@ See: https://github.com/GeraldR63/AstroNavi/blob/main/Position.20211217.inkl.2.I
 
 Process flow to have an Astronavigation
 
-<img src="https://github.com/GeraldR63/AstroNavi/blob/main/Screenshot_20230220-123404.jpg" width="256" height="512">
+<img src="https://github.com/GeraldR63/AstroNavi/blob/main/process%20flow.png" width="900" height="550">
 

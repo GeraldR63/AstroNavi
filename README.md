@@ -40,6 +40,6 @@ See: https://github.com/GeraldR63/AstroNavi/blob/master/app/release/app-release.
 
 This APP is under construction. Planned are to generate a complete "Sight Reduction Form" as required for a logbook plus a calculation without using a book like Nautical Almanac or Long Term Almanac. But that's bad practise. Computers help humans. We are not the slaves of computers. That's the major mistake younger people make by using computers. My software supports Navigators but the goal is not to make them stupids.
 
-I attached also an ooCalc document which can als be used by Navigators. It's doing the same but shows each calculation step. It also contains an empty sheet with instructions how to calculate everything by yourself.
+I attached also an ooCalc document which can also be used by Navigators. It's doing the same but shows each calculation step. It also contains an empty sheet with instructions how to calculate everything by yourself.
 
 See: https://github.com/GeraldR63/AstroNavi/blob/main/Position.20211217.inkl.2.Iteration.Grad.Minutes.BestOf.ods

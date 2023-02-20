@@ -44,7 +44,7 @@ I attached also an ooCalc document which can also be used by Navigators. It's do
 
 See: https://github.com/GeraldR63/AstroNavi/blob/main/Position.20211217.inkl.2.Iteration.Grad.Minutes.BestOf.ods
 
-Process flow to have an Astronavigation
+Process flow to get and calculate a position by classic Astronavigation.
 
 <img src="https://github.com/GeraldR63/AstroNavi/blob/main/process%20flow.png" width="900" height="550">
 

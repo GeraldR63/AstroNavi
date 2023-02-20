@@ -13,7 +13,7 @@ Maybe it will work on other devices but I was not able to check this.
 
 
 This software come with no warranty.
-It's designed as best as possible. The give example of the Nautical Almanac 2022 is calculated correct.
+It's designed as best as possible. The given example of the Nautical Almanac 2022 is calculated correct.
 Small differences come from using up to 16 figures after the decimal point. The NA calculates with 5.
 
 

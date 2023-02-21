@@ -109,6 +109,15 @@ That's the simplest method to get valid Latitude and Longitude. One secret: You 
 Equipement an Astronavigator should own:
 
  <table>
+   <tr>
+    <th>Equipement</th>
+    <th>Almanac</th>
+    <th>Clock</th>
+    <th>Protractor</th>    
+    <th>Paper I</th>
+    <th>Paper II</th>
+  </tr>
+
   <tr>
     <th>Starfinder 2102-D</th>
     <th>Nautical Almanac The Crown</th>

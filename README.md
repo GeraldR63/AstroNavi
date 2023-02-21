@@ -66,7 +66,7 @@ Example of very Simple Latitude Calculation:
     <td>75°</td>
     <td>43°</td>
     <td>85°</td>
-    <td>-55°37.8'</td>
+    <td>55°37.8'</td>
   </tr>
   <tr>
     <td>Zenith Distance (90°-Ho)</td>

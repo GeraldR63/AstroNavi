@@ -62,7 +62,7 @@ Example of very Simple Latitude Calculation:
     <th>21.08.1981 16:30GMT</th>
   </tr>
   <tr>
-    <td>Height observed</td>
+    <td>Height observed Ho</td>
     <td>75°</td>
     <td>43°</td>
     <td>85°</td>

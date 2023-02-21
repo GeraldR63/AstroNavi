@@ -117,14 +117,13 @@ Equipement an Astronavigator should own:
     <th>Paper I</th>
     <th>Paper II</th>
   </tr>
-
   <tr>
-    <th>Starfinder 2102-D</th>
-    <th>Nautical Almanac The Crown</th>
-    <th>Mechanical Watch at GMT</th>
-    <th>Sextant</th>
-    <th>Sight Reduction Form</th>
-    <th>Universal Plotting Sheet</th>
+    <td>Starfinder 2102-D</th>
+    <td>Nautical Almanac The Crown</th>
+    <td>Mechanical Watch at GMT</th>
+    <td>Sextant</th>
+    <td>Sight Reduction Form</th>
+    <td>Universal Plotting Sheet</th>
   </tr>
   <tr>
     <td>Kosmos-Sternkarte</td>

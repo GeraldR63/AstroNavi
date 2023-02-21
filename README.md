@@ -130,8 +130,8 @@ Equipement an Astronavigator should own:
     <td>Long Term Almanac Geoffrey Kolbe</td>
     <td>Any watch at GMT</td>
     <td>Protractor</td>
-    <td>AstronNavigator App</td>
-    <td>AstronNavigator App</td>
+    <td>AstroNavigator App</td>
+    <td>AstroNavigator App</td>
   </tr>
 </table>
 

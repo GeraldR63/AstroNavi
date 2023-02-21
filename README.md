@@ -50,3 +50,56 @@ Process flow to get and calculate a position by classic Astronavigation.
 
 <img src="https://github.com/GeraldR63/AstroNavi/blob/main/process%20flow.png" width="900" height="550">
 
+Example of very Simple Latitude Calculation:
+(This example is from an unknown source and not by me.)
+
+ <table>
+  <tr>
+    <th>Situation</th>
+    <th>Basic</th>
+    <th>Basic</th>
+    <th>21.08.1981 16:00GMT</th>
+    <th>21.08.1981 16:30GMT</th>
+  </tr>
+  <tr>
+    <td>Height observed</td>
+    <td>75°</td>
+    <td>43°</td>
+    <td>85°</td>
+    <td>-55°37.8'</td>
+  </tr>
+  <tr>
+    <td>Zenith Distance (90°-Ho)</td>
+    <td>15°</td>
+    <td>47°</td>
+    <td>5°</td>
+    <td>34°22.2'</td>
+  </tr>
+    <tr>
+    <td>Declination of SUN</td>
+    <td>N10°</td>
+    <td>S10°</td>
+    <td>N12°</td>
+    <td>N11°59.6'</td>
+  </tr>
+  </tr>
+    <tr>
+    <td>Latitude</td>
+    <td>N25°</td>
+    <td>N37°</td>
+    <td>N7°</td>
+    <td>N46°21.8'</td>
+  </tr>
+  </tr>
+    <tr>
+    <td>Explanation</td>
+    <td>SUN above Equator<br>but below vessels position</td>
+    <td>SUN below Equator<br>and below vessels position</td>
+    <td>SUN above Equator<br>and above vessels position </td>
+    <td>SUN below Equator<br>and below vessels position</td>  
+  </tr>
+</table>
+
+To get the longitude: Use watch at GMT. Use a sun clock (for example) to get the point in time when SUN reaches highest point. Just beginn measurement 20 minutes before and after and take the difference.  Remember the SUN travels 15° in an hour. An hour have 3600 seconds. Calculate degree per second and than the difference of time to GMT when SUN reaches highest point at your local position. Calculate seconds of this difference and multiply this with the degree per seconds. Than you will get your Longitude.
+
+That's the simplest method to get valid Latitude and Longitude. One secret: You can also measure at night the North Star (Polarstern). The angle gives nearby directly your Latitude but this works only at the Northern Hemisphere.

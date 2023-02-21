@@ -50,6 +50,7 @@ Process flow to get and calculate a position by classic Astronavigation.
 
 <img src="https://github.com/GeraldR63/AstroNavi/blob/main/process%20flow.png" width="900" height="550">
 
+<hr>
 Example of very Simple Latitude Calculation:
 (This example is from an unknown source and not by me.)
 
@@ -103,3 +104,27 @@ Example of very Simple Latitude Calculation:
 To get the longitude: Use watch at GMT. Use a sun clock (for example) to get the point in time when SUN reaches highest point. Just beginn measurement 20 minutes before and after and take the difference.  Remember the SUN travels 15° in an hour. An hour have 3600 seconds. Calculate degree per second and than the difference of time to GMT when SUN reaches highest point at your local position. Calculate seconds of this difference and multiply this with the degree per seconds. Than you will get your Longitude.
 
 That's the simplest method to get valid Latitude and Longitude. One secret: You can also measure at night the North Star (Polarstern). The angle gives nearby directly your Latitude but this works only at the Northern Hemisphere.
+
+<hr>
+Equipement an Astronavigator should own:
+
+ <table>
+  <tr>
+    <th>Starfinder 2102-D</th>
+    <th>Nautical Almanac The Crown</th>
+    <th>Mechanical Watch at GMT</th>
+    <th>Sextant</th>
+    <th>Sight Reduction Form</th>
+    <th>Universal Plotting Sheet</th>
+  </tr>
+  <tr>
+    <td>Kosmos-Sternkarte</td>
+    <td>Long Term Almanac Geoffrey Kolbe</td>
+    <td>Any watch at GMT</td>
+    <td>Protractor</td>
+    <td>AstronNavigator App</td>
+    <td>AstronNavigator App</td>
+  </tr>
+</table>
+
+Nice to have are also: Slide Stick (Rechenstab), Table book of trigonometric functions (Tabellenbuch mit trogonometrischen Funktionen zum Nachschlagen kleiner Winkel, die der Rechenstab nicht hergibt), Pocket Calculator (but well, this may fail). Pencil, a drawing divider, set-square (Geodreieck).

@@ -140,3 +140,9 @@ Nice to have are also: Slide Stick (Rechenstab), Table book of trigonometric fun
 One good joke:
 Don't try this to become more independent from technology. You can become independent from electrical power. That's all. GPS kann have failures. Electronics can have failures after a solar storm but a sextant can break, a slide ruler can break, a table book can burn. To become independent from technology is not the goal of Astronavigation it's just to become independent from electronics for a few days, weeks or month.
 
+
+New 20230222 Printable Sight Reduction Form
+
+After having had a valid calculation it's possible to print, after pressing the new SRF Button at the Nautical Almanac Form, to print a Sight Reduction For. So far I remember the data at this sheet is good to have also a fix by using an Universal Plotting Sheet.
+
+<img src="https://github.com/GeraldR63/AstroNavi/blob/main/Sight%20Reduction%20Form.jpg" width="900" height="550">

@@ -85,7 +85,7 @@ public class printSightRedcution {
                 "<tr><td>Z (Azimuth)</td>                  <td>"+NADataAndCalc.NAData[0].Z+"</td>       <td>"+NADataAndCalc.NAData[1].Z+"</td><td>"+NADataAndCalc.NAData[2].Z+"</td>                    </tr>"+
                 "<tr><td>Hc</td>                           <td>"+NADataAndCalc.NAData[0].Hc+"</td>       <td>"+NADataAndCalc.NAData[1].Hc+"</td> <td>"+NADataAndCalc.NAData[2].Hc+"</td>                    </tr>"+
                 "<tr><th>Position</th>                     <th></th>       <th></th>               <th></th>                    </tr>"+
-                "<tr><td>Latitude DMS</td>                 <td>"+calculus.Real2DMS(NADataAndCalc.B1).replace('-','S')+"</td>       <td>Longitude DMS</td>  <td>"+calculus.Real2DMS(NADataAndCalc.L1).replace('-','E')+"</td>                    </tr>"+
+                "<tr><td>Longitude DMS</td>                <td>"+calculus.Real2DMS(NADataAndCalc.L1).replace('-','E')+"</td>       <td>Latitide DMS</td>  <td>"+calculus.Real2DMS(NADataAndCalc.B1).replace('-','E')+"</td>                    </tr>"+
                 "<tr><th>Sign</th>                         <th></th>       <th></th>               <th></th></tr>"+
                 "<tr><th>Name</th>                         <th></th>       <th>Date</th>           <th></th></tr>"+
                 "</table>"+

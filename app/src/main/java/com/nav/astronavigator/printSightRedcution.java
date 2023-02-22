@@ -26,19 +26,6 @@ public class printSightRedcution {
         // Create a WebView object specifically for printing
         WebView webView = new WebView(activity);
         this.activity=activity;
-        webView.setWebViewClient(new WebViewClient() {
-
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                return false;
-            }
-
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                //Log.i(TAG, "page finished loading " + url);
-                createWebPrintJob(view);
-                mWebView = null;
-            }
-        });
         // Generate an HTML document on the fly:
         String htmlDocument = "<html>" +
                 "<head>"+
@@ -93,6 +80,23 @@ public class printSightRedcution {
 
         //calculus.Real2DMS(L1).replace('-','E')+" "+calculus.Real2DMS(B1).replace('-','S');
         webView.loadDataWithBaseURL(null, htmlDocument, "text/HTML", "UTF-8", null);
+        webView.setWebViewClient(new WebViewClient() {
+
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                return false;
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                //Log.i(TAG, "page finished loading " + url);
+
+                if( mWebView != null) {
+                    createWebPrintJob(view);
+                    mWebView = null;
+                }
+            }
+        });
+
 
         // Keep a reference to WebView object until you pass the PrintDocumentAdapter
         // to the PrintManager
@@ -101,21 +105,22 @@ public class printSightRedcution {
 
     private void createWebPrintJob(WebView webView) {
 
-            // Get a PrintManager instance
-            PrintManager printManager = (PrintManager) activity.getSystemService(Context.PRINT_SERVICE);
-            String jobName="SightReductionForm Document";
+          if( webView != null) {
+              // Get a PrintManager instance
+              PrintManager printManager = (PrintManager) activity.getSystemService(Context.PRINT_SERVICE);
+              String jobName = "SightReductionForm Document";
 
-            //String jobName = getString(R.string.app_name) + " Document";
+              //String jobName = getString(R.string.app_name) + " Document";
 
-            // Get a print adapter instance
-            PrintDocumentAdapter printAdapter = webView.createPrintDocumentAdapter(jobName);
+              // Get a print adapter instance
+              PrintDocumentAdapter printAdapter = webView.createPrintDocumentAdapter(jobName);
 
-            // Create a print job with name and adapter instance
-            PrintJob printJob = printManager.print(jobName, printAdapter,
-                    new PrintAttributes.Builder().build());
+              // Create a print job with name and adapter instance
+              PrintJob printJob = printManager.print(jobName, printAdapter, new PrintAttributes.Builder().build());
 
-            // Save the job object for later status checking
-            // printJob.add(printJob);
+              // Save the job object for later status checking
+              // printJob.add(printJob);
+          }
         }
 
 

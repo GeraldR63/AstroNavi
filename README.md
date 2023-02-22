@@ -22,13 +22,7 @@ Version History Log:
     <td>20230222</td>
     <td>18:32</td>
     <td>RN</td>
-    <td>Added a printable Sight Reduction Form to the app (at my mobile using Epson printer it works weired. It's required to repeat</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td>the steps example->calc->SRF a few times. Debugging says "errors" in external classes.</td>
+    <td>Added a printable Sight Reduction Form to the app (at my mobile using Epson printer it works weired. It's required to repeat steps example->calc->SRF a few times. Debugging says "errors" in external classes.</td>
   </tr>
   
 </table> 

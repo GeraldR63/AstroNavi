@@ -145,4 +145,4 @@ New 20230222 Printable Sight Reduction Form
 
 After having had a valid calculation it's possible to print, after pressing the new SRF Button at the Nautical Almanac Form, to print a Sight Reduction For. So far I remember the data at this sheet is good to have also a fix by using an Universal Plotting Sheet.
 
-<img src="https://github.com/GeraldR63/AstroNavi/blob/main/Sight%20Reduction%20Form.jpg" width="900" height="550">
+<img src="https://github.com/GeraldR63/AstroNavi/blob/main/Sight%20Reduction%20Form.jpg" width="900" height="1024">

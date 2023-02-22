@@ -150,7 +150,7 @@ Don't try this to become more independent from technology. You can become indepe
 
 New 20230222 Printable Sight Reduction Form
 
-After having had a valid calculation it's possible to print, after pressing the new SRF Button at the Nautical Almanac Form, to print a Sight Reduction For. So far I remember the data at this sheet is good to have also a fix by using an Universal Plotting Sheet.
+After having had a valid calculation it's possible to print, after pressing the new SRF Button at the Nautical Almanac Form, a Sight Reduction Form. So far I remember the data at this sheet is good to have also a fix by using an Universal Plotting Sheet.
 
 Image below is a scan from the printed sheet.
 

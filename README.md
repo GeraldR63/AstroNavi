@@ -145,7 +145,7 @@ Equipement an Astronavigator should own:
 Nice to have are also: Slide Stick (Rechenstab), Table book of trigonometric functions (Tabellenbuch mit trigonometrischen Funktionen zum Nachschlagen kleiner Winkel, die der Rechenstab nicht hergibt), Pocket Calculator (but well, this may fail). Pencil, a drawing divider, set-square (Geodreieck).
 
 One good joke:
-Don't try this to become more independent from technology. You can become independent from electrical power. That's all. GPS kann have failures. Electronics can have failures after a solar storm but a sextant can break, a slide ruler can break, a table book can burn. To become independent from technology is not the goal of Astronavigation it's just to become independent from electronics for a few days, weeks or month.
+Don't try this to become more independent from technology. You can become independent from electrical power. That's all. GPS can have failures. Electronics can have failures after a solar storm but a sextant can break, a slide ruler can break, a table book can burn. To become independent from technology is not the goal of Astronavigation it's just to become independent from electronics for a few days, weeks or month.
 
 
 New 20230222 Printable Sight Reduction Form

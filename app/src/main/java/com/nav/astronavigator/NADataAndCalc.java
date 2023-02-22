@@ -43,6 +43,12 @@ class NAData
   public double Z=0.0;                       // Z(Azimuth)
   public double p;
 
+  double Hc;
+  double GHAAries;
+  double GHA;
+  double LHAAries;
+  double LHAHO2102D;
+
     /*B29*/    double pIntercept=0.0;
     /*B34*/    double sinZ=0.0;
     /*B35*/    double sinZ2=0.0;
@@ -124,17 +130,17 @@ class NAData
                System.out.println("B28 DRLat                = "+Double.toString(DRLat));
     /*B13*/    double interPolationFactor = calculus.MS2Real(ObservationTime);
                System.out.println("B13 interpolation factor = "+Double.toString(interPolationFactor));
-    /*B16*/    double GHAAries=GHAArieshh24+interPolationFactor*(GHAAriesPlus1h-GHAArieshh24);  // B14+B13*(B15-B14)
+    /*B16*/    GHAAries=GHAArieshh24+interPolationFactor*(GHAAriesPlus1h-GHAArieshh24);  // B14+B13*(B15-B14)
                System.out.println("B16 GHAAries             = "+Double.toString(GHAAries));
     /*B17*/    //SHA aus NA
                System.out.println("B17 SHA                  = "+Double.toString(SHA));
-    /*B18*/    double GHA=(GHAAries+SHA)>360?(GHAAries+SHA)-360:(GHAAries+SHA);
+    /*B18*/    GHA=(GHAAries+SHA)>360?(GHAAries+SHA)-360:(GHAAries+SHA);
                System.out.println("B18 GHA                  = "+Double.toString(GHA));
     /*B19*/    double LHA_NA=GHA+DRLong;
                System.out.println("B19 LHA_NA               = "+Double.toString(LHA_NA));
-    /*B20*/    double LHAAries=DRLong>0?GHAAries+DRLong:GHAAries-DRLong;                          // West oder Ost Laengengrad?
+    /*B20*/    LHAAries=DRLong>0?GHAAries+DRLong:GHAAries-DRLong;                          // West oder Ost Laengengrad?
                System.out.println("B20 LHAAries             = "+Double.toString(LHAAries));
-    /*B21*/    double LHAHO2102D=Math.round(LHAAries>360?LHAAries-360:LHAAries);                  // Gerundet fuer den StarFinder
+    /*B21*/    LHAHO2102D=Math.round(LHAAries>360?LHAAries-360:LHAAries);                  // Gerundet fuer den StarFinder
                System.out.println("B21 LHAHO2102D           = "+Double.toString(LHAHO2102D));
     /*B22*/    //double Declination=this.Declination;                                               // Aus dem NA
                System.out.println("B22 Declination          = "+Double.toString(Declination));
@@ -145,7 +151,7 @@ class NAData
 
     /*B38*/    double asinHC=S*Math.sin(Math.toRadians(DRLat))+CC*Math.cos(Math.toRadians(DRLat));
                System.out.println("B38 asinHC               = "+Double.toString(asinHC));
-    /*B39*/    double Hc=Math.toDegrees(Math.asin((asinHC)));
+    /*B39*/     Hc=Math.toDegrees(Math.asin((asinHC)));
                System.out.println("B39 Hc                   = "+Double.toString(Hc));
     /*B31*/    double X=((S*Math.cos(Math.toRadians(DRLat)))-CC*Math.sin(Math.toRadians(DRLat)))/Math.cos(Math.toRadians(Hc));
                System.out.println("B31 X                    = "+Double.toString(X));
@@ -178,10 +184,15 @@ class NAData
 
 public class NADataAndCalc {
     // Three Stars to get a fix
-    NAData NAData[]=new NAData[3];
+    public static NAData NAData[]=new NAData[3];
     static View view;
     static NauticalAlmanac Fragment;
     static DelayedMessage msg;
+
+
+    public double L1;
+    public double B1;
+
 
     void initNADATA()
     {
@@ -358,9 +369,9 @@ public class NADataAndCalc {
               System.out.println("B44 E                    = "+Double.toString(E));
       /*B45*/ double G=(A*C)-(B*B);
               System.out.println("B45 G                    = "+Double.toString(G));
-      /*B46*/ double L1= NAData[0].FractionalDRLong+(A*E-B*D)/(G*Math.cos(NAData[0].FractionalDRLat));   // L1= Laengengrad
+      /*B46*/ L1= NAData[0].FractionalDRLong+(A*E-B*D)/(G*Math.cos(NAData[0].FractionalDRLat));   // L1= Laengengrad
               System.out.println("B46 L1                    = "+Double.toString(L1));
-      /*B47*/ double B1= NAData[0].FractionalDRLat+(C*D-B*E)/G;                                          // B1= Breitengrad
+      /*B47*/ B1= NAData[0].FractionalDRLat+(C*D-B*E)/G;                                          // B1= Breitengrad
               System.out.println("B47 B1                    = "+Double.toString(B1));
       // ToDo: Berechne die Präzision und ob ein zweiter Schritt nötig ist bei dem die bis hier berechneten Daten die Eingangsdaten werden
       // precision=60 * sqrt ((L1 - Lf)^2 * cos^2(Bf) + (B1 -Bf)^2)

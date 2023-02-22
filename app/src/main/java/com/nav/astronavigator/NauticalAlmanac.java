@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.print.PrintManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ public class NauticalAlmanac extends Fragment {
     com.nav.astronavigator.NADataAndCalc NADataAndCalc=new NADataAndCalc();
     com.nav.astronavigator.CelestialBodys CelestialBodys=new CelestialBodys();
 
-
+    Boolean bCalculated=false;                       // Wird zum Drucken gebraucht. Drucken nur nach erfolgreicher Berechnung.
     private FragmentSecondBinding binding;
 
     TextView mdfDate;
@@ -54,6 +55,7 @@ public class NauticalAlmanac extends Fragment {
      Button      pbSextant;
      Button      pbIncrCharset;
      Button      pbDecrCharset;
+     Button      pbPrintSightReductionForm;
 
      TextView mdfFixTime;
      TextView mdfObservedTime;
@@ -151,6 +153,8 @@ public class NauticalAlmanac extends Fragment {
         pbSextant.setTextSize(pxFromDp(dp, getActivity()));
         pbNextCB.setTextSize(pxFromDp(dp, getActivity()));
         pbPrevCB.setTextSize(pxFromDp(dp, getActivity()));
+        pbPrintSightReductionForm.setTextSize(pxFromDp(dp, getActivity()));
+
         /*
         CB1.setTextSize(pxFromDp(dp, getActivity()));
         CB2.setTextSize(pxFromDp(dp, getActivity()));
@@ -193,6 +197,7 @@ public class NauticalAlmanac extends Fragment {
         pbSextant=getView().findViewById(R.id.pbSextant);
         pbNextCB=getView().findViewById(R.id.pbNext);
         pbPrevCB=getView().findViewById(R.id.pbPrevCB);
+        pbPrintSightReductionForm=getView().findViewById(R.id.pbPrintSightReduction);
         pbIncrCharset=getView().findViewById(R.id.pbIncrNACharset);
         pbDecrCharset=getView().findViewById(R.id.pbDecrNACharset);
         CB1=getView().findViewById(R.id.cb1);
@@ -229,6 +234,34 @@ public class NauticalAlmanac extends Fragment {
         mdfStatus.setEnabled(false);
         mdfStatus.setTextColor(Color.BLACK);
 
+
+        pbPrintSightReductionForm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /* ToDo: Print the Sight Reduction */
+                if (bCalculated) {
+                    try {
+
+
+                        printSightRedcution printSightRedcution = new printSightRedcution(NADataAndCalc);
+                        printSightRedcution.doWebViewPrint(getActivity());
+                        mdfStatus.setBackgroundColor(Color.WHITE);
+                        mdfStatus.setText("Printing Sight Reduction Form");
+                    }
+                    catch (Exception e)
+                    {
+                        mdfStatus.setBackgroundColor(Color.RED);
+                        mdfStatus.setText(e.getMessage());
+                    }
+                }
+                else
+                {
+                    mdfStatus.setBackgroundColor(Color.YELLOW);
+                    mdfStatus.setText("Calculate first. Than print!");
+                }
+                //printSightRedcution=null;
+            }
+        });
 
 
         pbDefaultsNA.setOnClickListener(new View.OnClickListener() {
@@ -315,7 +348,7 @@ public class NauticalAlmanac extends Fragment {
             @Override
             public void onClick(View view) {
                 DelayedMessage msg=new DelayedMessage(view);
-
+                bCalculated=false;
                 // Maske abspeichern, damit Aenderungen bei der Berechnung beruecksichtigt werden.
                 SaveCBrelatedData(postFixLast,false);
 
@@ -324,6 +357,7 @@ public class NauticalAlmanac extends Fragment {
                     try {
                         msg.ShowSnackbar("Calculation using NA");
                         mdfPosition.setText(NADataAndCalc.Calculate(view, NauticalAlmanac.this, sharedpreferences));
+                        bCalculated=true;
                     }
                     catch (Exception e)
                     {

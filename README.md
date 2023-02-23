@@ -30,6 +30,13 @@ Version History Log:
     <td>RN</td>
     <td>Try to fix issues with SRF printing. Sometimes app crashes or there seams to be a bufferoverflow failure or something I know from programming in C/C++. Behaves like a missing or false/NULL pointer because it seems that the printer function can override the shared memory and than many strange things happen. It's pure JAVA. Done a lot in JAVA but never seen an application which behaves unpredictable. Seems to work now. </td>
   </tr>
+    <tr>
+    <td>20230223</td>
+    <td>13:30</td>
+    <td>RN</td>
+    <td>The reason for most of the problems related to Sight Reduction Form printing are special design to Adnroid mobiles. "Message: The application may be doing too much work on its main thread". Well, I removed one ressource not really necessary from the Simple NAvigation dialog. The recommendation to really solve this issue is to have complex calculations in threads. Well. What's this application calculating without any user action? Nothing. Poor Android Design. My opinion. If you have issues with that buy faster mobile phone. I do not see reasons in my code for this. It's just the way it work. Repeat Printing until you got t on paper.</td>
+  </tr>
+
 </table> 
 
 

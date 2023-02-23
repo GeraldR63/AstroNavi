@@ -92,7 +92,7 @@ public class calculus {
         catch (Exception e)
         {
             //System.out.println("DMS2Real format error ");
-            msg.ShowSnackbar("Unknown Format error in your input");
+            msg.ShowSnackbar("Format DMS2Real >"+Degree_DMS+"<");
             return -1;
         }
 
@@ -150,7 +150,7 @@ public class calculus {
         }
         catch (Exception e)
         {
-            System.out.println("Format error Real2DMS. ");
+            System.out.println("Format Real2DMS >"+dms+"<");
             //msg.ShowSnackbar("Only D°M'S\" to DDD°MM'SS.SS\" allowed!");
             return "???°??.?'??.??\"";
         }
@@ -229,7 +229,7 @@ public class calculus {
         }
         catch (Exception e)
         {
-            System.out.println("MS2Real format error ");
+            System.out.println("Format MS2Real >"+HMS+"<");
             return -1;
         }
 

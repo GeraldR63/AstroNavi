@@ -113,69 +113,69 @@ class NAData
      */
     void calculate() {
 
-        /*
+
         System.out.println("===========================================================");
         System.out.println("Testvergleichsreport Applet, OpenOffice, Nautical Almanac");
         System.out.println("Himmelskoerper "+CBName);
         System.out.println("===========================================================");
 
-        */
+
 
 
     /*B25*/    double t=calculus.HMS2Real(ObservationTime)-calculus.HMS2Real(Fix);
-               //System.out.println("B25 t                    = "+Double.toString(t));
+               System.out.println("B25 t                    = "+Double.toString(t));
     /*B26*/    double LongHelper=((Speed/60)*Math.sin(Math.toRadians(Heading)))/Math.cos(Math.toRadians(calculus.DMS2Real(DRLat)));
-               //System.out.println("B26 LongHelper           = "+Double.toString(LongHelper));
+               System.out.println("B26 LongHelper           = "+Double.toString(LongHelper));
 
     /*B27*/    double DRLong=this.FractionalDRLong+t*LongHelper;  // Redundant aber einfacher zu uebertragen
-               //System.out.println("B27 DRLong               = "+Double.toString(DRLong));
+               System.out.println("B27 DRLong               = "+Double.toString(DRLong));
     /*B28*/    double DRLat=this.FractionalDRLat+(t*(Speed/60)*Math.cos(Math.toRadians(Heading)));    // Redundant aber einfacher zu uebertragen
-               //System.out.println("B28 DRLat                = "+Double.toString(DRLat));
+               System.out.println("B28 DRLat                = "+Double.toString(DRLat));
     /*B13*/    double interPolationFactor = calculus.MS2Real(ObservationTime);
-               //System.out.println("B13 interpolation factor = "+Double.toString(interPolationFactor));
+               System.out.println("B13 interpolation factor = "+Double.toString(interPolationFactor));
     /*B16*/    GHAAries=GHAArieshh24+interPolationFactor*(GHAAriesPlus1h-GHAArieshh24);  // B14+B13*(B15-B14)
-               //System.out.println("B16 GHAAries             = "+Double.toString(GHAAries));
+               System.out.println("B16 GHAAries             = "+Double.toString(GHAAries));
     /*B17*/    //SHA aus NA
-               //System.out.println("B17 SHA                  = "+Double.toString(SHA));
+               System.out.println("B17 SHA                  = "+Double.toString(SHA));
     /*B18*/    GHA=(GHAAries+SHA)>360?(GHAAries+SHA)-360:(GHAAries+SHA);
-               //System.out.println("B18 GHA                  = "+Double.toString(GHA));
+               System.out.println("B18 GHA                  = "+Double.toString(GHA));
     /*B19*/    double LHA_NA=GHA+DRLong;
-               //System.out.println("B19 LHA_NA               = "+Double.toString(LHA_NA));
+               System.out.println("B19 LHA_NA               = "+Double.toString(LHA_NA));
     /*B20*/    LHAAries=DRLong>0?GHAAries+DRLong:GHAAries-DRLong;                          // West oder Ost Laengengrad?
-               //System.out.println("B20 LHAAries             = "+Double.toString(LHAAries));
+               System.out.println("B20 LHAAries             = "+Double.toString(LHAAries));
     /*B21*/    LHAHO2102D=Math.round(LHAAries>360?LHAAries-360:LHAAries);                  // Gerundet fuer den StarFinder
-               //System.out.println("B21 LHAHO2102D           = "+Double.toString(LHAHO2102D));
+               System.out.println("B21 LHAHO2102D           = "+Double.toString(LHAHO2102D));
     /*B22*/    //double Declination=this.Declination;                                               // Aus dem NA
-               //System.out.println("B22 Declination          = "+Double.toString(Declination));
+               System.out.println("B22 Declination          = "+Double.toString(Declination));
     /*B23*/    double S=Math.sin(Math.toRadians(Declination));
-               //System.out.println("B23 S                    = "+Double.toString(S));
+               System.out.println("B23 S                    = "+Double.toString(S));
     /*B24*/    double CC=Math.cos(Math.toRadians(Declination))*Math.cos(Math.toRadians(LHA_NA));
-               //System.out.println("B24 CC                   = "+Double.toString(CC));
+               System.out.println("B24 CC                   = "+Double.toString(CC));
 
     /*B38*/    double asinHC=S*Math.sin(Math.toRadians(DRLat))+CC*Math.cos(Math.toRadians(DRLat));
-               //System.out.println("B38 asinHC               = "+Double.toString(asinHC));
+               System.out.println("B38 asinHC               = "+Double.toString(asinHC));
     /*B39*/     Hc=Math.toDegrees(Math.asin((asinHC)));
-               //System.out.println("B39 Hc                   = "+Double.toString(Hc));
+               System.out.println("B39 Hc                   = "+Double.toString(Hc));
     /*B31*/    double X=((S*Math.cos(Math.toRadians(DRLat)))-CC*Math.sin(Math.toRadians(DRLat)))/Math.cos(Math.toRadians(Hc));
-               //System.out.println("B31 X                    = "+Double.toString(X));
+               System.out.println("B31 X                    = "+Double.toString(X));
     /*B32*/    double AA=Math.toDegrees(Math.acos(X));
-               //System.out.println("B32 AA                   = "+Double.toString(AA));
+               System.out.println("B32 AA                   = "+Double.toString(AA));
     /*B33*/    double Z_Azimuth=(LHA_NA>180?AA:360-AA);
-               //System.out.println("B33 Z_Azimuth            = "+Double.toString(Z_Azimuth));
+               System.out.println("B33 Z_Azimuth            = "+Double.toString(Z_Azimuth));
     /*B34*/     sinZ=Math.sin(Math.toRadians(Z_Azimuth));
-               //System.out.println("B34 sinZ                 = "+Double.toString(sinZ));
+               System.out.println("B34 sinZ                 = "+Double.toString(sinZ));
     /*B35*/     sinZ2=sinZ*sinZ;
-               //System.out.println("B35 sinZ^2               = "+Double.toString(sinZ2));
+               System.out.println("B35 sinZ^2               = "+Double.toString(sinZ2));
     /*B36*/     cosZ=Math.cos(Math.toRadians(AA));
-               //System.out.println("B36 cosZ                 = "+Double.toString(cosZ));
+               System.out.println("B36 cosZ                 = "+Double.toString(cosZ));
     /*B37*/     cosZ2=cosZ*cosZ;
-               //System.out.println("B37 cosZ^2               = "+Double.toString(cosZ2));
+               System.out.println("B37 cosZ^2               = "+Double.toString(cosZ2));
 
     /*B29*/     pIntercept=Ho-Hc;
-               //System.out.println("B11 Ho bzw. Hc           = "+Double.toString(Ho));
-               //System.out.println("B29 pIntercept           = "+Double.toString(pIntercept));
+               System.out.println("B11 Ho bzw. Hc           = "+Double.toString(Ho));
+               System.out.println("B29 pIntercept           = "+Double.toString(pIntercept));
     /*B30*/    double pInNM=pIntercept*60;
-               //System.out.println("B30 pInNM                = "+Double.toString(pInNM));
+               System.out.println("B30 pInNM                = "+Double.toString(pInNM));
        Z=Z_Azimuth;
        p=pIntercept;
     }
@@ -361,28 +361,28 @@ public class NADataAndCalc {
 
 
       /*B40*/ double A=NAData[0].cosZ2+NAData[1].cosZ2+NAData[2].cosZ2;           // B37+D37+F37 (Z der drei Sterne addieren)
-              //System.out.println("B40 A                    = "+Double.toString(A));
+              System.out.println("B40 A                    = "+Double.toString(A));
       /*B41*/ double B=NAData[0].cosZ*NAData[0].sinZ+NAData[1].cosZ*NAData[1].sinZ+NAData[2].cosZ*NAData[2].sinZ;
-              //System.out.println("B41 B                    = "+Double.toString(B));
+              System.out.println("B41 B                    = "+Double.toString(B));
       /*B42*/ double C=NAData[0].sinZ2+NAData[1].sinZ2+NAData[2].sinZ2;
-              //System.out.println("B42 C                    = "+Double.toString(C));
+              System.out.println("B42 C                    = "+Double.toString(C));
       /*B43*/ double D=NAData[0].pIntercept*NAData[0].cosZ+NAData[1].pIntercept*NAData[1].cosZ+NAData[2].pIntercept*NAData[2].cosZ;
-              //System.out.println("B43 D                    = "+Double.toString(D));
+              System.out.println("B43 D                    = "+Double.toString(D));
       /*B44*/ double E=NAData[0].pIntercept*NAData[0].sinZ+NAData[1].pIntercept*NAData[1].sinZ+NAData[2].pIntercept*NAData[2].sinZ;
-              //System.out.println("B44 E                    = "+Double.toString(E));
+              System.out.println("B44 E                    = "+Double.toString(E));
       /*B45*/ double G=(A*C)-(B*B);
-              //System.out.println("B45 G                    = "+Double.toString(G));
+              System.out.println("B45 G                    = "+Double.toString(G));
       /*B46*/ L1= NAData[0].FractionalDRLong+(A*E-B*D)/(G*Math.cos(NAData[0].FractionalDRLat));   // L1= Laengengrad
-              //System.out.println("B46 L1                    = "+Double.toString(L1));
+              System.out.println("B46 L1                    = "+Double.toString(L1));
       /*B47*/ B1= NAData[0].FractionalDRLat+(C*D-B*E)/G;                                          // B1= Breitengrad
-              //System.out.println("B47 B1                    = "+Double.toString(B1));
+              System.out.println("B47 B1                    = "+Double.toString(B1));
       // ToDo: Berechne die Präzision und ob ein zweiter Schritt nötig ist bei dem die bis hier berechneten Daten die Eingangsdaten werden
       // precision=60 * sqrt ((L1 - Lf)^2 * cos^2(Bf) + (B1 -Bf)^2)
       /*B48*/ double precision=60*Math.sqrt(Math.pow(L1-NAData[0].FractionalDRLong,2)*Math.pow(Math.cos(NAData[0].FractionalDRLat),2)+Math.pow(B1-NAData[0].FractionalDRLat,2));
-              //System.out.println("B48 precisions           = "+Double.toString(precision));
+              System.out.println("B48 precisions           = "+Double.toString(precision));
 
-      //System.out.println("====================END OF REPORT==========================");
-      //System.out.println("===========================================================");
+      System.out.println("====================END OF REPORT==========================");
+      System.out.println("===========================================================");
 
       if (precision<=20) // precision in SM
       {

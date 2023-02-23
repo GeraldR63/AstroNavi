@@ -245,6 +245,7 @@ public class NauticalAlmanac extends Fragment {
 
                         printSightRedcution printSightRedcution = new printSightRedcution(NADataAndCalc);
                         printSightRedcution.doWebViewPrint(getActivity());
+                        //printSightRedcution.doWebViewPrint(MainActivity.this);
                         mdfStatus.setBackgroundColor(Color.WHITE);
                         mdfStatus.setText("Printing Sight Reduction Form");
                     }
@@ -368,6 +369,7 @@ public class NauticalAlmanac extends Fragment {
                 else
                 {
                     msg.ShowSnackbar("Calculation by ideas of P.Lutus");
+                    bCalculated=true;  // Fake. Austricksen. Kann zu Fehlern fuehren.
                 }
 
 

@@ -9,6 +9,9 @@ import android.print.PrintManager;
 import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
+
+import kotlinx.coroutines.Delay;
 
 public class printSightRedcution {
 
@@ -24,7 +27,8 @@ public class printSightRedcution {
 
     public void doWebViewPrint(Activity activity) {
         // Create a WebView object specifically for printing
-        WebView webView = new WebView(activity);
+        final WebView webView = new WebView(activity);
+        //final WebView webView = (WebView)activity.findViewById(R.id.SecondFragment);
         this.activity=activity;
         // Generate an HTML document on the fly:
         String htmlDocument = "<html>" +
@@ -80,6 +84,9 @@ public class printSightRedcution {
 
         //calculus.Real2DMS(L1).replace('-','E')+" "+calculus.Real2DMS(B1).replace('-','S');
         webView.loadDataWithBaseURL(null, htmlDocument, "text/HTML", "UTF-8", null);
+        // Keep a reference to WebView object until you pass the PrintDocumentAdapter
+        // to the PrintManager
+        mWebView = webView;
         webView.setWebViewClient(new WebViewClient() {
 
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -89,7 +96,7 @@ public class printSightRedcution {
             @Override
             public void onPageFinished(WebView view, String url) {
                 //Log.i(TAG, "page finished loading " + url);
-
+                System.out.println("onPageFinished");
                 if( mWebView != null) {
                     createWebPrintJob(view);
                     mWebView = null;
@@ -98,10 +105,29 @@ public class printSightRedcution {
         });
 
 
-        // Keep a reference to WebView object until you pass the PrintDocumentAdapter
-        // to the PrintManager
-        mWebView = webView;
+
     }
+
+    private void createWebPrintJob(WebView webView) {
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            PrintManager printManager = (PrintManager) this.activity.getSystemService(Context.PRINT_SERVICE);
+
+            PrintDocumentAdapter printAdapter =
+                    null;
+            printAdapter = webView.createPrintDocumentAdapter("SightReductionForm");
+            String jobName = this.activity.getString(R.string.app_name) + " SRF";
+
+            printManager.print(jobName, printAdapter,
+                    new PrintAttributes.Builder().build());
+        }
+        else{
+            Toast.makeText(this.activity, "Print job has been canceled! ", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    /*
 
     private void createWebPrintJob(WebView webView) {
 
@@ -123,7 +149,7 @@ public class printSightRedcution {
           }
         }
 
-
+     */
 
     public void prepare ()
     {

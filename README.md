@@ -141,7 +141,7 @@ Equipement an Astronavigator should own:
     <td>Kosmos-Sternkarte</td>
     <td>Long Term Almanac Geoffrey Kolbe</td>
     <td>Any watch at GMT</td>
-    <td>Protractor</td>
+    <td>Simple Protractor</td>
     <td>AstroNavigator App</td>
     <td>AstroNavigator App</td>
   </tr>

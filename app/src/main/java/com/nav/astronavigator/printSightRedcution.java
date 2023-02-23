@@ -77,7 +77,7 @@ public class printSightRedcution {
                     "<tr><td>Z (Azimuth)</td>                  <td>" + NADataAndCalc.NAData[0].Z + "</td>       <td>" + NADataAndCalc.NAData[1].Z + "</td><td>" + NADataAndCalc.NAData[2].Z + "</td>                    </tr>" +
                     "<tr><td>Hc</td>                           <td>" + NADataAndCalc.NAData[0].Hc + "</td>       <td>" + NADataAndCalc.NAData[1].Hc + "</td> <td>" + NADataAndCalc.NAData[2].Hc + "</td>                    </tr>" +
                     "<tr><th>Position</th>                     <th></th>       <th></th>               <th></th>                    </tr>" +
-                    "<tr><td>Longitude DMS</td>                <td>" + calculus.Real2DMS(NADataAndCalc.L1).replace('-', 'E') + "</td>       <td>Latitide DMS</td>  <td>" + calculus.Real2DMS(NADataAndCalc.B1).replace('-', 'E') + "</td> </tr>" +
+                    "<tr><td>Longitude DMS</td>                <td>" + calculus.Real2DMS(NADataAndCalc.L1).replace('-', 'E') + "</td>       <td>Latitude DMS</td>  <td>" + calculus.Real2DMS(NADataAndCalc.B1).replace('-', 'E') + "</td> </tr>" +
                     "<tr><th>Sign</th>                         <th></th>       <th></th>               <th></th></tr>" +
                     "<tr><th>Name</th>                         <th></th>       <th>Date</th>           <th></th></tr>" +
                     "</table>" +
@@ -114,21 +114,23 @@ public class printSightRedcution {
     }
 
     private void createWebPrintJob(WebView webView) {
+         try {
+             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                 PrintManager printManager = (PrintManager) this.activity.getSystemService(Context.PRINT_SERVICE);
 
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            PrintManager printManager = (PrintManager) this.activity.getSystemService(Context.PRINT_SERVICE);
+                 PrintDocumentAdapter printAdapter=null;
+                 printAdapter = webView.createPrintDocumentAdapter("SightReductionForm");
+                 String jobName = this.activity.getString(R.string.app_name) + " SRF";
+                 printManager.print(jobName, printAdapter,new PrintAttributes.Builder().build());
+             } else {
+                 Toast.makeText(this.activity, "Print job has been canceled! ", Toast.LENGTH_SHORT).show();
+             }
+         }
+         catch (Exception e)
+         {
+             Toast.makeText(this.activity, "Print job exception fired!", Toast.LENGTH_SHORT).show();
+         }
 
-            PrintDocumentAdapter printAdapter =
-                    null;
-            printAdapter = webView.createPrintDocumentAdapter("SightReductionForm");
-            String jobName = this.activity.getString(R.string.app_name) + " SRF";
-
-            printManager.print(jobName, printAdapter,
-                    new PrintAttributes.Builder().build());
-        }
-        else{
-            Toast.makeText(this.activity, "Print job has been canceled! ", Toast.LENGTH_SHORT).show();
-        }
 
     }
 

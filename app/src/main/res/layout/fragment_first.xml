@@ -266,16 +266,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="321dp"
-        android:layout_height="163dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="400dp"
-        android:src="@drawable/cb"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/textDecimalGHA"
         android:layout_width="72dp"

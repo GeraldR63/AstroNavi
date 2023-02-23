@@ -28,7 +28,7 @@ Version History Log:
     <td>20230223</td>
     <td>09:28</td>
     <td>RN</td>
-    <td>Try to fix issues with SRF printing. Sometimes app crashes or there seams to be a bufferoverflow failure or something I know from programming in C/C++ like a missing or false pointer because it seems that the printer function can override the shared memory and than many strange things happen. It's pure JAVA. Done a lot in JAVA but never seen an application which behaves unpredictable. Seems to work now. </td>
+    <td>Try to fix issues with SRF printing. Sometimes app crashes or there seams to be a bufferoverflow failure or something I know from programming in C/C++. Behaves like a missing or false/NULL pointer because it seems that the printer function can override the shared memory and than many strange things happen. It's pure JAVA. Done a lot in JAVA but never seen an application which behaves unpredictable. Seems to work now. </td>
   </tr>
 </table> 
 

@@ -26,6 +26,7 @@ import com.nav.astronavigator.NADataAndCalc;
 public class NauticalAlmanac extends Fragment {
     com.nav.astronavigator.NADataAndCalc NADataAndCalc=new NADataAndCalc();
     com.nav.astronavigator.CelestialBodys CelestialBodys=new CelestialBodys();
+    printSightRedcution printSightRedcution;
 
     Boolean bCalculated=false;                       // Wird zum Drucken gebraucht. Drucken nur nach erfolgreicher Berechnung.
     private FragmentSecondBinding binding;
@@ -234,32 +235,30 @@ public class NauticalAlmanac extends Fragment {
         mdfStatus.setEnabled(false);
         mdfStatus.setTextColor(Color.BLACK);
 
-
+        printSightRedcution = new printSightRedcution(NADataAndCalc);
         pbPrintSightReductionForm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 /* ToDo: Print the Sight Reduction */
-                if (bCalculated) {
+
                     try {
-
-
-                        printSightRedcution printSightRedcution = new printSightRedcution(NADataAndCalc);
-                        printSightRedcution.doWebViewPrint(getActivity());
-                        //printSightRedcution.doWebViewPrint(MainActivity.this);
-                        mdfStatus.setBackgroundColor(Color.WHITE);
-                        mdfStatus.setText("Printing Sight Reduction Form");
+                        if (NADataAndCalc!=null) {
+                            printSightRedcution.doWebViewPrint(getActivity());
+                            //printSightRedcution.doWebViewPrint(MainActivity.this);
+                            mdfStatus.setBackgroundColor(Color.WHITE);
+                            mdfStatus.setText("Printing Sight Reduction Form");
+                        }
+                        else {
+                            mdfStatus.setBackgroundColor(Color.WHITE);
+                            mdfStatus.setText("No printable calculation");
+                        }
                     }
                     catch (Exception e)
                     {
                         mdfStatus.setBackgroundColor(Color.RED);
                         mdfStatus.setText(e.getMessage());
                     }
-                }
-                else
-                {
-                    mdfStatus.setBackgroundColor(Color.YELLOW);
-                    mdfStatus.setText("Calculate first. Than print!");
-                }
+
                 //printSightRedcution=null;
             }
         });

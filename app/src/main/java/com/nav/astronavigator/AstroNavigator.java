@@ -231,6 +231,7 @@ public class AstroNavigator extends Fragment {
         //getView().setBackgroundColor(Color.RED);
 
 
+
         /*
         Snackbar snackbar = Snackbar.make(view.findViewById(androidx.constraintlayout.widget.R.id.content), "Welcome To Main Activity", Snackbar.LENGTH_LONG);
         snackbar.show();

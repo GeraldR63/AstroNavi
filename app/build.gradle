@@ -3,6 +3,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('C:\\Users\\gerald\\AndroidStore.jks')
+            keyAlias 'key0'
+            storePassword 'Angela13Gerald21'
+            keyPassword 'Angela13Gerald21'
+        }
+    }
     namespace 'com.nav.astronavigator'
     compileSdk 32
 

@@ -36,6 +36,13 @@ Version History Log:
     <td>RN</td>
     <td>The reason for most of the problems related to Sight Reduction Form printing are special design of Android mobiles. "Debug Message: The application may be doing too much work on its main thread". Well, I removed one ressource not really necessary from the Simple Navigation dialog. The recommendation to realy solve this issue is not to have complex calculations in main thread. Well. What's this application calculating without any user action? Nothing. Poor Android Design. My opinion. If you have issues with that buy faster mobile phone. I do not see reasons in my code for this. It's just the way it work. Repeat Printing until you got it on paper.</td>
   </tr>
+  </tr>
+    <tr>
+    <td>20230224</td>
+    <td>12:00</td>
+    <td>RN</td>
+    <td>Some minor changes. Added the image at the start dialog but from a different source directory and lesser size to avoid "The application may be doing too much work on its main thread" This seem to solve this issue. In my opinion an Android Studio issue. They offer the complete code behind the scene than they should deal with this stuff and for example forbid to large images or images placed in the false "res directory".</td>
+  </tr>
 
 </table> 
 

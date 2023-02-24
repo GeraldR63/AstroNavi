@@ -311,8 +311,8 @@
         android:id="@+id/textView36"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:text="(c)2023 Gerald Röhrbein No warranty!"
+        android:layout_marginStart="132dp"
+        android:text="(c)2023 Steven of Oz"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -333,6 +333,16 @@
         android:layout_marginStart="304dp"
         android:layout_marginTop="560dp"
         android:text="-"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="178dp"
+        android:layout_height="133dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="420dp"
+        android:src="@mipmap/ic_astronavigator"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

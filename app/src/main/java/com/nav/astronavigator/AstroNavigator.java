@@ -2,6 +2,7 @@ package com.nav.astronavigator;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.Layout;
@@ -226,6 +227,8 @@ public class AstroNavigator extends Fragment {
 
         mdfDistance=view.findViewById(R.id.dfDistance);
 
+
+        //getView().setBackgroundColor(Color.RED);
 
 
         /*

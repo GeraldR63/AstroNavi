@@ -49,6 +49,13 @@ Version History Log:
     <td>RN</td>
     <td>Some minor changes related to colors. Removed "force white background". Some users/tester had false default color theme at their mobiles and thought that my application had a poor color scheme. (Black background and white chars). If a user don't see the colors of the examples setup of his device is the reason.</td>
   </tr>
+  </tr> 
+    <tr>
+    <td>20230225</td>
+    <td>16:00 GMT</td>
+    <td>RN</td>
+    <td>Added a simple "help" feature. Documentation to the app. I started to show a PDF but this did not work as expected. Now it's a test on how to use assets and HTML inside an app. This do not work the way expected. A JEditorPane in Swing is much more powerful.</td>
+  </tr>
   
 
 </table> 

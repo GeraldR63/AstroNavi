@@ -104,8 +104,13 @@ class NAData
              GHAAriesPlus1h=calculus.DMS2Real( sharedpreferences.getString("GHAAriesPlus1"+postFixLast, "359°59'59.99\""));
              SHA=calculus.DMS2Real( sharedpreferences.getString("SHA"+postFixLast, "359°59'59.99\""));
              Declination=calculus.DMS2Real( sharedpreferences.getString("DeclinationNA"+postFixLast, "359°59'59.99\""));
+
+             /*
              System.out.println("Declination "+CBName+ " "+ sharedpreferences.getString("DeclinationNA"+postFixLast, "359°59'59.99\""));
              System.out.println("Declination "+CBName+ " "+Declination);
+             */
+
+
 
              /*
                 Hier muss noch FractionalDRLong und DRLat initialisiert werden.
@@ -339,9 +344,15 @@ public class NADataAndCalc {
     String Calculate(View view, NauticalAlmanac na, SharedPreferences sharedpreferences)
     {
       String Position="<unknown>";
-      this.view=view;
-      msg = new DelayedMessage(view);
-      msg.ShowSnackbar("Calculating by 3 CB");
+      try {
+          this.view = view;
+          msg = new DelayedMessage(view);
+          msg.ShowSnackbar("Calculating by 3 CB");
+      }
+      catch (Exception e)
+      {
+          System.out.println("NADataAndCalc Exception msg.ShowSnackbar "+e.getMessage());
+      }
      /*
      double C31=45.00;
      System.out.println("===========================================================");
@@ -354,11 +365,15 @@ public class NADataAndCalc {
      System.out.println("===========================================================");
      */
 
-
-        for (int i=0; i<3; i++)
+      try {
+          for (int i = 0; i < 3; i++) {
+              msg.ShowSnackbar("Calculating CB#"+(i+1));
+              NAData[i].readPrefs(i + 1, sharedpreferences);   // Daten aus den SharedPreference holen  / +1 weil die postfixes der Sterne von _1 bis _3 gehen.
+              NAData[i].calculate();                                 // Anschliessend gleich Z Azimuth  berechnen
+          }
+      } catch(Exception e)
       {
-          NAData[i].readPrefs(i+1,sharedpreferences);   // Daten aus den SharedPreference holen  / +1 weil die postfixes der Sterne von _1 bis _3 gehen.
-          NAData[i].calculate();                                 // Anschliessend gleich Z Azimuth  berechnen
+          System.out.println("NADataAndCalc Exception for int i<3 calc each CB "+e.getMessage());
       }
 
         /*
@@ -371,27 +386,38 @@ public class NADataAndCalc {
         */
 
 
+      try {
 
-      /*B40*/ double A=NAData[0].cosZ2+NAData[1].cosZ2+NAData[2].cosZ2;           // B37+D37+F37 (Z der drei Sterne addieren)
-              System.out.println("B40 A                    = "+Double.toString(A));
-      /*B41*/ double B=NAData[0].cosZ*NAData[0].sinZ+NAData[1].cosZ*NAData[1].sinZ+NAData[2].cosZ*NAData[2].sinZ;
-              System.out.println("B41 B                    = "+Double.toString(B));
-      /*B42*/ double C=NAData[0].sinZ2+NAData[1].sinZ2+NAData[2].sinZ2;
-              System.out.println("B42 C                    = "+Double.toString(C));
-      /*B43*/ double D=NAData[0].pIntercept*NAData[0].cosZ+NAData[1].pIntercept*NAData[1].cosZ+NAData[2].pIntercept*NAData[2].cosZ;
-              System.out.println("B43 D                    = "+Double.toString(D));
-      /*B44*/ double E=NAData[0].pIntercept*NAData[0].sinZ+NAData[1].pIntercept*NAData[1].sinZ+NAData[2].pIntercept*NAData[2].sinZ;
-              System.out.println("B44 E                    = "+Double.toString(E));
-      /*B45*/ double G=(A*C)-(B*B);
-              System.out.println("B45 G                    = "+Double.toString(G));
-      /*B46*/ L1= NAData[0].FractionalDRLong+(A*E-B*D)/(G*Math.cos(NAData[0].FractionalDRLat));   // L1= Laengengrad
-              System.out.println("B46 L1                    = "+Double.toString(L1));
-      /*B47*/ B1= NAData[0].FractionalDRLat+(C*D-B*E)/G;                                          // B1= Breitengrad
-              System.out.println("B47 B1                    = "+Double.toString(B1));
-      // ToDo: Berechne die Präzision und ob ein zweiter Schritt nötig ist bei dem die bis hier berechneten Daten die Eingangsdaten werden
-      // precision=60 * sqrt ((L1 - Lf)^2 * cos^2(Bf) + (B1 -Bf)^2)
-      /*B48*/ double precision=60*Math.sqrt(Math.pow(L1-NAData[0].FractionalDRLong,2)*Math.pow(Math.cos(NAData[0].FractionalDRLat),2)+Math.pow(B1-NAData[0].FractionalDRLat,2));
-              System.out.println("B48 precisions           = "+Double.toString(precision));
+
+          /*B40*/
+          double A = NAData[0].cosZ2 + NAData[1].cosZ2 + NAData[2].cosZ2;           // B37+D37+F37 (Z der drei Sterne addieren)
+          System.out.println("B40 A                    = " + Double.toString(A));
+          /*B41*/
+          double B = NAData[0].cosZ * NAData[0].sinZ + NAData[1].cosZ * NAData[1].sinZ + NAData[2].cosZ * NAData[2].sinZ;
+          System.out.println("B41 B                    = " + Double.toString(B));
+          /*B42*/
+          double C = NAData[0].sinZ2 + NAData[1].sinZ2 + NAData[2].sinZ2;
+          System.out.println("B42 C                    = " + Double.toString(C));
+          /*B43*/
+          double D = NAData[0].pIntercept * NAData[0].cosZ + NAData[1].pIntercept * NAData[1].cosZ + NAData[2].pIntercept * NAData[2].cosZ;
+          System.out.println("B43 D                    = " + Double.toString(D));
+          /*B44*/
+          double E = NAData[0].pIntercept * NAData[0].sinZ + NAData[1].pIntercept * NAData[1].sinZ + NAData[2].pIntercept * NAData[2].sinZ;
+          System.out.println("B44 E                    = " + Double.toString(E));
+          /*B45*/
+          double G = (A * C) - (B * B);
+          System.out.println("B45 G                    = " + Double.toString(G));
+          /*B46*/
+          L1 = NAData[0].FractionalDRLong + (A * E - B * D) / (G * Math.cos(NAData[0].FractionalDRLat));   // L1= Laengengrad
+          System.out.println("B46 L1                    = " + Double.toString(L1));
+          /*B47*/
+          B1 = NAData[0].FractionalDRLat + (C * D - B * E) / G;                                          // B1= Breitengrad
+          System.out.println("B47 B1                    = " + Double.toString(B1));
+          // ToDo: Berechne die Präzision und ob ein zweiter Schritt nötig ist bei dem die bis hier berechneten Daten die Eingangsdaten werden
+          // precision=60 * sqrt ((L1 - Lf)^2 * cos^2(Bf) + (B1 -Bf)^2)
+          /*B48*/
+          double precision = 60 * Math.sqrt(Math.pow(L1 - NAData[0].FractionalDRLong, 2) * Math.pow(Math.cos(NAData[0].FractionalDRLat), 2) + Math.pow(B1 - NAData[0].FractionalDRLat, 2));
+          System.out.println("B48 precisions           = " + Double.toString(precision));
 
       System.out.println("====================END OF REPORT==========================");
       System.out.println("===========================================================");
@@ -421,10 +447,21 @@ public class NADataAndCalc {
           editor.commit();
 
       }
+      } catch (Exception e)
+      {
+          System.out.println("NADataAndCalc Exception A,B,C,D,E,G, L1, B1 "+e.getMessage());
+      }
 
+      String retval="Error in position conversion";
+      try {
+           retval = calculus.Real2DMS(L1).replace('-', 'E') + " " + calculus.Real2DMS(B1).replace('-', 'S');  // ToDo: Hier noch E/W und N/S ergaenzen
+      } catch (Exception e)
+      {
+          msg.ShowSnackbar("Error in position conversion");
+          System.out.println("NADataAndCalc Exception retval "+e.getMessage());
+      }
 
-
-      return calculus.Real2DMS(L1).replace('-','E')+" "+calculus.Real2DMS(B1).replace('-','S');  // ToDo: Hier noch E/W und N/S ergaenzen
+      return retval;
     }
 
 

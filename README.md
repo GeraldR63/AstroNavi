@@ -14,35 +14,42 @@ Version History Log:
   </tr>
   <tr>
     <td>20230220</td>
-    <td>16:53</td>
+    <td>16:53 GMT</td>
     <td>RN</td>
     <td>Latest release uploaded. Some fixes related to character size to support as much as possible devices.</td>
   </tr>
   <tr>
     <td>20230222</td>
-    <td>18:32</td>
+    <td>18:32 GMT</td>
     <td>RN</td>
     <td>Added a printable Sight Reduction Form to the app (at my mobile using Epson printer it works weired. It's required to repeat steps example->calc->SRF a few times. Debugging says "errors" in external classes.</td>
   </tr>
   <tr>
     <td>20230223</td>
-    <td>09:28</td>
+    <td>09:28 GMT</td>
     <td>RN</td>
     <td>Try to fix issues with SRF printing. Sometimes app crashes or there seams to be a bufferoverflow failure or something I know from programming in C/C++. Behaves like a missing or false/NULL pointer because it seems that the printer function can override the shared memory and than many strange things happen. It's pure JAVA. Done a lot in JAVA but never seen an application which behaves unpredictable. Seems to work now. </td>
   </tr>
     <tr>
     <td>20230223</td>
-    <td>13:30</td>
+    <td>13:30 GMT</td>
     <td>RN</td>
     <td>The reason for most of the problems related to Sight Reduction Form printing are special design of Android mobiles. "Debug Message: The application may be doing too much work on its main thread". Well, I removed one ressource not really necessary from the Simple Navigation dialog. The recommendation to realy solve this issue is not to have complex calculations in main thread. Well. What's this application calculating without any user action? Nothing. Poor Android Design. My opinion. If you have issues with that buy faster mobile phone. I do not see reasons in my code for this. It's just the way it work. Repeat Printing until you got it on paper.</td>
   </tr>
   </tr>
     <tr>
     <td>20230224</td>
-    <td>12:00</td>
+    <td>12:00 GMT</td>
     <td>RN</td>
     <td>Some minor changes. Added the image at the start dialog but from a different source directory and lesser size to avoid "The application may be doing too much work on its main thread" This seem to solve this issue. In my opinion an Android Studio issue. They offer the complete code behind the scene than they should deal with this stuff and for example forbid to large images or images placed in the false "res directory".</td>
+  </tr> 
+    <tr>
+    <td>20230225</td>
+    <td>10:00 GMT</td>
+    <td>RN</td>
+    <td>Some minor changes related to colors. Removed "force white background". Some users/tester had false default color theme at their mobiles and thought that my application had a poor color scheme. (Black background and white chars). If a user don't see the colors of the examples setup of his device is the reason.</td>
   </tr>
+  
 
 </table> 
 

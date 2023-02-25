@@ -132,8 +132,27 @@ Example of very Simple Latitude Calculation:
     <td>SUN above Equator<br>and above vessels position </td>
     <td>SUN below Equator<br>and below vessels position</td>  
   </tr>
+    <tr>
+    <td>Rules</td>
+    <td>Latitude= (90º – Ho) + declination (SAME)</td>
+    <td>Latitude= (90º – Ho) – declination (CONTRARY)</td>
+    <td>Latitude= declination – (90º – Ho)</td>
+    <td>Latitude= (90º – Ho) – declination (CONTRARY)</td>  
+  </tr>
+  
 </table>
 
+<!--
+Rules to Calculate Latitude
+1- Latitude and declination Same name but latitude is greater than declination:
+                    ‣ Latitude= (90º – Ho) + declination
+2- Latitude and declination Same name but declination greater than latitude:
+                    ‣ Latitude= declination – (90º – Ho)
+3- Latitude and declination Contrary name:
+                    ‣ Latitude= (90º – Ho) – declination>>
+-->                    
+                    
+                    
 To get the longitude: Use watch at GMT. Use a sun clock (for example) to get the point in time when SUN reaches highest point. Just beginn measurement 20 minutes before and after and take the difference and divide this by two. Than you should know when the sun reached highest point. Remember the SUN travels 15° in an hour. An hour have 3600 seconds. Calculate degree per second and than the difference of time to GMT when SUN reaches highest point at your local position. Calculate seconds of this difference and multiply this with the degree per seconds. Than you will get your Longitude.
 
 That's the simplest method to get valid Latitude and Longitude. One secret: You can also measure at night the North Star (Polarstern). The angle gives nearby directly your Latitude but this works only at the Northern Hemisphere.

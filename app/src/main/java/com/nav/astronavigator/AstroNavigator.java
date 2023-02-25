@@ -3,8 +3,11 @@ package com.nav.astronavigator;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.media.Image;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Html;
 import android.text.Layout;
 import android.text.TextWatcher;
 import android.util.TypedValue;
@@ -27,6 +30,13 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.nav.astronavigator.databinding.FragmentFirstBinding;
 import com.nav.astronavigator.calculus;
 import com.nav.astronavigator.DialogBox;
+
+//import org.apache.commons.compress.utils.IOUtils;
+
+import org.w3c.dom.Text;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class AstroNavigator extends Fragment {
     /*
@@ -62,11 +72,20 @@ public class AstroNavigator extends Fragment {
     private Button pbIncrCharset;
     private Button pbDecrCharset;
     private Button pbButtonFirst;
+    private Image  idImageView;
+
+
+
+
+    private TextView HTMLView;
+    private Button pbShowDocumentation;
 
 
     public static final String MyPREFERENCES = "AstroNavPrefs" ;
     SharedPreferences sharedpreferences;
     private CoordinatorLayout coordinatorLayout;
+
+    Boolean bDocVisible=true;
 
 
 
@@ -93,7 +112,6 @@ public class AstroNavigator extends Fragment {
 
         Snackbar snackbar = Snackbar.make(view, "Calculating", Snackbar.LENGTH_LONG);
         snackbar.show();
-
          */
 
         try {
@@ -122,6 +140,17 @@ public class AstroNavigator extends Fragment {
 
 
             textDecimalSextant.setText(String.format("%.5f", calculus.DMS2Real(mdfSextant.getText().toString()))+"°");
+
+            /*
+                Rules to Calculate Latitude from Nautical Almanac (first found by unknown source in Web)
+                This comment was added 20230225 by RN. It describes code below.
+                1- Latitude and declination Same name but latitude is greater than declination:
+                                    ‣ Latitude= (90º – Ho) + declination
+                2- Latitude and declination Same name but declination greater than latitude:
+                                    ‣ Latitude= declination – (90º – Ho)
+                3- Latitude and declination Contrary name:
+                                   ‣ Latitude= (90º – Ho) – declination
+             */
 
             if (mcbSouth.isChecked()) {
                 Latitude = ZenithDistance - Declination;
@@ -190,6 +219,7 @@ public class AstroNavigator extends Fragment {
         textDecimalLongitude.setTextSize(pxFromDp(dp, getActivity()));
         textDecimalDiffGMT.setTextSize(pxFromDp(dp, getActivity()));
         textDecimalGHA.setTextSize(pxFromDp(dp, getActivity()));
+        HTMLView.setTextSize(pxFromDp(dp, getActivity()));
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState)
@@ -227,8 +257,63 @@ public class AstroNavigator extends Fragment {
 
         mdfDistance=view.findViewById(R.id.dfDistance);
 
+        //jEditorPane1 = new JEditorPane("http://oraforecast.com/contact.html");
 
-        //getView().setBackgroundColor(Color.RED);
+
+
+        //idImageView=view.findViewById(R.id.idImageView);
+        HTMLView=view.findViewById(R.id.dfDocumentation);
+        HTMLView.setVisibility(View.INVISIBLE);
+        pbShowDocumentation=view.findViewById(R.id.pbShowPDFDoc);
+
+
+
+        pbShowDocumentation.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v)
+            {
+                    //Note here I gave file name with "file:///android_asset/" to get it from assets
+                   //InputStream inputStream = getResources().getAssets().open("file:///android_asset/myFile.html");
+
+                    //String html = IOUtils.toString(inputStream,"UTF8");
+                  if (bDocVisible) {
+                      bDocVisible=false;
+                      HTMLView.setVisibility(View.VISIBLE);
+                      HTMLView.setEnabled(true);
+                      HTMLView.bringToFront();
+                      pbHo2Hc.setVisibility(View.INVISIBLE);
+
+                      try {
+                          InputStream is = getContext().getAssets().open("AstroNaviDoc.html");
+                          int size = is.available();
+
+                          byte[] buffer = new byte[size];
+                          is.read(buffer);
+                          is.close();
+
+                          String html = new String(buffer);
+                          //str = str.replace("old string", "new string");
+
+
+                          HTMLView.setText(Html.fromHtml(html));
+                      } catch (Exception e) {
+                          bDocVisible=false;
+                          pbHo2Hc.setVisibility(View.VISIBLE);
+                          HTMLView.setVisibility(View.VISIBLE);
+                          HTMLView.setEnabled(false);
+                          HTMLView.bringToFront();
+                          HTMLView.setText(Html.fromHtml("File AstroNaviDoc.html not found in Assets!"));
+                      }
+                  }
+                  else
+                  {
+                      bDocVisible=true;
+                      pbHo2Hc.setVisibility(View.VISIBLE);
+                      HTMLView.setVisibility(View.INVISIBLE);
+
+                  }
+            }
+        });
 
 
 

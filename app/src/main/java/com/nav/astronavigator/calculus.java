@@ -31,6 +31,7 @@ public class calculus {
     static View view;
     static DialogBox DialogBox=new DialogBox(view);
     static DelayedMessage msg;
+    static double pi= 3.14159265358979323846;
 
     calculus(View view)
     {
@@ -248,6 +249,79 @@ public class calculus {
         return minutes+seconds;
     }
 
+    /*
+        Code below comes from code I use in my Arduino High Altitude Balloon projects.
+        This code is some optimized code I found at the web. It's optimized for speed and memory consumption.
+        So far I remember the original source was Silicon Graphics Labs.
+
+        -----------------------------gps.h C language by RN start
+        #ifndef GPS
+        #define GPS
+        #include <stdlib.h>
+        #include <stdio.h>
+        #include <math.h>
+
+
+        //   (C) 2019 Gerald Roehrbein
+        //   Ueberarbeitete und stark vereinfacht aus unterschiedlichsten Quellen des Inder nett.
+
+
+
+        double distance_gps(double lat1, double lon1, double lat2, double lon2); //Distance between 1 und 2
+        double degree(double lat1, double lon1, double lat2, double lon2);       //Angle from 1 to 2
+        double deg2rad(double deg);                                              //DEG to RAD (we already have it in Java in MATH container class lib)
+        double rad2deg(double rad);                                              //RAD to DEG  (we already have it in Java in MATH container class lib)
+        #endif
+        -----------------------------gps.h C language by RN end
+
+        It's easy to translate code below to C/C++
+
+        gps.c starts below this comment.
+     */
+    double deg_rad(double lat1,double lon1,double lat2, double lon2)
+    {
+        if ((lat1 == lat2) && (lon1 == lon2)) {
+            return 0;
+        }
+        return Math.acos(Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(lon2-lon1)));
+    }
+
+
+    double degree(double lat1,double lon1,double lat2, double lon2)
+    {
+        if ((lat1 == lat2) && (lon1 == lon2)) {
+            return 0;
+        }
+        double head= rad2deg(Math.atan2((Math.sin(deg2rad(lon2-lon1))*Math.cos(deg2rad(lat2))),((Math.cos(deg2rad(lat1))*Math.sin(deg2rad(lat2)))-(Math.sin(deg2rad(lat1))*Math.cos(deg2rad(lat2))*Math.cos(deg2rad(lon2-lon1))))));
+        return (head<=0?head+360:head);
+    }
+
+
+
+    double distance_gps(double lat1, double lon1, double lat2, double lon2) {
+        if ((lat1 == lat2) && (lon1 == lon2)) {
+            return 0;
+        }
+        //printf("Distance=%lf\n\r", acos(sin(deg2rad(lat1)) * sin(deg2rad(lat2)) + cos(deg2rad(lat1)) * cos(deg2rad(lat2)) * cos(deg2rad(lon2-lon1))) * 6378.388);
+        return deg_rad(lat1,lon1,lat2,lon2) * 6378.388;
+    }
+
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    /*::  This function converts decimal degrees to radians             :*/
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    double deg2rad(double deg) {
+        return (deg * pi / 180);
+    }
+
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    /*::  This function converts radians to decimal degrees             :*/
+    /*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+    double rad2deg(double rad) {
+        return (rad / (pi / 180) );
+    }
+    /*
+    gps.c ends above this comment.
+    */
 
 
 }

@@ -335,12 +335,36 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/idImageView"
         android:layout_width="178dp"
         android:layout_height="133dp"
         android:layout_marginStart="88dp"
         android:layout_marginTop="420dp"
         android:src="@mipmap/ic_astronavigator"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/pbShowPDFDoc"
+        android:layout_width="65dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="496dp"
+        android:text="Doc"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dfDocumentation"
+        android:layout_width="406dp"
+        android:layout_height="412dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:background="#FAF7F7"
+        android:enabled="false"
+        android:text="Documentation"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

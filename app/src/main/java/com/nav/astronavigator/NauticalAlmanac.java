@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.print.PrintManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,7 +98,7 @@ public class NauticalAlmanac extends Fragment {
     String postFixLast="_1";
     int activeStar=1;          //Numerisches Synonym fuer postFixLast
 
-    public int CBcounter=0;
+    public int[] CBcounter= new int[3];
 
     @Override
     public View onCreateView(
@@ -194,6 +196,93 @@ public class NauticalAlmanac extends Fragment {
         mdfStatus.setTextSize(pxFromDp(dp, getActivity()));
     }
 
+    double mdy_sect(String Date, String Time)
+    /*
+       From P.Lutus Source eph.c
+    */
+
+{
+double r;
+int year,month,day;
+int hour, minute, seconds;
+double c1=280.46061837;
+double c2=360.98564736629;
+
+/* Parser hh:mm:ss */
+        int position=Time.indexOf(":");
+        hour  =  Integer.valueOf(Time.substring(0,position));
+        minute = Integer.valueOf(Time.substring(position + 1, position=Time.indexOf(":", position+1)));
+        seconds= Integer.valueOf(Time.substring(position+1, Time.length()));
+
+        /* Parser dd.mm.yyyy */
+        position=Date.indexOf(".");
+        day  =  Integer.valueOf(Date.substring(0,position));
+        month = Integer.valueOf(Date.substring(position + 1, position=Date.indexOf(".", position+1)));
+        year= Integer.valueOf(Date.substring(position+1, Date.length()));
+
+        if(year > 1900)
+            year -= 1900;
+        month++;
+        if(month < 4)
+        {
+            month += 12;
+            year -= 1;
+        }
+        r = day + Math.floor(month * 30.6001) + (year * 365.25) - 63;
+        r = Math.floor(r);
+        r = (r * 24) + hour;
+        r = (r * 60) + minute;
+        r = (r * 60) + seconds;
+        return(r);
+    }
+
+
+    void calculate(View view)
+    {
+        /*
+          From P.Lutus Source eph.c
+            now = mdy_sect(datime);
+          	cv = (now / 86400.0) - 29220.0;
+	        cv /= 365.25;
+	        gha = ghaa + (startable[i].sha + (startable[i].shacor * cv));
+			dec = startable[i].decl + (startable[i].declcor * cv);
+
+
+         */
+        try {
+            double cv = (mdy_sect(String.valueOf(mdfObservedDate.getText()), String.valueOf(mdfObservedTime.getText())) / 86400.0) - 29220.0;
+            cv /= 365.25;
+        } catch (Exception e)
+        {
+
+        }
+
+        mdfCBName.setText(CelestialBodys.startable[CBcounter[activeStar-1]].name.toUpperCase());
+        try {
+            // How to correct SHA?
+            double SHAPLutus=CelestialBodys.startable[CBcounter[activeStar-1]].sha; //+CelestialBodys.startable[CBcounter[activeStar-1]].shacor*cv;
+            mdfSHA.setText(calculus.Real2DMS(SHAPLutus));
+            // Declination corrected by date.
+            double DeclinationPLutus=CelestialBodys.startable[CBcounter[activeStar-1]].decl; // + CelestialBodys.startable[CBcounter[activeStar-1]].decl *cv;
+            mdfDeclinationNA.setText(calculus.Real2DMS(DeclinationPLutus));
+            CelestialBodys.selectedStar[activeStar-1]=CBcounter[activeStar-1];
+            double GHAAries=NADataAndCalc.GHAAries(String.valueOf(mdfObservedDate.getText()),String.valueOf(mdfObservedTime.getText()));
+            mdfGHAAries.setText(calculus.Real2DMS(GHAAries));
+            double GHAAriesP1=NADataAndCalc.GHAAries(String.valueOf(mdfObservedDate.getText()),String.valueOf(mdfObservedTime.getText()));
+            mdfGHAAriesPlus1.setText(calculus.Real2DMS(GHAAriesP1));
+
+            mdfGHAAries.setBackgroundColor(Color.GREEN);
+            mdfGHAAriesPlus1.setBackgroundColor(Color.GREEN);
+
+            mdfStatus.setBackgroundColor(Color.WHITE);
+
+        }
+        catch (Exception e)
+        {
+            mdfStatus.setText("Input error. Check date/time for CB");
+        }
+    }
+
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -259,6 +348,69 @@ public class NauticalAlmanac extends Fragment {
         mdfStatus.setEnabled(false);
         mdfStatus.setTextColor(Color.BLACK);
 
+
+        mdfGHAAries.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                //do here your calculation
+                mdfGHAAries.setBackgroundColor(Color.WHITE);
+                mdfStatus.setText("GHA Aries manual input");
+            }
+        });
+
+        mdfGHAAriesPlus1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                //do here your calculation
+                mdfGHAAriesPlus1.setBackgroundColor(Color.WHITE);
+                mdfStatus.setText("GHA AriesPlus1 manual input");
+            }
+        });
+
+
+
+        mdfObservedDate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                //do here your calculation
+                calculate(view);
+
+            }
+        });
+
+
+        mdfObservedTime.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                //do here your calculation
+                calculate(view);
+            }
+        });
+
         printSightRedcution = new printSightRedcution(NADataAndCalc);
         pbPrintSightReductionForm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -293,6 +445,28 @@ public class NauticalAlmanac extends Fragment {
             public void onClick(View view) {
                 if (NADataAndCalc!= null) {
                     NADataAndCalc.setDefaultsNA(view, NauticalAlmanac.this);
+                    mdfGHAAries.setBackgroundColor(Color.WHITE);
+                    mdfGHAAriesPlus1.setBackgroundColor(Color.WHITE);
+
+                    CBcounter[2]=35;
+                    postFixLast="_3";
+                    activeStar=3;
+                    refreshCBrelatedData(postFixLast);
+
+                    CBcounter[1]=14;
+                    postFixLast="_2";
+                    activeStar=2;
+                    refreshCBrelatedData(postFixLast);
+
+
+                    CBcounter[0]=46;
+                    postFixLast="_1";
+                    activeStar=1;
+                    refreshCBrelatedData(postFixLast);
+
+
+
+                    mdfStatus.setText("Set Defaults NA 04.07.2022");
                 }
             }
         });
@@ -348,21 +522,10 @@ public class NauticalAlmanac extends Fragment {
         pbNextCB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (CBcounter<65) {CBcounter++;} else {CBcounter=0;}
-                mdfCBName.setText(CelestialBodys.startable[CBcounter].name.toUpperCase());
-                try {
-                    mdfSHA.setText(calculus.Real2DMS(CelestialBodys.startable[CBcounter].sha));
-                    mdfDeclinationNA.setText(calculus.Real2DMS(CelestialBodys.startable[CBcounter].decl));
-                    CelestialBodys.selectedStar[activeStar-1]=CBcounter;
-                    mdfGHAAries.setText(calculus.Real2DMS(NADataAndCalc.GHAAries(String.valueOf(mdfObservedDate.getText()),String.valueOf(mdfObservedTime.getText()))));
-                    mdfGHAAriesPlus1.setText(calculus.Real2DMS(NADataAndCalc.GHAAries(String.valueOf(mdfObservedDate.getText()),String.valueOf(mdfObservedTime.getText()))));
-                    mdfStatus.setBackgroundColor(Color.WHITE);
-                    mdfStatus.setText("Searched for Celestial Body");
-                }
-                catch (Exception e)
-                {
-                    mdfStatus.setText("Input error. Check date/time for CB");
-                }
+                if (CBcounter[activeStar-1]<65) {CBcounter[activeStar-1]++;} else {CBcounter[activeStar-1]=0;}
+
+                calculate(view);
+                mdfStatus.setText("Searched for Celestial Body");
 
             }
         });
@@ -371,21 +534,9 @@ public class NauticalAlmanac extends Fragment {
             @Override
             public void onClick(View view) {
 
-                if (CBcounter>0) {CBcounter--;} else {CBcounter=65;}
-                mdfCBName.setText(CelestialBodys.startable[CBcounter].name.toUpperCase());
-                try {
-                    mdfSHA.setText(calculus.Real2DMS(CelestialBodys.startable[CBcounter].sha));
-                    mdfDeclinationNA.setText(calculus.Real2DMS(CelestialBodys.startable[CBcounter].decl));
-                    CelestialBodys.selectedStar[activeStar-1]=CBcounter;
-                    mdfGHAAries.setText(calculus.Real2DMS(NADataAndCalc.GHAAries(String.valueOf(mdfObservedDate.getText()),String.valueOf(mdfObservedTime.getText()))));
-                    mdfGHAAriesPlus1.setText(calculus.Real2DMS(NADataAndCalc.GHAAries(String.valueOf(mdfObservedDate.getText()),String.valueOf(mdfObservedTime.getText()))));
-                    mdfStatus.setBackgroundColor(Color.WHITE);
-                    mdfStatus.setText("Searched for Celestial Body");
-                }
-                catch (Exception e)
-                {
-                    mdfStatus.setText("Input error. Check date/time for CB");
-                }
+                if (CBcounter[activeStar-1]>0) {CBcounter[activeStar-1]--;} else {CBcounter[activeStar-1]=65;}
+                calculate(view);
+                mdfStatus.setText("Searched for Celestial Body");
             }
         });
 
@@ -528,6 +679,7 @@ public class NauticalAlmanac extends Fragment {
             CB2.setChecked(false);
             CB3.setChecked(false);
             postFixLast="_1";
+            CBcounter[0]=Integer.valueOf(sharedpreferences.getString("ActiveStar"+postFixLast, "1"));
             mdfStatus.setBackgroundColor(Color.WHITE);
             mdfStatus.setText("Selected CB#1");
 
@@ -538,6 +690,7 @@ public class NauticalAlmanac extends Fragment {
             CB2.setChecked(true);
             CB3.setChecked(false);
             postFixLast="_2";
+            CBcounter[1]=Integer.valueOf(sharedpreferences.getString("ActiveStar"+postFixLast, "1"));
             mdfStatus.setBackgroundColor(Color.WHITE);
             mdfStatus.setText("Selected CB#2");
 
@@ -548,6 +701,7 @@ public class NauticalAlmanac extends Fragment {
             CB2.setChecked(false);
             CB3.setChecked(true);
             postFixLast="_3";
+            CBcounter[2]=Integer.valueOf(sharedpreferences.getString("ActiveStar"+postFixLast, "1"));
             mdfStatus.setBackgroundColor(Color.WHITE);
             mdfStatus.setText("Selected CB#3");
         }
@@ -582,6 +736,10 @@ public class NauticalAlmanac extends Fragment {
           Drei Sterne aber nur ein Feld sichtbar. Alle Infos in Array.
          */
 
+        //CBcounter[0]=Integer.valueOf(sharedpreferences.getString("ActiveStar"+postFixLast, "1"));
+        editor.putString("ActiveStar_1",String.valueOf(CBcounter[0]));
+        editor.putString("ActiveStar_2",String.valueOf(CBcounter[1]));
+        editor.putString("ActiveStar_3",String.valueOf(CBcounter[2]));
 
         editor.putString("FixTime", mdfFixTime.getText().toString());
         editor.putString("CBName"+postFix, mdfCBName.getText().toString());

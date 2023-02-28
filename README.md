@@ -62,6 +62,13 @@ Version History Log:
     <td>RN</td>
     <td>Added first step to calculate GHA, SHA and DECLINATION for the stars. Not Planets, Moon and Sun. If a user press PREV or NEXT in "Nautical Almanac" dialog than GHA, SHA and DECLINATION is calculated. I have to add a key listener also for Date and Time Observed to calculate these figures. However this most difficult thing seems to work so far more or less good. The SHA and DECLINATION is up to now not corrected. I will add required code tomorrow.</td>
   </tr>
+    <tr>
+    <td>20230228</td>
+    <td>23:40 GMT</td>
+    <td>RN</td>
+    <td>Added the key press events to Observed Time and Observed Date fields to update GHA while typing. Now a user can enter GHA Aries and GHA Aries+1 from Nautical Almanac or let the AstroNavigator calculate these figures The daily corrections are in progress. They do not work. Figures are good for 2023. If a user search for a star by using "PREV" and "NEXT" button the SHA and DECL the software will also compute these figures by itself. Corrrections are also in progress. These figures are good for 2023.</td>
+  </tr>
+
 </table> 
 
 

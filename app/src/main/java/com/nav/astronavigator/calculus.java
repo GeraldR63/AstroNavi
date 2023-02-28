@@ -40,7 +40,7 @@ public class calculus {
     }
 
 
-    public static double DMS2Real(String Degree_DMS)
+    public  static double DMS2Real(String Degree_DMS)
     {
         int degrees=0;
         double minutes=0;
@@ -112,7 +112,7 @@ public class calculus {
         return (Math.abs(degrees)+minutes+seconds)*sign;
     }
 
-    public static String Real2DMS(double dms)
+    public  static String Real2DMS(double dms)
     {
         int degrees;
         double  minutes;
@@ -171,7 +171,7 @@ public class calculus {
         //return "000°00'00.00\"";
     }
 
-    public static int DMSFormatCheck(String DMS)
+    public int DMSFormatCheck(String DMS)
     // Parser fuer xxx°yy'ss.ss"
     //             359°59'59.59"
     // Liefert 1 zurueck wenn der String im DMS Format ist ansonsten 0
@@ -180,7 +180,7 @@ public class calculus {
         return 0;
     }
 
-    public static double HMS2Real(String Degree_DMS)
+    public  static double HMS2Real(String Degree_DMS)
     {
         int hour=0;
         double minutes=0;
@@ -215,7 +215,7 @@ public class calculus {
         return hour+minutes+seconds;
     }
 
-    public static double MS2Real(String HMS)
+    public  static double MS2Real(String HMS)
     {
         int hour=0;
         double minutes=0;

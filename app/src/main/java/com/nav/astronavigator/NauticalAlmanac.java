@@ -205,8 +205,19 @@ public class NauticalAlmanac extends Fragment {
         mdfHeading=getView().findViewById(R.id.dfHeading);
         mdfSpeed=getView().findViewById(R.id.dfSpeed);
         pbCalcNA=getView().findViewById(R.id.pbCalcNA);
+
+
+        /*
+             This check box do not make sense!
+             A user can press the PREV and NEXT buttons to get GHA, SHA and DECLINATION from calculator
+             but he can correct these values by using Nautical Almanac.
+         */
+
         checkBoxCalcMode=getView().findViewById(R.id.checkBoxCalcMode); //Calculation NA oder P.Lutus
         checkBoxCalcMode.setChecked(true);                              //Default NA usage
+        checkBoxCalcMode.setVisibility(View.INVISIBLE);
+
+
         pbDefaultsNA=getView().findViewById(R.id.pbDefaultsNA);
         pbSextant=getView().findViewById(R.id.pbSextant);
         pbNextCB=getView().findViewById(R.id.pbNext);
@@ -339,9 +350,20 @@ public class NauticalAlmanac extends Fragment {
             public void onClick(View view) {
                 if (CBcounter<65) {CBcounter++;} else {CBcounter=0;}
                 mdfCBName.setText(CelestialBodys.startable[CBcounter].name.toUpperCase());
-                CelestialBodys.selectedStar[activeStar-1]=CBcounter;
-                mdfStatus.setBackgroundColor(Color.WHITE);
-                mdfStatus.setText("Searched for Celestial Body");
+                try {
+                    mdfSHA.setText(calculus.Real2DMS(CelestialBodys.startable[CBcounter].sha));
+                    mdfDeclinationNA.setText(calculus.Real2DMS(CelestialBodys.startable[CBcounter].decl));
+                    CelestialBodys.selectedStar[activeStar-1]=CBcounter;
+                    mdfGHAAries.setText(calculus.Real2DMS(NADataAndCalc.GHAAries(String.valueOf(mdfObservedDate.getText()),String.valueOf(mdfObservedTime.getText()))));
+                    mdfGHAAriesPlus1.setText(calculus.Real2DMS(NADataAndCalc.GHAAries(String.valueOf(mdfObservedDate.getText()),String.valueOf(mdfObservedTime.getText()))));
+                    mdfStatus.setBackgroundColor(Color.WHITE);
+                    mdfStatus.setText("Searched for Celestial Body");
+                }
+                catch (Exception e)
+                {
+                    mdfStatus.setText("Input error. Check date/time for CB");
+                }
+
             }
         });
 
@@ -351,9 +373,19 @@ public class NauticalAlmanac extends Fragment {
 
                 if (CBcounter>0) {CBcounter--;} else {CBcounter=65;}
                 mdfCBName.setText(CelestialBodys.startable[CBcounter].name.toUpperCase());
-                CelestialBodys.selectedStar[activeStar-1]=CBcounter;
-                mdfStatus.setBackgroundColor(Color.WHITE);
-                mdfStatus.setText("Searched for Celestial Body");
+                try {
+                    mdfSHA.setText(calculus.Real2DMS(CelestialBodys.startable[CBcounter].sha));
+                    mdfDeclinationNA.setText(calculus.Real2DMS(CelestialBodys.startable[CBcounter].decl));
+                    CelestialBodys.selectedStar[activeStar-1]=CBcounter;
+                    mdfGHAAries.setText(calculus.Real2DMS(NADataAndCalc.GHAAries(String.valueOf(mdfObservedDate.getText()),String.valueOf(mdfObservedTime.getText()))));
+                    mdfGHAAriesPlus1.setText(calculus.Real2DMS(NADataAndCalc.GHAAries(String.valueOf(mdfObservedDate.getText()),String.valueOf(mdfObservedTime.getText()))));
+                    mdfStatus.setBackgroundColor(Color.WHITE);
+                    mdfStatus.setText("Searched for Celestial Body");
+                }
+                catch (Exception e)
+                {
+                    mdfStatus.setText("Input error. Check date/time for CB");
+                }
             }
         });
 

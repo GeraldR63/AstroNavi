@@ -263,7 +263,7 @@ public class NADataAndCalc {
         NAData[0].ObservationTime="20:39:23";
         NAData[1].ObservationTime="20:45:47";
         NAData[2].ObservationTime="21:10:34";
-        NAData[0].ObservationDate=NAData[1].ObservationDate=NAData[2].ObservationDate="04.07.2023";
+        NAData[0].ObservationDate=NAData[1].ObservationDate=NAData[2].ObservationDate="04.07.2022";
         NAData[0].Ho=27.0772;
         NAData[1].Ho=25.9361;
         NAData[2].Ho=47.5563;
@@ -464,6 +464,72 @@ public class NADataAndCalc {
       return retval;
     }
 
+
+    public double range_degrees(double d)
+     /*
+         Code, taken idea from Stellarium, File siderial_time.c
+     */
+    {
+        d = d % 360.;
+        if(d<0.) d += 360.;
+        return d;
+    }
+
+    public double GHAAries(String Date, String Time)
+    /*
+           This function give the same results as Stellarium give. This code is NOT stolen form Stelarium.
+           It's my own stuff.
+
+           There is a small difference related to Nautical Almanac but for example:
+
+            Code to test this stuff:
+
+            String date="21.03.2023";
+            String time="12:00:00";
+            System.out.println("GHA Aries for "+date+" "+time+" is "+Double.toString(GHAAries(date,time))+" "+Real2DMS((GHAAries(date,time) )));
+            System.out.println("GHA Aries lt NA  358°44.0'");
+
+            Result is:  GHA Aries for 21.03.2023 12:00:00 is 358.75028450926766 358°45'1.02"
+
+            date="21.03.2023";
+            time="12:32:12";
+            System.out.println("GHA Aries for "+date+" "+time+" is "+Double.toString(GHAAries(date,time))+" "+Real2DMS((GHAAries(date,time) )));
+            System.out.println("GHA Aries lt NA  006°48.3'");
+
+            Result is: GHA Aries for 21.03.2023 12:32:12 is 6.822324679233134 006°49'20.37"
+
+            However, since this difference is in all of the well know Algorithms from
+
+            Meeus, Astr. Algorithms, Formula 11.1, 11.4 pg 83. (or 2nd ed. 1998, 12.1, 12.4 pg.87)
+            N. Capitaine, P.T.Wallace, J. Chapront: Expressions for IAU 2000 precession quantities.
+            A&A412, 567-586 (2003)
+            DOI: 10.1051/0004-6361:20031539
+
+            I'm not in the position to offer a better solution.
+
+    */
+    {
+        int year,month,day;
+        int hour, minute, seconds;
+        double c1=280.46061837;
+        double c2=360.98564736629;
+
+        /* Parser hh:mm:ss */
+        int position=Time.indexOf(":");
+        hour  =  Integer.valueOf(Time.substring(0,position));
+        minute = Integer.valueOf(Time.substring(position + 1, position=Time.indexOf(":", position+1)));
+        seconds= Integer.valueOf(Time.substring(position+1, Time.length()));
+
+        /* Parser dd.mm.yyyy */
+        position=Date.indexOf(".");
+        day  =  Integer.valueOf(Date.substring(0,position));
+        month = Integer.valueOf(Date.substring(position + 1, position=Date.indexOf(".", position+1)));
+        year= Integer.valueOf(Date.substring(position+1, Date.length()));
+
+        double dWhole=367*year-(int)(7*(year+(int)((month+9)/12))/4)+(int)(275*month/9)+day-730531.5;
+        double dFrac=((double)hour+((double)minute/60.+(double)seconds/3600.))/24.;
+        return range_degrees(c1+c2*(dWhole+dFrac));
+    }
 
 
 }

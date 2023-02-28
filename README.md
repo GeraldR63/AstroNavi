@@ -56,7 +56,14 @@ Version History Log:
     <td>RN</td>
     <td>Added a simple "help" feature. Documentation to the app. I started to show a PDF but this did not work as expected. Now it's a test on how to use assets and HTML inside an app. This do not work the way expected. A JEditorPane in Swing is much more powerful.</td>
   </tr>
-  
+
+    <tr>
+    <td>20230228</td>
+    <td>19:00 GMT</td>
+    <td>RN</td>
+    <td>Added first step to calculate GHA, SHA and DECLINATION for the stars. Not Planets, Moon and Sun. If a user press PREV or NEXT in "Nautical Almanac" dialog than GHA, SHA and DECLINATION is calculated. I have to add a key listener also for Date and Time Observed to calculate these figures. However this most difficult thing seems to work so far more or less good. The SHA and DECLINATION is up to now not corrected. I will add required code tomorrow.</td>
+  </tr>
+
 
 </table> 
 

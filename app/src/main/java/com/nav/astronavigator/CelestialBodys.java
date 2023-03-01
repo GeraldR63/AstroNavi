@@ -65,7 +65,10 @@ void initStartable()
              The table contains: Magnitude of the star.
                                  SHA und DECL as given by NA2023 plus correction multiplier for SHA and DECLINATION.
          */
-        //startable[0]=new STARS("acamar",            3.1 ,   315.6232,  -0.00942,  -40.3847 ,  0.004);
+
+        /*
+           ToDo: correct the corrections for SHA (SHACOR) and DECLINATION (DECLCOR). These values are not really proper in 2023 and next years.
+        */
         startable[0]=new STARS("acamar",            3.1 ,   c.DMS2Real("315°12.8'00.0\""),  -0.00942,  c.DMS2Real("S040°13.0'00.0\"") ,  0.004);
         startable[1]=new STARS("achernar",          0.6 ,   c.DMS2Real("335°21.3'00.0\""),  -0.00917,  c.DMS2Real("S057°07.5'00.0\"") ,  0.005);
         startable[2]=new STARS("acrux"   ,          1.1 ,   c.DMS2Real("173°01.9'00.0\""),  -0.0138,   c.DMS2Real("S063°13.2'00.0\""),  -0.0055);

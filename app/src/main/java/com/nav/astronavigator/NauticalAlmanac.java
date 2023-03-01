@@ -195,18 +195,17 @@ public class NauticalAlmanac extends Fragment {
         mdfPosition.setTextSize(pxFromDp(dp, getActivity()));
         mdfStatus.setTextSize(pxFromDp(dp, getActivity()));
     }
-
-    double mdy_sect(String Date, String Time)
+double mdy_sect(String Date, String Time)
     /*
        From P.Lutus Source eph.c
+
+       Calculates the seconds since 1900 up to "now"?!.
     */
 
 {
 double r;
 int year,month,day;
 int hour, minute, seconds;
-double c1=280.46061837;
-double c2=360.98564736629;
 
 /* Parser hh:mm:ss */
         int position=Time.indexOf(":");
@@ -223,11 +222,13 @@ double c2=360.98564736629;
         if(year > 1900)
             year -= 1900;
         month++;
+
         if(month < 4)
         {
             month += 12;
             year -= 1;
         }
+
         r = day + Math.floor(month * 30.6001) + (year * 365.25) - 63;
         r = Math.floor(r);
         r = (r * 24) + hour;
@@ -246,24 +247,33 @@ double c2=360.98564736629;
 	        cv /= 365.25;
 	        gha = ghaa + (startable[i].sha + (startable[i].shacor * cv));
 			dec = startable[i].decl + (startable[i].declcor * cv);
-
-
          */
+        double cv=0.0;  // CV is a correction multiplicator which depends on the days since 1900
         try {
-            double cv = (mdy_sect(String.valueOf(mdfObservedDate.getText()), String.valueOf(mdfObservedTime.getText())) / 86400.0) - 29220.0;
-            cv /= 365.25;
+            // mdy_sect returns the seconds since 1900
+            // Devided by 86400 give the days since 1900.
+            // The meaning of -29220.0 is not clear.
+            // This figure divided by 365.25 days give more or less the years since 1900.
+            // In my opinion this should produce a multiplier related to the date the eph data came from.
+            cv = ((mdy_sect(String.valueOf(mdfObservedDate.getText()), String.valueOf(mdfObservedTime.getText())) / 86400.0) - 29220.0)/365.25;
         } catch (Exception e)
         {
-
+             cv=0.0;
         }
 
         mdfCBName.setText(CelestialBodys.startable[CBcounter[activeStar-1]].name.toUpperCase());
         try {
             // How to correct SHA?
-            double SHAPLutus=CelestialBodys.startable[CBcounter[activeStar-1]].sha; //+CelestialBodys.startable[CBcounter[activeStar-1]].shacor*cv;
+            // The divider 11 is a correction to all of the corr values from P. Lutus gathered in 1980.
+            // This value is more or less good. The difference to the calculations of the NA is nearby 2 minutes.
+            // At the open water we want to know where we are. Nearby the coast Astronavigation makes no sense! That's why this calculation is
+            // not perfect but good and it's in memory of P.Lutus one of the first fellows which wrote such astronavigational software.
+            // ToDo: If you want to have better results than calculate all of the correction values in the Star table in file CelestialBody.java.
+
+            double SHAPLutus=CelestialBodys.startable[CBcounter[activeStar-1]].sha +(CelestialBodys.startable[CBcounter[activeStar-1]].shacor/11)*cv;
             mdfSHA.setText(calculus.Real2DMS(SHAPLutus));
             // Declination corrected by date.
-            double DeclinationPLutus=CelestialBodys.startable[CBcounter[activeStar-1]].decl; // + CelestialBodys.startable[CBcounter[activeStar-1]].decl *cv;
+            double DeclinationPLutus=CelestialBodys.startable[CBcounter[activeStar-1]].decl + (CelestialBodys.startable[CBcounter[activeStar-1]].declcor/11) *cv;
             mdfDeclinationNA.setText(calculus.Real2DMS(DeclinationPLutus));
             CelestialBodys.selectedStar[activeStar-1]=CBcounter[activeStar-1];
             double GHAAries=NADataAndCalc.GHAAries(String.valueOf(mdfObservedDate.getText()),String.valueOf(mdfObservedTime.getText()));

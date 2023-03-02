@@ -29,7 +29,7 @@ public class calculus {
      */
 
     static View view;
-    static DialogBox DialogBox=new DialogBox(view);
+    //static DialogBox DialogBox=new DialogBox(view);
     static DelayedMessage msg;
     static double pi= 3.14159265358979323846;
 
@@ -131,7 +131,7 @@ public class calculus {
             minutes -= Math.abs((minutes - Double.valueOf(iminutes)) * 60)/60;
 
 
-            System.out.println("Degree "+degrees+" Minutes "+String.format(Locale.ROOT,"%02.2f",minutes)+" Seconds "+String.format(Locale.ROOT,"%02.2f",seconds));
+            //System.out.println("Degree "+degrees+" Minutes "+String.format(Locale.ROOT,"%02.2f",minutes)+" Seconds "+String.format(Locale.ROOT,"%02.2f",seconds));
 
 
             //minutes -= seconds;
@@ -139,14 +139,14 @@ public class calculus {
 
 
 
-            System.out.println("Seconds "+seconds+" String Format "+String.format(Locale.ROOT,"%02.2f",seconds));
+            //System.out.println("Seconds "+seconds+" String Format "+String.format(Locale.ROOT,"%02.2f",seconds));
             if (Double.valueOf(String.format(Locale.ROOT,"%02.2f",seconds))>=60)
             {
                 minutes++;
                 seconds-=60;
             }
 
-            System.out.println("Minutes "+minutes+" String Format "+String.format(Locale.ROOT,"%02.2f",minutes));
+            //System.out.println("Minutes "+minutes+" String Format "+String.format(Locale.ROOT,"%02.2f",minutes));
             if (Double.valueOf(String.format(Locale.ROOT,"%02.2f",minutes))>=60)
             {
                 degrees++;
@@ -323,5 +323,61 @@ public class calculus {
     gps.c ends above this comment.
     */
 
+    public static double mdy_sect(String Date, String Time)
+    /*
+       From P.Lutus Source eph.c
+
+       Calculates the seconds since 1900 up to "now"?!.
+    */
+
+    {
+        double r;
+        int year,month,day;
+        int hour, minute, seconds;
+
+        /* Parser hh:mm:ss */
+        int position=Time.indexOf(":");
+        hour  =  Integer.valueOf(Time.substring(0,position));
+        minute = Integer.valueOf(Time.substring(position + 1, position=Time.indexOf(":", position+1)));
+        seconds= Integer.valueOf(Time.substring(position+1, Time.length()));
+
+        /* Parser dd.mm.yyyy */
+        position=Date.indexOf(".");
+        day  =  Integer.valueOf(Date.substring(0,position));
+        month = Integer.valueOf(Date.substring(position + 1, position=Date.indexOf(".", position+1)));
+        year= Integer.valueOf(Date.substring(position+1, Date.length()));
+
+        if(year > 1900)
+            year -= 1900;
+        month++;
+
+        if(month < 4)
+        {
+            month += 12;
+            year -= 1;
+        }
+
+        r = day + Math.floor(month * 30.6001) + (year * 365.25) - 63;
+        r = Math.floor(r);
+        r = (r * 24) + hour;
+        r = (r * 60) + minute;
+        r = (r * 60) + seconds;
+        return(r);
+    }
+
+     public static double cv (String Date, String Time) {
+         double cv = 0.0;  // CV is a correction multiplicator which depends on the days since 1900
+         try {
+             // mdy_sect returns the seconds since 1900
+             // Devided by 86400 give the days since 1900.
+             // The meaning of -29220.0 is not clear.
+             // This figure divided by 365.25 days give more or less the years since 1900.
+             // In my opinion this should produce a multiplier related to the date the eph data came from.
+             cv = (((mdy_sect(Date, Time)) / 86400.0) - 29220.0) / 365.25;
+         } catch (Exception e) {
+             cv = 0.0;
+         }
+         return cv;
+     }
 
 }

@@ -13,29 +13,151 @@ package com.nav.astronavigator;
        in the past 40 years came from the USA. Germans pay for nothing. But they pay now a price. A high price.
      */
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import java.lang.reflect.Constructor;
+import java.util.Locale;
+
 class STARS {
     String name;
     String name_ger;
     double magn;
     double semidiam;
     double dist;
-    double sha;
-    double shacor;
-    double decl;
-    double declcor;
+    double sha,sha_org;
+    double shacor,shacor_org;
+    double decl,decl_org;
+    double declcor,declcor_org;
+    com.nav.astronavigator.calculus c;
+    //public static final String MyPREFERENCES = "AstroNavPrefs" ;
+    //SharedPreferences sharedpreferences;
+    SharedPreferences na;
 
-    STARS (String name, double magn,  double sha, double shacor, double decl, double declcor)
+    STARS (SharedPreferences na,String name, double magn,  double sha, double shacor, double decl, double declcor)
     {
-            this.name=name;
-            this.magn=magn;
-            this.semidiam=0.0;
-            this.dist=0.0;
-            this.sha=sha;
-            this.shacor=shacor;
-            this.decl=decl;
-            this.declcor=declcor;
+        this.na=na;
+
+        if (this.na==null)
+        {
+            System.out.println("Shared Preferences are null for "+name+" (CelestialBodys class STARS)!");
+        }
+
+        this.name=name;
+        this.magn=magn;
+        this.semidiam=0.0;
+        this.dist=0.0;
+        this.sha=this.sha_org=sha;
+        this.shacor=this.shacor_org=shacor;
+        this.decl=this.decl_org=decl;
+        this.declcor=this.declcor_org=declcor;
+
+        /*
+            If there is Star Data in the Shared Prefs for this Star than use these instead!
+         */
+
+        //this.sharedpreferences = na.getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        //sharedpreferences = na.sharedpreferences;
+        //this.sharedpreferences = Context.getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+        if (na!=null) {
+            String tmp;
+            tmp = na.getString(this.name + "_SHA", "NA");
+            if (tmp != "NA") {
+                this.sha = Double.valueOf(tmp);
+            }
+            tmp = na.getString(this.name + "_SHACOR", "NA");
+            if (tmp != "NA") {
+                this.shacor = Double.valueOf(tmp);
+            }
+            tmp = na.getString(this.name + "_DECL", "NA");
+            if (tmp != "NA") {
+                this.decl = Double.valueOf(tmp);
+            }
+            tmp = na.getString(this.name + "_DECLCOR", "NA");
+            if (tmp != "NA") {
+                this.declcor = Double.valueOf(tmp);
+            }
+        }
+
+
     }
+    public void modifyStar ( double sha, double shacor, double decl, double declcor)
+    /*
+       Allow Users of AtroNavigator to modify Star Data.
+       This writes for each modified star data to the Shared Preferences.
+     */
+    {
+        //sharedpreferences = Context.getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        this.sha=sha;
+        this.shacor=shacor;
+        this.decl=decl;
+        this.declcor=declcor;
+
+        SharedPreferences.Editor editor = na.edit();
+        //Editor editor = sharedpreferences.edit();
+        editor.putString(this.name+"_SHA",String.valueOf(sha));
+        editor.putString(this.name+"_SHACOR",String.valueOf(shacor));
+        editor.putString(this.name+"_DECL",String.valueOf(decl));
+        editor.putString(this.name+"_DECLCOR",String.valueOf(declcor));
+        editor.apply();
+        //editor.commit();
+
+
+    }
+
+        public void modifyStar ( String sha, String shacor, String decl, String declcor)
+    /*
+       Allow Users of AtroNavigator to modify Star Data.
+       This writes for each modified star data to the Shared Preferences.
+     */
+        {
+            this.sha= c.DMS2Real(sha);
+            this.shacor=Double.valueOf(shacor);
+            this.decl=c.DMS2Real(decl);
+            this.declcor=Double.valueOf(declcor);
+
+            SharedPreferences.Editor editor = na.edit();
+            //Editor editor = sharedpreferences.edit();
+            editor.putString(this.name+"_SHA",String.valueOf(sha));
+            editor.putString(this.name+"_SHACOR",String.valueOf(shacor));
+            editor.putString(this.name+"_DECL",String.valueOf(decl));
+            editor.putString(this.name+"_DECLCOR",String.valueOf(declcor));
+            editor.apply();
+            //editor.commit();
+
+
+        }
+
+        public void delCustom()
+        {
+            SharedPreferences.Editor editor = na.edit();
+            //Editor editor = sharedpreferences.edit();
+
+            editor.remove(this.name+"_SHA");
+            editor.remove(this.name+"_SHACOR");
+            editor.remove(this.name+"_DECL");
+            editor.remove(this.name+"_DECLCOR");
+
+            editor.apply();
+            //editor.commit();
+
+            this.sha=this.sha_org;
+            this.shacor=this.shacor_org;
+            this.decl=this.decl_org;
+            this.declcor=this.declcor_org;
+        }
+
+
+        public String getCBName() { return name;}
+        public String getSHA() { return calculus.Real2DMS(sha);}
+        public String getSHAcor() { return String.format(Locale.ROOT,"%.12f",shacor);}
+        public String getDecl() { return calculus.Real2DMS(decl);}
+        public String getDeclCor() { return String.format(Locale.ROOT,"%.12f",declcor);}
+
 };
+
+
 
 
 public class CelestialBodys {
@@ -49,9 +171,11 @@ int selectedStar[]= new int[3];  // Welcher Stern wurde jeweils fuer 1,2,3 gewae
                              // In dem Array steht drin welcher Erster, Zweiter und Dritter ist.
                              // Damit dann mit denen gerechnet werden kann.
 
-
-CelestialBodys()
+    SharedPreferences na;
+CelestialBodys(SharedPreferences na)
 {
+    this.na=na;
+
     initStartable();
 }
 
@@ -66,77 +190,79 @@ void initStartable()
                                  SHA und DECL as given by NA2023 plus correction multiplier for SHA and DECLINATION.
          */
 
+
+
         /*
            ToDo: correct the corrections for SHA (SHACOR) and DECLINATION (DECLCOR). These values are not really proper in 2023 and next years.
         */
-        startable[0]=new STARS("acamar",            3.1 ,   c.DMS2Real("315°12.8'00.0\""),  -0.00942,  c.DMS2Real("S040°13.0'00.0\"") ,  0.004);
-        startable[1]=new STARS("achernar",          0.6 ,   c.DMS2Real("335°21.3'00.0\""),  -0.00917,  c.DMS2Real("S057°07.5'00.0\"") ,  0.005);
-        startable[2]=new STARS("acrux"   ,          1.1 ,   c.DMS2Real("173°01.9'00.0\""),  -0.0138,   c.DMS2Real("S063°13.2'00.0\""),  -0.0055);
-        startable[3]=new STARS("adhara"      ,      1.6 ,   c.DMS2Real("255°06.8'00.0\""),  -0.00983,  c.DMS2Real("S029°00.2'00.0\""),  -0.0014);
-        startable[4]=new STARS("aldebaran",         1.1 ,   c.DMS2Real("290°41.2'00.0\""),  -0.01425 ,  c.DMS2Real("016°33.3'00.0\"") ,  0.002);
+        startable[0]=new STARS(na,"acamar",            3.1 ,   c.DMS2Real("315°12.8'00.0\""),  -0.00942,  c.DMS2Real("S040°13.0'00.0\"") ,  0.004);
+        startable[1]=new STARS(na,"achernar",          0.6 ,   c.DMS2Real("335°21.3'00.0\""),  -0.00917,  c.DMS2Real("S057°07.5'00.0\"") ,  0.005);
+        startable[2]=new STARS(na,"acrux"   ,          1.1 ,   c.DMS2Real("173°01.9'00.0\""),  -0.0138,   c.DMS2Real("S063°13.2'00.0\""),  -0.0055);
+        startable[3]=new STARS(na,"adhara"      ,      1.6 ,   c.DMS2Real("255°06.8'00.0\""),  -0.00983,  c.DMS2Real("S029°00.2'00.0\""),  -0.0014);
+        startable[4]=new STARS(na,"aldebaran",         1.1 ,   c.DMS2Real("290°41.2'00.0\""),  -0.01425 ,  c.DMS2Real("016°33.3'00.0\"") ,  0.002);
 
-        startable[5]=new STARS("alioth",            1.7 ,   c.DMS2Real("166°14.5'00.0\""),  -0.0108  ,  c.DMS2Real("055°49.9'00.0\"") , -0.0053);
-        startable[6]=new STARS("alkaid" ,           1.9 ,   c.DMS2Real("152°53.5'00.0\""),  -0.0097  ,  c.DMS2Real("049°11.7'00.0\"") , -0.005);
-        startable[7]=new STARS("alnair" ,           2.2 ,   c.DMS2Real("027°35.3'00.0\""),  -0.0156  , c.DMS2Real("S046°51.2'00.0\"") ,  0.0048);
-        startable[8]=new STARS("alnilam",           1.8 ,   c.DMS2Real("275°39.1'00.0\""),  -0.0126  ,  c.DMS2Real("S001°11.3'00.0\"") ,  0.0006);
-        startable[9]=new STARS("alphard",           2.2 ,   c.DMS2Real("217°49.1'00.0\""),  -0.0122  ,  c.DMS2Real("S008°45.4'00.0\"") , -0.004);
+        startable[5]=new STARS(na,"alioth",            1.7 ,   c.DMS2Real("166°14.5'00.0\""),  -0.0108  ,  c.DMS2Real("055°49.9'00.0\"") , -0.0053);
+        startable[6]=new STARS(na,"alkaid" ,           1.9 ,   c.DMS2Real("152°53.5'00.0\""),  -0.0097  ,  c.DMS2Real("049°11.7'00.0\"") , -0.005);
+        startable[7]=new STARS(na,"alnair" ,           2.2 ,   c.DMS2Real("027°35.3'00.0\""),  -0.0156  , c.DMS2Real("S046°51.2'00.0\"") ,  0.0048);
+        startable[8]=new STARS(na,"alnilam",           1.8 ,   c.DMS2Real("275°39.1'00.0\""),  -0.0126  ,  c.DMS2Real("S001°11.3'00.0\"") ,  0.0006);
+        startable[9]=new STARS(na,"alphard",           2.2 ,   c.DMS2Real("217°49.1'00.0\""),  -0.0122  ,  c.DMS2Real("S008°45.4'00.0\"") , -0.004);
 
-        startable[10]=new STARS("alphecca" ,        2.3 ,   c.DMS2Real("126°05.4'00.0\""),  -0.0105  ,  c.DMS2Real("026°38.1'00.0\"") , -0.0033);
-        startable[11]=new STARS("alpheratz",        2.2 ,   c.DMS2Real("357°36.6'00.0\""),  -0.0128  ,  c.DMS2Real("029°13.1'00.0\"") ,  0.0055);
-        startable[12]=new STARS("altair",           0.9 ,   c.DMS2Real("062°01.9'00.0\""),  -0.01217 ,   c.DMS2Real("008°55.7'00.0\"") ,  0.00267);
-        startable[13]=new STARS("ankaa",            2.4 ,   c.DMS2Real("353°08.8'00.0\""),  -0.0123  , c.DMS2Real("S042°11.2'00.0\"") ,  0.0053);
-        startable[14]=new STARS("antares",          1.2 ,   c.DMS2Real("112°18.2'00.0\""),  -0.0153  , c.DMS2Real("S026°28.9'00.0\"") , -0.00217);
+        startable[10]=new STARS(na,"alphecca" ,        2.3 ,   c.DMS2Real("126°05.4'00.0\""),  -0.0105  ,  c.DMS2Real("026°38.1'00.0\"") , -0.0033);
+        startable[11]=new STARS(na,"alpheratz",        2.2 ,   c.DMS2Real("357°36.6'00.0\""),  -0.0128  ,  c.DMS2Real("029°13.1'00.0\"") ,  0.0055);
+        startable[12]=new STARS(na,"altair",           0.9 ,   c.DMS2Real("062°01.9'00.0\""),  -0.01217 ,   c.DMS2Real("008°55.7'00.0\"") ,  0.00267);
+        startable[13]=new STARS(na,"ankaa",            2.4 ,   c.DMS2Real("353°08.8'00.0\""),  -0.0123  , c.DMS2Real("S042°11.2'00.0\"") ,  0.0053);
+        startable[14]=new STARS(na,"antares",          1.2 ,   c.DMS2Real("112°18.2'00.0\""),  -0.0153  , c.DMS2Real("S026°28.9'00.0\"") , -0.00217);
 
-        startable[15]=new STARS("arcturus",         0.2 ,   c.DMS2Real("145°49.6'00.0\""),  -0.0113  ,  c.DMS2Real("019°03.7'00.0\"") , -0.00517);
-        startable[16]=new STARS("atria",            1.9 ,   c.DMS2Real("107°14.5'00.0\""),  -0.026   , c.DMS2Real("S069°03.9'00.0\"") , -0.00175);
-        startable[17]=new STARS("avior",            1.7 ,   c.DMS2Real("234°14.8'00.0\""),  -0.0051  , c.DMS2Real("S059°34.8'00.0\"") , -0.0032);
-        startable[18]=new STARS("bellatrix",        1.7 ,   c.DMS2Real("278°24.3'00.0\""),  -0.0133  ,   c.DMS2Real("006°22.2'00.0\"") ,  0.0008);
-        startable[19]=new STARS("betelgeuse",       0.6 ,   c.DMS2Real("270°53.6'00.0\""),  -0.0134  ,   c.DMS2Real("007°24.7'00.0\"") ,  0.0002);
+        startable[15]=new STARS(na,"arcturus",         0.2 ,   c.DMS2Real("145°49.6'00.0\""),  -0.0113  ,  c.DMS2Real("019°03.7'00.0\"") , -0.00517);
+        startable[16]=new STARS(na,"atria",            1.9 ,   c.DMS2Real("107°14.5'00.0\""),  -0.026   , c.DMS2Real("S069°03.9'00.0\"") , -0.00175);
+        startable[17]=new STARS(na,"avior",            1.7 ,   c.DMS2Real("234°14.8'00.0\""),  -0.0051  , c.DMS2Real("S059°34.8'00.0\"") , -0.0032);
+        startable[18]=new STARS(na,"bellatrix",        1.7 ,   c.DMS2Real("278°24.3'00.0\""),  -0.0133  ,   c.DMS2Real("006°22.2'00.0\"") ,  0.0008);
+        startable[19]=new STARS(na,"betelgeuse",       0.6 ,   c.DMS2Real("270°53.6'00.0\""),  -0.0134  ,   c.DMS2Real("007°24.7'00.0\"") ,  0.0002);
 
-        startable[20]=new STARS("canopus",         -0.9 ,   c.DMS2Real("263°52.6'00.0\""),  -0.0056  , c.DMS2Real("S052°42.5'00.0\"") , -0.0006);
-        startable[21]=new STARS("capella",          0.2 ,   c.DMS2Real("280°23.9'00.0\""),  -0.0183  , c.DMS2Real("046°01.3'00.0\"") ,  0.0009);
-        startable[22]=new STARS("deneb",            1.3 ,   c.DMS2Real("049°27.4'00.0\""),  -0.0084 , c.DMS2Real("045°21.8'00.0\"") ,  0.0036);
-        startable[23]=new STARS("denebola",         2.2 ,   c.DMS2Real("182°26.6'00.0\""),  -0.0127  ,  c.DMS2Real("014°26.6'00.0\"") , -0.0055);
-        startable[24]=new STARS("diphda",           2.2 ,   c.DMS2Real("348°49.0'00.0\""),  -0.0125  , c.DMS2Real("S017°51.8'00.0\"") ,  0.0054);
+        startable[20]=new STARS(na,"canopus",         -0.9 ,   c.DMS2Real("263°52.6'00.0\""),  -0.0056  , c.DMS2Real("S052°42.5'00.0\"") , -0.0006);
+        startable[21]=new STARS(na,"capella",          0.2 ,   c.DMS2Real("280°23.9'00.0\""),  -0.0183  , c.DMS2Real("046°01.3'00.0\"") ,  0.0009);
+        startable[22]=new STARS(na,"deneb",            1.3 ,   c.DMS2Real("049°27.4'00.0\""),  -0.0084 , c.DMS2Real("045°21.8'00.0\"") ,  0.0036);
+        startable[23]=new STARS(na,"denebola",         2.2 ,   c.DMS2Real("182°26.6'00.0\""),  -0.0127  ,  c.DMS2Real("014°26.6'00.0\"") , -0.0055);
+        startable[24]=new STARS(na,"diphda",           2.2 ,   c.DMS2Real("348°49.0'00.0\""),  -0.0125  , c.DMS2Real("S017°51.8'00.0\"") ,  0.0054);
 
-        startable[25]=new STARS("dubhe",            2.0 ,   c.DMS2Real("193°42.8'00.0\""),  -0.0153  ,  c.DMS2Real("061°37.4'00.0\"") , -0.0054);
-        startable[26]=new STARS("elnath",           1.8 ,   c.DMS2Real("278°03.6'00.0\""),  -0.0157  ,  c.DMS2Real("028°37.6'00.0\"") ,  0.0008);
-        startable[27]=new STARS("eltanin",          2.4 ,    c.DMS2Real("090°43.5'00.0\""),  -0.0058  ,  c.DMS2Real("051°29.0'00.0\"") , -0.0001);
-        startable[28]=new STARS("enif",             2.5 ,    c.DMS2Real("033°40.7'00.0\""),  -0.0122  ,   c.DMS2Real("009°58.8'00.0\"") ,  0.0045);
-        startable[29]=new STARS("fomalhaut",        1.3 ,    c.DMS2Real("015°16.5'00.0\""),  -0.0138  , c.DMS2Real("S029°30.3'00.0\"") ,  0.0053);
+        startable[25]=new STARS(na,"dubhe",            2.0 ,   c.DMS2Real("193°42.8'00.0\""),  -0.0153  ,  c.DMS2Real("061°37.4'00.0\"") , -0.0054);
+        startable[26]=new STARS(na,"elnath",           1.8 ,   c.DMS2Real("278°03.6'00.0\""),  -0.0157  ,  c.DMS2Real("028°37.6'00.0\"") ,  0.0008);
+        startable[27]=new STARS(na,"eltanin",          2.4 ,    c.DMS2Real("090°43.5'00.0\""),  -0.0058  ,  c.DMS2Real("051°29.0'00.0\"") , -0.0001);
+        startable[28]=new STARS(na,"enif",             2.5 ,    c.DMS2Real("033°40.7'00.0\""),  -0.0122  ,   c.DMS2Real("009°58.8'00.0\"") ,  0.0045);
+        startable[29]=new STARS(na,"fomalhaut",        1.3 ,    c.DMS2Real("015°16.5'00.0\""),  -0.0138  , c.DMS2Real("S029°30.3'00.0\"") ,  0.0053);
 
-        startable[30]=new STARS("gacrux",           1.6 ,   c.DMS2Real("171°53.5'00.0\""),  -0.0138  , c.DMS2Real("S057°14.2'00.0\"") , -0.0055);
-        startable[31]=new STARS("gienah",           2.8 ,   c.DMS2Real("175°45.3'00.0\""),  -0.0128  , c.DMS2Real("S017°40.0'00.0\""), -0.0055);
-        startable[32]=new STARS("hadar",            0.9 ,   c.DMS2Real("148°38.6'00.0\""),  -0.0176  , c.DMS2Real("S060°28.7'00.0\"") , -0.0048);
-        startable[33]=new STARS("hamal",            2.2 ,   c.DMS2Real("327°52.9'00.0\""),  -0.014   ,  c.DMS2Real("023°34.3'00.0\"") ,  0.0047);
-        startable[34]=new STARS("kaus australis",   2.0 ,    c.DMS2Real("083°35.1'00.0\""),  -0.0164  , c.DMS2Real("S034°22.4'00.0\"") , -0.0006);
+        startable[30]=new STARS(na,"gacrux",           1.6 ,   c.DMS2Real("171°53.5'00.0\""),  -0.0138  , c.DMS2Real("S057°14.2'00.0\"") , -0.0055);
+        startable[31]=new STARS(na,"gienah",           2.8 ,   c.DMS2Real("175°45.3'00.0\""),  -0.0128  , c.DMS2Real("S017°40.0'00.0\""), -0.0055);
+        startable[32]=new STARS(na,"hadar",            0.9 ,   c.DMS2Real("148°38.6'00.0\""),  -0.0176  , c.DMS2Real("S060°28.7'00.0\"") , -0.0048);
+        startable[33]=new STARS(na,"hamal",            2.2 ,   c.DMS2Real("327°52.9'00.0\""),  -0.014   ,  c.DMS2Real("023°34.3'00.0\"") ,  0.0047);
+        startable[34]=new STARS(na,"kaus australis",   2.0 ,    c.DMS2Real("083°35.1'00.0\""),  -0.0164  , c.DMS2Real("S034°22.4'00.0\"") , -0.0006);
 
-        startable[35]=new STARS("kochab",           2.2 ,   c.DMS2Real("137°20.4'00.0\""),   0.0007  ,  c.DMS2Real("074°03.4'00.0\"") , -0.0041);
-        startable[36]=new STARS("markab",           2.6 ,   c.DMS2Real("013°31.7'00.0\""),  -0.0124  ,  c.DMS2Real("015°19.7'00.0\"") ,  0.0053);
-        startable[37]=new STARS("menkar",           2.8 ,   c.DMS2Real("314°07.7'00.0\""),  -0.013   ,   c.DMS2Real("004°10.7'00.0\"") ,  0.0039);
-        startable[38]=new STARS("menkent",          2.3 ,   c.DMS2Real("147°59.7'00.0\""),  -0.0146  , c.DMS2Real("S036°28.8'00.0\"") , -0.0048);
-        startable[39]=new STARS("miaplacidus",      1.8 ,   c.DMS2Real("221°37.8'00.0\""),  -0.0028  , c.DMS2Real("S069°48.4'00.0\"") , -0.0041);
+        startable[35]=new STARS(na,"kochab",           2.2 ,   c.DMS2Real("137°20.4'00.0\""),   0.0007  ,  c.DMS2Real("074°03.4'00.0\"") , -0.0041);
+        startable[36]=new STARS(na,"markab",           2.6 ,   c.DMS2Real("013°31.7'00.0\""),  -0.0124  ,  c.DMS2Real("015°19.7'00.0\"") ,  0.0053);
+        startable[37]=new STARS(na,"menkar",           2.8 ,   c.DMS2Real("314°07.7'00.0\""),  -0.013   ,   c.DMS2Real("004°10.7'00.0\"") ,  0.0039);
+        startable[38]=new STARS(na,"menkent",          2.3 ,   c.DMS2Real("147°59.7'00.0\""),  -0.0146  , c.DMS2Real("S036°28.8'00.0\"") , -0.0048);
+        startable[39]=new STARS(na,"miaplacidus",      1.8 ,   c.DMS2Real("221°37.8'00.0\""),  -0.0028  , c.DMS2Real("S069°48.4'00.0\"") , -0.0041);
 
-        startable[40]=new STARS("mirfak",           1.9 ,   c.DMS2Real("308°30.3'00.0\""),  -0.0178  ,  c.DMS2Real("049°56.7'00.0\"") ,  0.0035);
-        startable[41]=new STARS("nunki",            2.1 ,   c.DMS2Real("075°50.2'00.0\""),  -0.0154  , c.DMS2Real("S026°16.1'00.0\"") ,  0.0013);
-        startable[42]=new STARS("peacock",          2.1 ,   c.DMS2Real("053°08.9'00.0\""),  -0.0196  , c.DMS2Real("S056°39.8'00.0\"") ,  0.0033);
-        startable[43]=new STARS("pollux",           1.2 ,   c.DMS2Real("243°19.0'00.0\""),  -0.0152  ,  c.DMS2Real("027°58.2'00.0\"") , -0.0024);
-        startable[44]=new STARS("procyon",          0.5 ,   c.DMS2Real("244°52.3'00.0\""),  -0.013   ,   c.DMS2Real("005°09.9'00.0\"") , -0.0026);
+        startable[40]=new STARS(na,"mirfak",           1.9 ,   c.DMS2Real("308°30.3'00.0\""),  -0.0178  ,  c.DMS2Real("049°56.7'00.0\"") ,  0.0035);
+        startable[41]=new STARS(na,"nunki",            2.1 ,   c.DMS2Real("075°50.2'00.0\""),  -0.0154  , c.DMS2Real("S026°16.1'00.0\"") ,  0.0013);
+        startable[42]=new STARS(na,"peacock",          2.1 ,   c.DMS2Real("053°08.9'00.0\""),  -0.0196  , c.DMS2Real("S056°39.8'00.0\"") ,  0.0033);
+        startable[43]=new STARS(na,"pollux",           1.2 ,   c.DMS2Real("243°19.0'00.0\""),  -0.0152  ,  c.DMS2Real("027°58.2'00.0\"") , -0.0024);
+        startable[44]=new STARS(na,"procyon",          0.5 ,   c.DMS2Real("244°52.3'00.0\""),  -0.013   ,   c.DMS2Real("005°09.9'00.0\"") , -0.0026);
 
-        startable[45]=new STARS("rasalhague",       2.1 ,    c.DMS2Real("096°00.4'00.0\""),  -0.0115  ,  c.DMS2Real("012°32.5'00.0\"") , -0.0007);
-        startable[46]=new STARS("regulus",          1.3 ,    c.DMS2Real("207°36.0'00.0\""),  -0.0133  ,  c.DMS2Real("011°51.3'00.0\"") , -0.00492);
-        startable[47]=new STARS("rigel",            0.3 ,    c.DMS2Real("281°05.2'00.0\""),  -0.012   ,  c.DMS2Real("S008°10.6'00.0\"") ,  0.0011);
-        startable[48]=new STARS("rigil kentaurus",  0.1 ,    c.DMS2Real("139°42.9'00.0\""),  -0.017   , c.DMS2Real("S060°55.5'00.0\"") , -0.004);
-        startable[49]=new STARS("sabik",            2.6 ,   c.DMS2Real("102°05.0'00.0\""),  -0.0143  , c.DMS2Real("S015°45.2'00.0\"") , -0.0012);
+        startable[45]=new STARS(na,"rasalhague",       2.1 ,    c.DMS2Real("096°00.4'00.0\""),  -0.0115  ,  c.DMS2Real("012°32.5'00.0\"") , -0.0007);
+        startable[46]=new STARS(na,"regulus",          1.3 ,    c.DMS2Real("207°36.0'00.0\""),  -0.0133  ,  c.DMS2Real("011°51.3'00.0\"") , -0.00492);
+        startable[47]=new STARS(na,"rigel",            0.3 ,    c.DMS2Real("281°05.2'00.0\""),  -0.012   ,  c.DMS2Real("S008°10.6'00.0\"") ,  0.0011);
+        startable[48]=new STARS(na,"rigil kentaurus",  0.1 ,    c.DMS2Real("139°42.9'00.0\""),  -0.017   , c.DMS2Real("S060°55.5'00.0\"") , -0.004);
+        startable[49]=new STARS(na,"sabik",            2.6 ,   c.DMS2Real("102°05.0'00.0\""),  -0.0143  , c.DMS2Real("S015°45.2'00.0\"") , -0.0012);
 
-        startable[50]=new STARS("schedar",          2.5 ,    c.DMS2Real("349°32.9'00.0\""),  -0.0142  ,  c.DMS2Real("056°40.0'00.0\"") ,  0.0054);
-        startable[51]=new STARS("shaula",           1.7 ,    c.DMS2Real("096°13.1'00.0\""),  -0.0169  , c.DMS2Real("S037°07.2'00.0\"") , -0.0008);
-        startable[52]=new STARS("sirius",          -1.6 ,    c.DMS2Real("258°27.4'00.0\""),  -0.0109  , c.DMS2Real("S016°44.9'00.0\"") , -0.0014);
-        startable[53]=new STARS("spica",            1.2 ,   c.DMS2Real("158°24.1'00.0\""),  -0.0131  , c.DMS2Real("S011°16.8'00.0\"") , -0.0051);
-        startable[54]=new STARS("suhail",           2.2 ,   c.DMS2Real("222°47.2'00.0\""),  -0.009   , c.DMS2Real("S043°31.3'00.0\"") , -0.004);
+        startable[50]=new STARS(na,"schedar",          2.5 ,    c.DMS2Real("349°32.9'00.0\""),  -0.0142  ,  c.DMS2Real("056°40.0'00.0\"") ,  0.0054);
+        startable[51]=new STARS(na,"shaula",           1.7 ,    c.DMS2Real("096°13.1'00.0\""),  -0.0169  , c.DMS2Real("S037°07.2'00.0\"") , -0.0008);
+        startable[52]=new STARS(na,"sirius",          -1.6 ,    c.DMS2Real("258°27.4'00.0\""),  -0.0109  , c.DMS2Real("S016°44.9'00.0\"") , -0.0014);
+        startable[53]=new STARS(na,"spica",            1.2 ,   c.DMS2Real("158°24.1'00.0\""),  -0.0131  , c.DMS2Real("S011°16.8'00.0\"") , -0.0051);
+        startable[54]=new STARS(na,"suhail",           2.2 ,   c.DMS2Real("222°47.2'00.0\""),  -0.009   , c.DMS2Real("S043°31.3'00.0\"") , -0.004);
 
-        startable[55]=new STARS("vega",             0.1 ,    c.DMS2Real("080°34.8'00.0\""),  -0.0084  ,  c.DMS2Real("038°48.2'00.0\"") ,  0.001);
-        startable[56]=new STARS("zuben el genubi",  2.9 ,    c.DMS2Real("136°58.1'00.0\""),  -0.0138  , c.DMS2Real("S016°08.1'00.0\"") , -0.0041);
+        startable[55]=new STARS(na,"vega",             0.1 ,    c.DMS2Real("080°34.8'00.0\""),  -0.0084  ,  c.DMS2Real("038°48.2'00.0\"") ,  0.001);
+        startable[56]=new STARS(na,"zuben el genubi",  2.9 ,    c.DMS2Real("136°58.1'00.0\""),  -0.0138  , c.DMS2Real("S016°08.1'00.0\"") , -0.0041);
 
     };
 
@@ -266,15 +392,15 @@ void initStartable()
             /*
                  ToDo: Defaults setzen!!!
              */
-            startable[57]=new STARS("SUN",    0 ,   0,  0  , 0 , 0);
-            startable[58]=new STARS("MERCURY",    0 ,   0,  0  , 0 , 0);
-            startable[59]=new STARS("MARS",    0 ,   0,  0  , 0 , 0);
-            startable[60]=new STARS("JUPITER",    0 ,   0,  0  , 0 , 0);
-            startable[61]=new STARS("SATURN",    0 ,   0,  0  , 0 , 0);
-            startable[62]=new STARS("URANUS",    0 ,   0,  0  , 0 , 0);
-            startable[63]=new STARS("NEPTUNE",    0 ,   0,  0  , 0 , 0);
-            startable[64]=new STARS("PLUTO",    0 ,   0,  0  , 0 , 0);
-            startable[65]=new STARS("MOON",    0 ,   0,  0  , 0 , 0);
+            startable[57]=new STARS(na,"SUN",    0 ,   0,  0  , 0 , 0);
+            startable[58]=new STARS(na,"MERCURY",    0 ,   0,  0  , 0 , 0);
+            startable[59]=new STARS(na,"MARS",    0 ,   0,  0  , 0 , 0);
+            startable[60]=new STARS(na,"JUPITER",    0 ,   0,  0  , 0 , 0);
+            startable[61]=new STARS(na,"SATURN",    0 ,   0,  0  , 0 , 0);
+            startable[62]=new STARS(na,"URANUS",    0 ,   0,  0  , 0 , 0);
+            startable[63]=new STARS(na,"NEPTUNE",    0 ,   0,  0  , 0 , 0);
+            startable[64]=new STARS(na,"PLUTO",    0 ,   0,  0  , 0 , 0);
+            startable[65]=new STARS(na,"MOON",    0 ,   0,  0  , 0 , 0);
 
 
         }

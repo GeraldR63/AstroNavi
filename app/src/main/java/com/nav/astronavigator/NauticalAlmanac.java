@@ -40,7 +40,7 @@ public class NauticalAlmanac extends Fragment {
      */
 
     com.nav.astronavigator.NADataAndCalc NADataAndCalc=new NADataAndCalc();
-    com.nav.astronavigator.CelestialBodys CelestialBodys=new CelestialBodys();
+    com.nav.astronavigator.CelestialBodys CelestialBodys; //=new CelestialBodys(this);
     printSightRedcution printSightRedcution;
 
     Boolean bCalculated=false;                       // Wird zum Drucken gebraucht. Drucken nur nach erfolgreicher Berechnung.
@@ -66,7 +66,8 @@ public class NauticalAlmanac extends Fragment {
      Button      pbNextCB;
      Button      pbPrevCB;
      Button      pbCalcNA;
-     CheckBox    checkBoxCalcMode;
+     //CheckBox    checkBoxCalcMode;
+     Button      pbCBS;                    // Change Celestial Body Defaults
      Button      pbDefaultsNA;
      Button      pbSextant;
      Button      pbIncrCharset;
@@ -108,6 +109,7 @@ public class NauticalAlmanac extends Fragment {
 
         binding = FragmentSecondBinding.inflate(inflater, container, false);
         sharedpreferences = getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
         return binding.getRoot();
 
     }
@@ -165,7 +167,7 @@ public class NauticalAlmanac extends Fragment {
         mdfHeading.setTextSize(pxFromDp(dp, getActivity()));
         mdfSpeed.setTextSize(pxFromDp(dp, getActivity()));
         pbCalcNA.setTextSize(pxFromDp(dp, getActivity()));
-        //checkBoxCalcMode.setTextSize(pxFromDp(dp, getActivity()));
+        pbCBS.setTextSize(pxFromDp(dp, getActivity()));
         pbDefaultsNA.setTextSize(pxFromDp(dp, getActivity()));
         pbSextant.setTextSize(pxFromDp(dp, getActivity()));
         pbNextCB.setTextSize(pxFromDp(dp, getActivity()));
@@ -196,48 +198,6 @@ public class NauticalAlmanac extends Fragment {
         mdfPosition.setTextSize(pxFromDp(dp, getActivity()));
         mdfStatus.setTextSize(pxFromDp(dp, getActivity()));
     }
-double mdy_sect(String Date, String Time)
-    /*
-       From P.Lutus Source eph.c
-
-       Calculates the seconds since 1900 up to "now"?!.
-    */
-
-{
-double r;
-int year,month,day;
-int hour, minute, seconds;
-
-/* Parser hh:mm:ss */
-        int position=Time.indexOf(":");
-        hour  =  Integer.valueOf(Time.substring(0,position));
-        minute = Integer.valueOf(Time.substring(position + 1, position=Time.indexOf(":", position+1)));
-        seconds= Integer.valueOf(Time.substring(position+1, Time.length()));
-
-        /* Parser dd.mm.yyyy */
-        position=Date.indexOf(".");
-        day  =  Integer.valueOf(Date.substring(0,position));
-        month = Integer.valueOf(Date.substring(position + 1, position=Date.indexOf(".", position+1)));
-        year= Integer.valueOf(Date.substring(position+1, Date.length()));
-
-        if(year > 1900)
-            year -= 1900;
-        month++;
-
-        if(month < 4)
-        {
-            month += 12;
-            year -= 1;
-        }
-
-        r = day + Math.floor(month * 30.6001) + (year * 365.25) - 63;
-        r = Math.floor(r);
-        r = (r * 24) + hour;
-        r = (r * 60) + minute;
-        r = (r * 60) + seconds;
-        return(r);
-    }
-
 
     void calculate(View view)
     {
@@ -249,18 +209,8 @@ int hour, minute, seconds;
 	        gha = ghaa + (startable[i].sha + (startable[i].shacor * cv));
 			dec = startable[i].decl + (startable[i].declcor * cv);
          */
-        double cv=0.0;  // CV is a correction multiplicator which depends on the days since 1900
-        try {
-            // mdy_sect returns the seconds since 1900
-            // Devided by 86400 give the days since 1900.
-            // The meaning of -29220.0 is not clear.
-            // This figure divided by 365.25 days give more or less the years since 1900.
-            // In my opinion this should produce a multiplier related to the date the eph data came from.
-            cv = ((mdy_sect(String.valueOf(mdfObservedDate.getText()), String.valueOf(mdfObservedTime.getText())) / 86400.0) - 29220.0)/365.25;
-        } catch (Exception e)
-        {
-             cv=0.0;
-        }
+
+        double cv=calculus.cv(String.valueOf(mdfObservedDate.getText()), String.valueOf(mdfObservedTime.getText()));
 
         mdfCBName.setText(CelestialBodys.startable[CBcounter[activeStar-1]].name.toUpperCase());
         try {
@@ -297,6 +247,7 @@ int hour, minute, seconds;
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        CelestialBodys=new CelestialBodys(sharedpreferences);
 
         mdfDate=getView().findViewById(R.id.dfDate);
         mdfTime=getView().findViewById(R.id.dfTime);
@@ -313,9 +264,7 @@ int hour, minute, seconds;
              but he can correct these values by using Nautical Almanac.
          */
 
-        checkBoxCalcMode=getView().findViewById(R.id.checkBoxCalcMode); //Calculation NA oder P.Lutus
-        checkBoxCalcMode.setChecked(true);                              //Default NA usage
-        checkBoxCalcMode.setVisibility(View.INVISIBLE);
+        pbCBS=getView().findViewById(R.id.pbStarCorrection); //Calculation NA oder P.Lutus
 
 
         pbDefaultsNA=getView().findViewById(R.id.pbDefaultsNA);
@@ -559,8 +508,6 @@ int hour, minute, seconds;
                 // Maske abspeichern, damit Aenderungen bei der Berechnung beruecksichtigt werden.
                 SaveCBrelatedData(postFixLast,false);
 
-                if (checkBoxCalcMode.isChecked())
-                {
                     try {
                         msg.ShowSnackbar("Calculation using NA");
                         mdfPosition.setText(NADataAndCalc.Calculate(view, NauticalAlmanac.this, sharedpreferences));
@@ -571,36 +518,23 @@ int hour, minute, seconds;
                         msg.ShowSnackbar("Input error. Check DMS format!");
                     }
 
-                }
-                else
-                {
-                    msg.ShowSnackbar("Calculation by ideas of P.Lutus");
-                    bCalculated=true;  // Fake. Austricksen. Kann zu Fehlern fuehren.
-                }
 
 
             }
         });
 
-        checkBoxCalcMode.setOnClickListener(new View.OnClickListener() {
+        pbCBS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DelayedMessage msg=new DelayedMessage(view);
-
-                if (checkBoxCalcMode.isChecked())
-                {
-                    manageVisibilityNA(View.VISIBLE);
-                    msg.ShowSnackbar("Mode: NA");
-                }
-                else
-                {
-                    manageVisibilityNA(View.INVISIBLE);
-                    msg.ShowSnackbar("Mode: P.Lutus");
-                }
+                    msg.ShowSnackbar("Set CB Defaults by yourself!");
+                NavHostFragment.findNavController(NauticalAlmanac.this)
+                        .navigate(R.id.action_SecondFragment_to_CBCorrection);
 
 
             }
         });
+
         binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

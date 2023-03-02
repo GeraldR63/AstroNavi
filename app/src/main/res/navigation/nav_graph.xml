@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_SecondFragment_to_Sextant"
             app:destination="@id/Sextant" />
+        <action
+            android:id="@+id/action_SecondFragment_to_CBCorrection"
+            app:destination="@id/frameCBCorrection" />
     </fragment>
     <fragment
         android:id="@+id/Sextant"
@@ -44,4 +47,15 @@
             android:id="@+id/action_Sextant_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/frameCBCorrection"
+        android:name="com.nav.astronavigator.Fragment_CBCorrection"
+        android:label="Celestial Body Correction"
+        tools:layout="@layout/fragment__c_b_correction">
+
+        <action
+            android:id="@+id/action_CBCorrection_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
+
 </navigation>

@@ -2,16 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/sextant"
+    android:id="@+id/celestialcorr"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment_sextant">
+    tools:context=".fragment_sextant"
+    >
 
 
     <!-- TODO: Update blank fragment layout -->
 
     <EditText
-        android:id="@+id/dfCBCorrections"
+        android:id="@+id/dfCBCorrName"
         android:layout_width="130dp"
         android:layout_height="40dp"
         android:layout_marginStart="165dp"
@@ -23,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/textView117"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -33,7 +34,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/dfHoCorr"
+        android:id="@+id/dfCorrectionDeclination"
         android:layout_width="150dp"
         android:layout_height="43dp"
         android:layout_marginStart="165dp"
@@ -45,7 +46,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView20"
+        android:id="@+id/textView120"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -55,7 +56,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/dfIndexCorr"
+        android:id="@+id/dfCorrectionDeclCorr"
         android:layout_width="150dp"
         android:layout_height="43dp"
         android:layout_marginStart="165dp"
@@ -67,7 +68,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/pbBackToSecondFrag"
+        android:id="@+id/pbCRBackToSecondFrag"
         android:layout_width="180dp"
         android:layout_height="40dp"
         android:layout_marginStart="88dp"
@@ -111,7 +112,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/textView112"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -197,7 +198,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/dfHCCorrected"
+        android:id="@+id/dfCorrectionSHAcorr"
         android:layout_width="150dp"
         android:layout_height="43dp"
         android:layout_marginStart="165dp"
@@ -210,7 +211,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView32"
+        android:id="@+id/textView132"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -230,7 +231,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView35"
+        android:id="@+id/textView135"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -240,7 +241,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/dfHCDMS"
+        android:id="@+id/dfCorrectionSHA"
         android:layout_width="150dp"
         android:layout_height="43dp"
         android:layout_marginStart="165dp"
@@ -252,7 +253,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/pbIncSCCharset"
+        android:id="@+id/pbIncCRCharset"
         android:layout_width="60dp"
         android:layout_height="40dp"
         android:layout_marginStart="4dp"
@@ -262,7 +263,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/pbDecSCCharset"
+        android:id="@+id/pbDecCRCharset"
         android:layout_width="60dp"
         android:layout_height="40dp"
         android:layout_marginStart="288dp"

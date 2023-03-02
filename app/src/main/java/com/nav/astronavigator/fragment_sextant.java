@@ -11,16 +11,12 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-
-import com.nav.astronavigator.databinding.FragmentSextantBinding;
-import com.nav.astronavigator.calculus;
 import com.nav.astronavigator.databinding.FragmentSextantBinding;
     /*
        (w) 2022 to 2023 by Gerald Roehrbein
@@ -193,22 +189,22 @@ public class fragment_sextant extends Fragment {
         }
 
 
-        pbIncrCharset = getView().findViewById(R.id.pbIncSCCharset);
-        pbDecrCharset = getView().findViewById(R.id.pbDecSCCharset);
+        pbIncrCharset = getView().findViewById(R.id.pbIncCRCharset);
+        pbDecrCharset = getView().findViewById(R.id.pbDecCRCharset);
 
-        pbBack = getView().findViewById(R.id.pbBackToSecondFrag);
+        pbBack = getView().findViewById(R.id.pbCRBackToSecondFrag);
 
         pbReset = getView().findViewById(R.id.pbReset);
 
 
-        dfCB=getView().findViewById(R.id.dfCBCorrections);
+        dfCB=getView().findViewById(R.id.dfCBCorrName);
 
         dfCB.setText("CB#"+postFix.substring(1,2));
         dfCB.setEnabled(false);
         //dfCB.setBackgroundColor(Color.GRAY);
-        dfHo=getView().findViewById(R.id.dfHoCorr);
+        dfHo=getView().findViewById(R.id.dfCorrectionDeclination);
 
-        dfIndexCorrectionIC=getView().findViewById(R.id.dfIndexCorr);
+        dfIndexCorrectionIC=getView().findViewById(R.id.dfCorrectionDeclCorr);
 
         dfDIP=getView().findViewById(R.id.dfDIPCorr);
 
@@ -223,11 +219,11 @@ public class fragment_sextant extends Fragment {
 
         dfAdditionalCorrections=getView().findViewById(R.id.dfAdditionalCorr);
 
-        dfHc=getView().findViewById(R.id.dfHCCorrected);
+        dfHc=getView().findViewById(R.id.dfCorrectionSHAcorr);
 
         dfHc.setEnabled(false);
         dfHc.setTextColor(Color.BLACK);
-        dfHcDMS=getView().findViewById(R.id.dfHCDMS);
+        dfHcDMS=getView().findViewById(R.id.dfCorrectionSHA);
 
         dfHcDMS.setTextColor(Color.BLACK);
         dfHcDMS.setEnabled(false);

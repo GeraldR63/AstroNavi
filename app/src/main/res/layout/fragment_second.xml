@@ -178,7 +178,7 @@
         android:id="@+id/dfFixTime"
         android:layout_width="100dp"
         android:layout_height="43dp"
-        android:layout_marginStart="72dp"
+        android:layout_marginStart="76dp"
         android:layout_marginTop="264dp"
         android:backgroundTint="#4CAF50"
         android:ems="10"
@@ -455,20 +455,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <CheckBox
-        android:id="@+id/checkBoxCalcMode"
-        android:layout_width="193dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="304dp"
-        android:text="By NA or Calculated"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/pbSextant"
         android:layout_width="130dp"
-        android:layout_height="38dp"
+        android:layout_height="40dp"
         android:layout_marginStart="256dp"
         android:layout_marginTop="344dp"
         android:text="Ho2Hc"
@@ -502,6 +492,15 @@
         android:layout_marginStart="316dp"
         android:layout_marginTop="216dp"
         android:text="SRF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/pbStarCorrection"
+        android:layout_width="75dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="308dp"
+        android:text="CBs"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

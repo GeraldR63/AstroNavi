@@ -80,6 +80,12 @@ Version History Log:
     <td>RN</td>
     <td>Minor bugfix related to form management and restart of the application. After restart of the application false CB names shown in "Nautical Almanac" dialog. This came from  changes required to have the internal calculations of GHA, SHA and DECLINATION because the displayed names come from internal ARRAY and not from SharedPreferences anymore. I will have to change the whole code to reduce complexity of display management. However. It works now.</td>
   </tr>
+    <tr>
+    <td>20230303</td>
+    <td>00:00 GMT</td>
+    <td>RN</td>
+    <td>Added a dialog to allow a user to change GHA,GHAcor, DECLINATION, DECcorr for all of the Celestial Bodys to have as best as possible accuracy.</td>
+  </tr>
   
 
 </table> 

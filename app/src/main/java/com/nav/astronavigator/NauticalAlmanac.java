@@ -114,7 +114,8 @@ public class NauticalAlmanac extends Fragment {
 
     public void refreshCBrelatedData(String postFix)
     {
-        mdfCBName.setText(sharedpreferences.getString("CBName"+postFix, "Regulus"));
+        //mdfCBName.setText(sharedpreferences.getString("CBName"+postFix, "Regulus"));
+        mdfCBName.setText(CelestialBodys.startable[CBcounter[activeStar-1]].name.toUpperCase());
         mdfFixTime.setText( sharedpreferences.getString("FixTime", "11:55:00"));
         mdfObservedTime.setText( sharedpreferences.getString("ObservedTime"+postFix, "11:55:00"));
         mdfObservedDate.setText( sharedpreferences.getString("ObservedDate"+postFix, "01.01.2023"));
@@ -603,6 +604,7 @@ int hour, minute, seconds;
         binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SaveCBrelatedData(postFixLast,false);
                 NavHostFragment.findNavController(NauticalAlmanac.this)
                         .navigate(R.id.action_SecondFragment_to_FirstFragment);
             }
@@ -628,6 +630,7 @@ int hour, minute, seconds;
                     activeStar=3;
                 }
 
+                SaveCBrelatedData(postFixLast,false);
 
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putString("ActiveCB","_"+activeStar);
@@ -682,6 +685,9 @@ int hour, minute, seconds;
         mdfSpeed.setText( sharedpreferences.getString("DRSpeed", "18.5kn"));
         mdfPosition.setText( sharedpreferences.getString("LastPosition", "000°00'00.0\" 000°00'00.0\""));
         setTextSize(Integer.valueOf(sharedpreferences.getString("CharSize", "9")));
+        CBcounter[0]=Integer.valueOf(sharedpreferences.getString("ActiveStar_1", "1"));
+        CBcounter[1]=Integer.valueOf(sharedpreferences.getString("ActiveStar_2", "2"));
+        CBcounter[2]=Integer.valueOf(sharedpreferences.getString("ActiveStar_3", "3"));
 
         if (sharedpreferences.getString("CB1active", "false").equals("true"))
         {
@@ -689,9 +695,11 @@ int hour, minute, seconds;
             CB2.setChecked(false);
             CB3.setChecked(false);
             postFixLast="_1";
-            CBcounter[0]=Integer.valueOf(sharedpreferences.getString("ActiveStar"+postFixLast, "1"));
+            activeStar=1;
+            mdfCBName.setText(CelestialBodys.startable[CBcounter[activeStar-1]].name.toUpperCase());
             mdfStatus.setBackgroundColor(Color.WHITE);
             mdfStatus.setText("Selected CB#1");
+            refreshCBrelatedData(postFixLast);
 
         }
         else if (sharedpreferences.getString("CB2active", "false").equals("true"))
@@ -700,10 +708,11 @@ int hour, minute, seconds;
             CB2.setChecked(true);
             CB3.setChecked(false);
             postFixLast="_2";
-            CBcounter[1]=Integer.valueOf(sharedpreferences.getString("ActiveStar"+postFixLast, "1"));
+            activeStar=2;
+            mdfCBName.setText(CelestialBodys.startable[CBcounter[activeStar-1]].name.toUpperCase());
             mdfStatus.setBackgroundColor(Color.WHITE);
             mdfStatus.setText("Selected CB#2");
-
+            refreshCBrelatedData(postFixLast);
         }
         else
         {
@@ -711,12 +720,14 @@ int hour, minute, seconds;
             CB2.setChecked(false);
             CB3.setChecked(true);
             postFixLast="_3";
-            CBcounter[2]=Integer.valueOf(sharedpreferences.getString("ActiveStar"+postFixLast, "1"));
+            activeStar=3;
+            mdfCBName.setText(CelestialBodys.startable[CBcounter[activeStar-1]].name.toUpperCase());
             mdfStatus.setBackgroundColor(Color.WHITE);
             mdfStatus.setText("Selected CB#3");
+            refreshCBrelatedData(postFixLast);
         }
 
-        refreshCBrelatedData(postFixLast);
+
 
     }
 

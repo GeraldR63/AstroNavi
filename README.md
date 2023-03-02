@@ -78,7 +78,7 @@ Version History Log:
     <td>20230302</td>
     <td>07:00 GMT</td>
     <td>RN</td>
-    <td>Minor bugfix related to form management and restart of the application. After restart of the application false CB names shown in "Nautical Almanac" dialog. This came from  changes required to have the internal calculations of GHA, SHA and DECLINATION because the displayed names come from internal ARRAY and not from SharedPreferences. I will have to change the whole code to reduce complexity of display management. However. It works now.</td>
+    <td>Minor bugfix related to form management and restart of the application. After restart of the application false CB names shown in "Nautical Almanac" dialog. This came from  changes required to have the internal calculations of GHA, SHA and DECLINATION because the displayed names come from internal ARRAY and not from SharedPreferences anymore. I will have to change the whole code to reduce complexity of display management. However. It works now.</td>
   </tr>
   
 

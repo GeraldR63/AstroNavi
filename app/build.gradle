@@ -1,0 +1,94 @@
+plugins {
+    id 'com.android.application'
+}
+
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+def keystoreProperties = new Properties()
+
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+android {
+    lint {
+        // Turns off checks for the issue IDs you specify.
+        disable 'TypographyFractions','TypographyQuotes'
+        // Turns on checks for the issue IDs you specify. These checks are in
+        // addition to the default lint checks.
+        enable 'RtlHardcoded','RtlCompat', 'RtlEnabled'
+        // To enable checks for only a subset of issue IDs and ignore all others,
+        // list the issue IDs with the 'check' property instead. This property overrides
+        // any issue IDs you enable or disable using the properties above.
+        checkOnly 'NewApi', 'InlinedApi'
+        // If set to true, turns off analysis progress reporting by lint.
+        quiet true
+        // If set to true (default), stops the build if errors are found.
+        abortOnError false
+        // If set to true, lint only reports errors.
+        ignoreWarnings true
+        // If set to true, lint also checks all dependencies as part of its analysis.
+        // Recommended for projects consisting of an app with library dependencies.
+        checkDependencies true
+    }
+    signingConfigs {
+            file(rootProject.file('keystore.properties')).with { propFile ->
+                if (propFile.canRead()) {
+                    release {
+                        keyAlias keystoreProperties['keyAlias']
+                        keyPassword keystoreProperties['keyPassword']
+                        storeFile file(keystoreProperties['storeFile'])
+                        storePassword keystoreProperties['storePassword']
+                        print('From build.grable signed')
+                    }
+                } else {
+                    print('From build.grable not signed')
+                }
+            }
+
+        //debug {
+        //    storeFile file(keystoreProperties['storeFile'])
+        //    keyAlias keystoreProperties['keyAlias']
+        //    storePassword keystoreProperties['storePassword']
+        //    keyPassword keystoreProperties['keyPassword']
+        //}
+    }
+    namespace 'com.nav.astronavigator'
+    compileSdk 32
+
+    defaultConfig {
+        applicationId "com.nav.astronavigator"
+        minSdk 21
+        targetSdk 32
+        versionCode 9
+        versionName "Mast und Schotbruch 2.11"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        viewBinding true
+    }
+    buildToolsVersion '33.0.1'
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.navigation:navigation-fragment:2.5.3'
+    implementation 'androidx.navigation:navigation-ui:2.5.3'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}

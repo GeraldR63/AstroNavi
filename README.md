@@ -74,6 +74,12 @@ Version History Log:
     <td>RN</td>
     <td>Checked the "correction" for SHA and DECLINATION. If you use the data calculated by this application than the failure seem to be nearby one or two nautical miles. Maybe I will add an improvement to the application to allow users to set the correcions for SHA und DECL by themself. Today I work on an algorithm which allow to calculate the corrections because it takes a lot of time. In my opinion this is required once every 50 years.</td>
   </tr>
+    <tr>
+    <td>20230302</td>
+    <td>07:00 GMT</td>
+    <td>RN</td>
+    <td>Minor bugfix related to form management and restart of the application. After restart of the application false CB names shown in "Nautical Almanac" dialog. This came from  changes required to have the internal calculations of GHA, SHA and DECLINATION because the displayed names come from internal ARRAY and not from SharedPreferences. I will have to change the whole code to reduce complexity of display management. However. It works now.</td>
+  </tr>
   
 
 </table> 

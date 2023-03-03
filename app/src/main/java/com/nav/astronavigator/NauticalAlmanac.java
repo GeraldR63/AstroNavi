@@ -25,6 +25,9 @@ import com.nav.astronavigator.CelestialBodys;
 import com.nav.astronavigator.DelayedMessage;
 import com.nav.astronavigator.NADataAndCalc;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class NauticalAlmanac extends Fragment {
     /*
        (w) 2022 to 2023 by Gerald Roehrbein
@@ -251,6 +254,13 @@ public class NauticalAlmanac extends Fragment {
 
         mdfDate=getView().findViewById(R.id.dfDate);
         mdfTime=getView().findViewById(R.id.dfTime);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        String date = sdf.format(new Date());
+        mdfDate.setText( date);
+        sdf = new SimpleDateFormat("HH:mm:ss");
+        String time = sdf.format(new Date());
+        mdfTime.setText( time);
+
         mdfDRLat=getView().findViewById(R.id.dfDRLat);
         mdfDRLong=getView().findViewById(R.id.dfDRLong);
         mdfHeading=getView().findViewById(R.id.dfHeading);

@@ -118,8 +118,8 @@ class NAData
 
             FractionalDRLat =calculus.DMS2Real(sharedpreferences.getString("DRLat", "032°00'00.0\""));
             FractionalDRLong=calculus.DMS2Real(sharedpreferences.getString("DRLong", "-015°00'00.0\""));
-            Heading=Double.parseDouble(sharedpreferences.getString("Heading", "325.0").replace(",","."));
-            Speed=Double.parseDouble(sharedpreferences.getString("Speed", "20.0").replace(",","."));
+            Heading=Double.parseDouble(sharedpreferences.getString("DRHeading", "325.0").replace(",","."));
+            Speed=Double.parseDouble(sharedpreferences.getString("DRSpeed", "20.0").replace(",","."));
      }
 
     /*

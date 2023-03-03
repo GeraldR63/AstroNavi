@@ -274,12 +274,16 @@ public class Fragment_CBCorrection extends Fragment {
         pbBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (bCanSave==true)
+                try {
+                    if (bCanSave == true) {
+                        CelestialBodys.startable[CBcounter].modifyStar(calculus.DMS2Real(String.valueOf(dfSHA.getText())),
+                                Double.valueOf(String.valueOf(dfSHACorr.getText())),
+                                calculus.DMS2Real(String.valueOf(dfDeclination.getText())),
+                                Double.valueOf(String.valueOf(dfDeclCorr.getText())));
+                    }
+                } catch (Exception e)
                 {
-                    CelestialBodys.startable[CBcounter].modifyStar(calculus.DMS2Real(String.valueOf(dfSHA.getText())),
-                            Double.valueOf(String.valueOf(dfSHACorr.getText())),
-                            calculus.DMS2Real(String.valueOf(dfDeclination.getText())),
-                            Double.valueOf(String.valueOf(dfDeclCorr.getText())));
+
                 }
 
                     NavHostFragment.findNavController(Fragment_CBCorrection.this)
@@ -291,9 +295,20 @@ public class Fragment_CBCorrection extends Fragment {
         pbReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    CelestialBodys.startable[CBcounter].delCustom();
+
+                    try {
+                        CelestialBodys.startable[CBcounter].delCustom();
+                    } catch (Exception e)
+                    {
+
+                    }
                     ShowCBDataFromInternalTable();
-                    calculate();
+                    try {
+                        calculate();
+                    } catch (Exception e)
+                    {
+
+                    }
                     bCanSave=false;
                     dfSHAToday.setBackgroundColor(Color.WHITE);
                     dfDeclinationToday.setBackgroundColor(Color.WHITE);

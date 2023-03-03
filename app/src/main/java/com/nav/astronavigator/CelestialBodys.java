@@ -177,6 +177,7 @@ CelestialBodys(SharedPreferences na)
     this.na=na;
 
     initStartable();
+    planets.initPlanets();
 }
 
 void initStartable()
@@ -190,7 +191,7 @@ void initStartable()
                                  SHA und DECL as given by NA2023 plus correction multiplier for SHA and DECLINATION.
          */
 
-
+        System.out.println("Init Startable");
 
         /*
            ToDo: correct the corrections for SHA (SHACOR) and DECLINATION (DECLCOR). These values are not really proper in 2023 and next years.
@@ -531,11 +532,15 @@ void initStartable()
 
         }
 
-        planets()
+        public void initPlanets()
         {
             /*
                Init Planets with their RAW data
              */
+            System.out.println("INIT Planets!");
+            if (na==null)
+                System.out.println("NA is null!");
+
             initPlanetName();
             initAlbedo();
             initAscending_Node();
@@ -547,6 +552,13 @@ void initStartable()
             initOrbital_Period();
             initPerihelion();
             initRadius();
+
+        }
+
+        planets()
+        {
+            // Constructor of this class is called BEFORE constructor of the class where this class is embedded.
+            // Holy shit!
         }
 
     }

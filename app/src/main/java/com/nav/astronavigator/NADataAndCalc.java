@@ -312,6 +312,7 @@ public class NADataAndCalc {
             na.mdfGHAAriesPlus1.setText(calculus.Real2DMS(NAData[i].GHAAriesPlus1h));
             na.mdfSHA.setText(calculus.Real2DMS(NAData[i].SHA));
             na.mdfDeclinationNA.setText(calculus.Real2DMS(NAData[i].Declination));
+            na.mdfFixTime.setText(NAData[i].Fix);
 
 
 
@@ -322,7 +323,7 @@ public class NADataAndCalc {
              */
 
 
-            // Abspeichern als wenn die RadioButton gedrückt wurden.
+            // Abspeichern als wenn der RadioButton gedrückt wurden.
             na.SaveCBrelatedData(postFix,true); // false, data from array
             na.postFixLast=postFix;
             na.refreshCBrelatedData(postFix);
@@ -477,7 +478,7 @@ public class NADataAndCalc {
 
     public double GHAAries(String Date, String Time)
     /*
-           This function give the same results as Stellarium give. This code is NOT stolen form Stelarium.
+           This function give the same results as Stellarium give. This code is NOT taken from Stelarium.
            It's my own stuff.
 
            There is a small difference related to Nautical Almanac but for example:

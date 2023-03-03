@@ -70,7 +70,7 @@ Version History Log:
     <td>20230228</td>
     <td>23:40 GMT</td>
     <td>RN</td>
-    <td>Added the key press events to Observed Time and Observed Date fields to update GHA while typing. Now a user can enter GHA Aries and GHA Aries+1 from Nautical Almanac or let the AstroNavigator calculate these figures The daily corrections are in progress. They do not work. Figures are good for 2023. If a user search for a star by using "PREV" and "NEXT" button the SHA and DECL the software will also compute these figures by itself. Corrrections are also in progress. These figures are good for 2023.</td>
+    <td>Added the key press events to Observed Time and Observed Date fields to update GHA while typing. Now a user can enter GHA Aries and GHA Aries+1 from Nautical Almanac or let the AstroNavigator calculate these figures The daily corrections are in progress. They do not work. Figures are good for 2023. If a user search for a star by using "PREV" and "NEXT" button the SHA and DECL the software will also compute these figures by itself. Corrrections are also in progress. These figures are good for 2023.</td> 
   </tr>
     <tr>
     <td>20230301</td>

@@ -133,28 +133,7 @@ public class NauticalAlmanac extends Fragment {
         mdfPosition.setText( sharedpreferences.getString("LastPosition", "359°59'59.99E 359°59'59.99N\""));
     }
 
-    void manageVisibilityNA(int mode)
-    {
 
-        mdfGHAAries.setVisibility(mode);
-        mdfGHAAriesPlus1.setVisibility(mode);
-        mdfDeclinationNA.setVisibility(mode);
-        mdfSHA.setVisibility(mode);
-        TextView21.setVisibility(mode);
-        TextView22.setVisibility(mode);
-        TextView23.setVisibility(mode);
-        TextView24.setVisibility(mode);
-
-        if (mode==View.VISIBLE)
-        {
-           mdfStatus.setText("Use Nautical Almanac");
-        }
-        else
-        {
-            mdfStatus.setText("Calculate GHA, SHA and Declination");
-        }
-
-    }
     public static float pxFromDp(float dp, Context mContext) {
         return dp * mContext.getResources().getDisplayMetrics().density;
     }
@@ -254,12 +233,16 @@ public class NauticalAlmanac extends Fragment {
 
         mdfDate=getView().findViewById(R.id.dfDate);
         mdfTime=getView().findViewById(R.id.dfTime);
+
+        /*
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         String date = sdf.format(new Date());
         mdfDate.setText( date);
         sdf = new SimpleDateFormat("HH:mm:ss");
         String time = sdf.format(new Date());
         mdfTime.setText( time);
+        */
+
 
         mdfDRLat=getView().findViewById(R.id.dfDRLat);
         mdfDRLong=getView().findViewById(R.id.dfDRLong);
@@ -317,6 +300,9 @@ public class NauticalAlmanac extends Fragment {
 
         mdfStatus.setEnabled(false);
         mdfStatus.setTextColor(Color.BLACK);
+
+
+
 
 
         mdfGHAAries.addTextChangedListener(new TextWatcher() {
@@ -537,9 +523,13 @@ public class NauticalAlmanac extends Fragment {
             @Override
             public void onClick(View view) {
                 DelayedMessage msg=new DelayedMessage(view);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("ActiveCB#",""+CBcounter[activeStar-1]);
+                editor.apply();
                     msg.ShowSnackbar("Set CB Defaults by yourself!");
                 NavHostFragment.findNavController(NauticalAlmanac.this)
                         .navigate(R.id.action_SecondFragment_to_CBCorrection);
+
 
 
             }
@@ -580,7 +570,7 @@ public class NauticalAlmanac extends Fragment {
                 editor.putString("ActiveCB","_"+activeStar);
                 editor.putString("WhoAmI","COMPLEX");
                 editor.apply();
-                editor.commit();
+                //editor.commit();
 
                 NavHostFragment.findNavController(NauticalAlmanac.this)
                         .navigate(R.id.action_SecondFragment_to_Sextant);
@@ -599,7 +589,7 @@ public class NauticalAlmanac extends Fragment {
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putString("CharSize",n.toString());
                 editor.apply();
-                editor.commit();
+                //editor.commit();
                 setTextSize(n);
             }
         });
@@ -613,7 +603,7 @@ public class NauticalAlmanac extends Fragment {
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putString("CharSize",n.toString());
                 editor.apply();
-                editor.commit();
+                //editor.commit();
                 setTextSize(n);
 
             }
@@ -671,6 +661,26 @@ public class NauticalAlmanac extends Fragment {
             refreshCBrelatedData(postFixLast);
         }
 
+        /*
+          This code is just to check if it is required to reload CB Data in case
+          user called "Celestial Body Correction" and changed something for the CB.
+         */
+        int checkStar=Integer.valueOf(sharedpreferences.getString("ActiveCB#", "-1"));
+        if (checkStar!=-1)
+        {
+            /*
+                The field is removed from SharedPreferences to avoid problems
+             */
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.remove("ActiveCB#");
+            editor.apply();
+
+            /*
+                Quick and dirty to refresh the dialog with changes made in the CBS dialog.
+             */
+            pbNextCB.performClick();
+            pbPrevCB.performClick();
+        }
 
 
     }
@@ -721,7 +731,7 @@ public class NauticalAlmanac extends Fragment {
 
         editor.putString("WhoAmI","COMPLEX");
         editor.apply();
-        editor.commit();
+        //editor.commit();
 
     }
 

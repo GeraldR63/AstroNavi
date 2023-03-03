@@ -199,6 +199,12 @@ public class Fragment_CBCorrection extends Fragment {
         pbIncrCharset=getView().findViewById(R.id.pbIncCRCharset);
         pbDecrCharset=getView().findViewById(R.id.pbDecCRCharset);
 
+
+        CBcounter=Integer.valueOf(sharedpreferences.getString("ActiveCB#", "0"));
+        ShowCBDataFromInternalTable();
+        calculate();
+
+
         pbIncrCharset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

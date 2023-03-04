@@ -404,18 +404,18 @@ public class NauticalAlmanac extends Fragment {
                     mdfGHAAries.setBackgroundColor(Color.WHITE);
                     mdfGHAAriesPlus1.setBackgroundColor(Color.WHITE);
 
-                    CBcounter[2]=35;
+                    CBcounter[2]=35;   //Regulus
                     postFixLast="_3";
                     activeStar=3;
                     refreshCBrelatedData(postFixLast);
 
-                    CBcounter[1]=14;
+                    CBcounter[1]=14;  //Antares
                     postFixLast="_2";
                     activeStar=2;
                     refreshCBrelatedData(postFixLast);
 
 
-                    CBcounter[0]=46;
+                    CBcounter[0]=46;  //Kochab
                     postFixLast="_1";
                     activeStar=1;
                     refreshCBrelatedData(postFixLast);
@@ -569,6 +569,7 @@ public class NauticalAlmanac extends Fragment {
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putString("ActiveCB","_"+activeStar);
                 editor.putString("WhoAmI","COMPLEX");
+                editor.putString("CurrentHC",""+mdfHo.getText());
                 editor.apply();
                 //editor.commit();
 

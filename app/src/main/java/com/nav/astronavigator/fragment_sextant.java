@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.nav.astronavigator.databinding.FragmentSextantBinding;
+
+import java.util.Locale;
     /*
        (w) 2022 to 2023 by Gerald Roehrbein
        This code is under the GPL 2.0
@@ -48,7 +50,7 @@ public class fragment_sextant extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    double HCfromParent;
 
     TextView dfCB;
     TextView dfHo;
@@ -178,6 +180,10 @@ public class fragment_sextant extends Fragment {
 
         //editor.putString("ActiveCB","_"+activeStar);
         postFix=sharedpreferences.getString("ActiveCB", "_1");
+
+        // If the HC is different to the one in SharedPreferences than reset Mask!
+        HCfromParent=Double.valueOf(sharedpreferences.getString("CurrentHC", "-1"));
+        //System.out.println("CurrentHC="+sharedpreferences.getString("CurrentHC", "-1"));
 
         //editor.putString("WhoAmI","SIMPLE");
         // Dieser Dialog kann entweder von Simple oder Nautical aufgerufen werden, um Hc zu berechnen
@@ -331,7 +337,7 @@ public class fragment_sextant extends Fragment {
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putString("Ho" + postFix, dfHc.getText().toString());
                     editor.apply();
-                    editor.commit();
+                    //editor.commit();
 
                     NavHostFragment.findNavController(fragment_sextant.this)
                             .navigate(R.id.action_SecondFragment_to_Sextant);
@@ -342,7 +348,7 @@ public class fragment_sextant extends Fragment {
                     SharedPreferences.Editor editor = sharedpreferences.edit();
                     editor.putString("sextant", calculus.Real2DMS(Double.valueOf(dfHc.getText().toString())));
                     editor.apply();
-                    editor.commit();
+                    //editor.commit();
 
 
                     NavHostFragment.findNavController(fragment_sextant.this)
@@ -381,7 +387,7 @@ public class fragment_sextant extends Fragment {
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putString("CharSize",n.toString());
                 editor.apply();
-                editor.commit();
+                //editor.commit();
                 setTextSize(n);
             }
         });
@@ -414,7 +420,7 @@ public class fragment_sextant extends Fragment {
         //editor.putString("key", "value");
 
 
-            editor.putString("sextant", calculus.Real2DMS(Double.valueOf(dfHc.getText().toString())));
+            editor.putString("sextant"+ postFix, calculus.Real2DMS(Double.valueOf(dfHc.getText().toString())));
             editor.putString("HCCalc" + postFix, dfHc.getText().toString());
             editor.putString("HOCalc" + postFix, dfHo.getText().toString());
             editor.putString("IndexErrorIC" + postFix, dfIndexCorrectionIC.getText().toString());
@@ -428,12 +434,13 @@ public class fragment_sextant extends Fragment {
 
 
         editor.apply();
-        editor.commit();
+        //editor.commit();
 
     }
 
     public void ReadCBrelatedData(String postFix)
     {
+
 
         dfHc.setText( sharedpreferences.getString("HCCalc"+postFix, "000°00'00.00\""));
         dfHo.setText( sharedpreferences.getString("HOCalc"+postFix, "000°00'00.00\""));
@@ -445,13 +452,26 @@ public class fragment_sextant extends Fragment {
         dfAdditionalCorrections.setText( sharedpreferences.getString("AdditionalCorrection"+postFix, "000°00'00.00\""));
 
         try {
-            dfHc.setText(Double.toString(calculateHC()));
-            dfHcDMS.setText(calculus.Real2DMS(calculateHC()));
-            dfSextantAltitudeSA.setText(Double.toString(calculateSA()));
+            Double HCFromSharedPref;
+            HCFromSharedPref=calculateHC();
+
+            System.out.println(HCFromSharedPref+" == "+HCfromParent);
+            if (HCfromParent!=HCFromSharedPref)
+            {
+                dfHo.setText( calculus.Real2DMS(HCfromParent));
+                pbReset.performClick();
+            }
+            else {
+                dfHc.setText(Double.toString(calculateHC()));
+                dfHcDMS.setText(calculus.Real2DMS(calculateHC()));
+                dfSextantAltitudeSA.setText(Double.toString(calculateSA()));
+            }
         } catch (Exception e)
         {
             //System.out.println("DMS2Real format error ");
         }
+
+
 
     }
 

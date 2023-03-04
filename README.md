@@ -96,6 +96,12 @@ Version History Log:
     <td>RN</td>
     <td>Some bug fixes applied and changes to the user interface to avoid unnecessary steps when going from and back to a dialog. This software must be as user friendly as possible. However, the code behind the scenes is wired. It's just rapid development and I started with the idea to solve a small problem and than it grew.</td>
   </tr>
+    <tr>
+    <td>20230304</td>
+    <td>13:16 GMT</td>
+    <td>RN</td>
+    <td>Shit happened. Previous release worked only in emulator and had massive problems at the real device. Sextant Correction crashed the app. Fixed this and a recalculation issue.</td>
+  </tr>
   
 
 </table> 

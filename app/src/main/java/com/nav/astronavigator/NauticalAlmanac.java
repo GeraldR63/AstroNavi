@@ -41,8 +41,8 @@ public class NauticalAlmanac extends Fragment {
        Sorry. I'm very upset to this. I love the people in the US. The only ones ever paid for my ShareWare
        in the past 40 years came from the USA. Germans pay for nothing. But they pay now a price. A high price.
      */
-
-    com.nav.astronavigator.NADataAndCalc NADataAndCalc=new NADataAndCalc();
+    // To have NADataAndCalc static is essential!
+    static com.nav.astronavigator.NADataAndCalc  NADataAndCalc=new NADataAndCalc();
     com.nav.astronavigator.CelestialBodys CelestialBodys; //=new CelestialBodys(this);
     printSightRedcution printSightRedcution;
 

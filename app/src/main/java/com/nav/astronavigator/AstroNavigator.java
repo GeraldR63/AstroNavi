@@ -374,9 +374,9 @@ public class AstroNavigator extends Fragment {
             {
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putString("WhoAmI","SIMPLE");
-
+                editor.putString("CurrentHC",""+calculus.DMS2Real(String.valueOf(mdfSextant.getText())));
                 editor.apply();
-                editor.commit();
+                //editor.commit();
 
                 NavHostFragment.findNavController(AstroNavigator.this)
                         .navigate(R.id.action_FirstFragment_to_Sextant);

@@ -11,6 +11,7 @@ import com.nav.astronavigator.DelayedMessage;
 import com.nav.astronavigator.calculus;
 
 import java.util.Date;
+import java.util.Locale;
     /*
        (w) 2022 to 2023 by Gerald Roehrbein
        This code is under the GPL 2.0
@@ -88,22 +89,24 @@ class NAData
                  durchgefuehrt.
               */
      {
-             this.activeStar=activeStar;
-             postFixLast="_"+String.valueOf(this.activeStar);
+           try {
 
-             CBName=sharedpreferences.getString("CBName"+postFixLast, "Regulus");
-             // Checken ob Double.parseDouble auch mit dem Gradzeichen funktioniert!
-             CBBearing= Double.parseDouble( sharedpreferences.getString("Bearing"+postFixLast, "-21.5").replace(",","."));
-             Fix= sharedpreferences.getString("FixTime", "11:55:00");
-             ObservationTime= sharedpreferences.getString("ObservedTime"+postFixLast, "11:55:00");
-             ObservationDate=sharedpreferences.getString("ObservedDate"+postFixLast, "01.01.2023");
-             // Checken ob Double.parseDouble auch mit dem Gradzeichen funktioniert!
-             Ho=Double.parseDouble(sharedpreferences.getString("Ho"+postFixLast, "22.5").replace(",","."));
+               this.activeStar = activeStar;
+               postFixLast = "_" + String.valueOf(this.activeStar);
 
-             GHAArieshh24= calculus.DMS2Real(sharedpreferences.getString("GHAAries"+postFixLast, "359°59'59.99\""));
-             GHAAriesPlus1h=calculus.DMS2Real( sharedpreferences.getString("GHAAriesPlus1"+postFixLast, "359°59'59.99\""));
-             SHA=calculus.DMS2Real( sharedpreferences.getString("SHA"+postFixLast, "359°59'59.99\""));
-             Declination=calculus.DMS2Real( sharedpreferences.getString("DeclinationNA"+postFixLast, "359°59'59.99\""));
+               CBName = sharedpreferences.getString("CBName" + postFixLast, "Regulus");
+               // Checken ob Double.parseDouble auch mit dem Gradzeichen funktioniert!
+               CBBearing = Double.parseDouble(sharedpreferences.getString("Bearing" + postFixLast, "-21.5").replace(",", "."));
+               Fix = sharedpreferences.getString("FixTime", "11:55:00");
+               ObservationTime = sharedpreferences.getString("ObservedTime" + postFixLast, "11:55:00");
+               ObservationDate = sharedpreferences.getString("ObservedDate" + postFixLast, "01.01.2023");
+               // Checken ob Double.parseDouble auch mit dem Gradzeichen funktioniert!
+               Ho = Double.parseDouble(sharedpreferences.getString("Ho" + postFixLast, "22.5").replace(",", "."));
+
+               GHAArieshh24 = calculus.DMS2Real(sharedpreferences.getString("GHAAries" + postFixLast, "359°59'59.99\""));
+               GHAAriesPlus1h = calculus.DMS2Real(sharedpreferences.getString("GHAAriesPlus1" + postFixLast, "359°59'59.99\""));
+               SHA = calculus.DMS2Real(sharedpreferences.getString("SHA" + postFixLast, "359°59'59.99\""));
+               Declination = calculus.DMS2Real(sharedpreferences.getString("DeclinationNA" + postFixLast, "359°59'59.99\""));
 
              /*
              System.out.println("Declination "+CBName+ " "+ sharedpreferences.getString("DeclinationNA"+postFixLast, "359°59'59.99\""));
@@ -116,10 +119,14 @@ class NAData
                 Hier muss noch FractionalDRLong und DRLat initialisiert werden.
               */
 
-            FractionalDRLat =calculus.DMS2Real(sharedpreferences.getString("DRLat", "032°00'00.0\""));
-            FractionalDRLong=calculus.DMS2Real(sharedpreferences.getString("DRLong", "-015°00'00.0\""));
-            Heading=Double.parseDouble(sharedpreferences.getString("DRHeading", "325.0").replace(",","."));
-            Speed=Double.parseDouble(sharedpreferences.getString("DRSpeed", "20.0").replace(",","."));
+               FractionalDRLat = calculus.DMS2Real(sharedpreferences.getString("DRLat", "032°00'00.0\""));
+               FractionalDRLong = calculus.DMS2Real(sharedpreferences.getString("DRLong", "-015°00'00.0\""));
+               Heading = Double.parseDouble(sharedpreferences.getString("DRHeading", "325.0").replace(",", "."));
+               Speed = Double.parseDouble(sharedpreferences.getString("DRSpeed", "20.0").replace(",", "."));
+           } catch (Exception e)
+           {
+               System.out.println("NADATA[x].readPrefs "+e.getMessage());
+           }
      }
 
     /*
@@ -204,7 +211,7 @@ class NAData
 
 public class NADataAndCalc {
     // Three Stars to get a fix
-    public static NAData NAData[]=new NAData[3];
+    public NAData NAData[]=new NAData[3];
     static View view;
     static NauticalAlmanac Fragment;
     static DelayedMessage msg;
@@ -287,8 +294,8 @@ public class NADataAndCalc {
         na.mdfTime.setText(NAData[0].Time);
         na.mdfDRLong.setText(NAData[0].DRLong);
         na.mdfDRLat.setText(NAData[0].DRLat);
-        na.mdfHeading.setText(String.format("%.5f",NAData[0].Heading));
-        na.mdfSpeed.setText(String.format("%.5f",NAData[0].Speed));
+        na.mdfHeading.setText(String.format(Locale.ROOT,"%.5f",NAData[0].Heading));
+        na.mdfSpeed.setText(String.format(Locale.ROOT,"%.5f",NAData[0].Speed));
 
 
         for (int i=0; i<3; i++) {
@@ -306,7 +313,7 @@ public class NADataAndCalc {
             na.mdfObservedDate.setText(NAData[i].ObservationDate);
             na.mdfObservedTime.setText(NAData[i].ObservationTime);
             na.mdfCBName.setText(NAData[i].CBName);
-            na.mdfHo.setText(String.format("%.5f",NAData[i].Ho));
+            na.mdfHo.setText(String.format(Locale.ROOT,"%.5f",NAData[i].Ho));
             //na.mdfCBBearing.setText(String.format("%.5f",NAData[i].CBBearing));
             na.mdfGHAAries.setText(calculus.Real2DMS(NAData[i].GHAArieshh24));
             na.mdfGHAAriesPlus1.setText(calculus.Real2DMS(NAData[i].GHAAriesPlus1h));

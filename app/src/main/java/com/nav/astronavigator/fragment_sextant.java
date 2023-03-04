@@ -182,8 +182,8 @@ public class fragment_sextant extends Fragment {
         postFix=sharedpreferences.getString("ActiveCB", "_1");
 
         // If the HC is different to the one in SharedPreferences than reset Mask!
-        HCfromParent=Double.valueOf(sharedpreferences.getString("CurrentHC", "-1"));
-        //System.out.println("CurrentHC="+sharedpreferences.getString("CurrentHC", "-1"));
+        HCfromParent=Double.valueOf(sharedpreferences.getString("CurrentHC", "-1").replace(",","."));
+        //System.out.println("CurrentHC="+sharedpreferences.getString("CurrentHC", "-1").replace(",","."));
 
         //editor.putString("WhoAmI","SIMPLE");
         // Dieser Dialog kann entweder von Simple oder Nautical aufgerufen werden, um Hc zu berechnen

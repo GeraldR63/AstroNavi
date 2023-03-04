@@ -415,7 +415,7 @@ public class AstroNavigator extends Fragment {
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putString("CharSize",n.toString());
                 editor.apply();
-                editor.commit();
+                //editor.commit();
                 setTextSize(n);
             }
         });
@@ -429,7 +429,7 @@ public class AstroNavigator extends Fragment {
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putString("CharSize",n.toString());
                 editor.apply();
-                editor.commit();
+                //editor.commit();
                 setTextSize(n);
 
             }
@@ -466,7 +466,7 @@ public class AstroNavigator extends Fragment {
         editor.putString("LocalHighNoon",mdfLocalHighNoon.getText().toString());
         editor.putString("WhoAmI","SIMPLE");
         editor.apply();
-        editor.commit();
+        //editor.commit();
 
         super.onDestroyView();
         binding = null;

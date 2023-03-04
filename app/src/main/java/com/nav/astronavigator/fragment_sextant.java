@@ -65,6 +65,12 @@ public class fragment_sextant extends Fragment {
 
     Button pbBack;
     Button pbReset;
+    Boolean bCalledByNa=false;  // The difference two init Modes for pbReset Button
+    // Reset button resets everything except the Ho
+    // but if only Hc in caller window changed than
+    // all the other data must'nt be reseted.
+    // That's not user friendly.
+
     Boolean back2Simple=false;
 
     Button pbIncrCharset;
@@ -178,6 +184,7 @@ public class fragment_sextant extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
         //editor.putString("ActiveCB","_"+activeStar);
         postFix=sharedpreferences.getString("ActiveCB", "_1");
 
@@ -235,7 +242,7 @@ public class fragment_sextant extends Fragment {
         dfHcDMS.setEnabled(false);
         //dfHc.setBackgroundColor(Color.GRAY);
 
-        ReadCBrelatedData(postFix);
+
 
         dfHo.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -361,8 +368,12 @@ public class fragment_sextant extends Fragment {
         pbReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               dfIndexCorrectionIC.setText("000°00'00.00\"");
-               dfDIP.setText("000°00'00.00\"");
+               if (bCalledByNa==false) {  // If the click was simulated than do not reset these fields.
+                   dfIndexCorrectionIC.setText("000°00'00.00\"");
+                   dfDIP.setText("000°00'00.00\"");
+               }
+                bCalledByNa=false;
+
                dfLIMB.setText("000°00'00.00\"");
                dfAtmosphericCorrections.setText("000°00'00.00\"");
                dfAdditionalCorrections.setText("000°00'00.00\"");
@@ -401,13 +412,13 @@ public class fragment_sextant extends Fragment {
                 SharedPreferences.Editor editor = sharedpreferences.edit();
                 editor.putString("CharSize",n.toString());
                 editor.apply();
-                editor.commit();
+                //editor.commit();
                 setTextSize(n);
 
             }
         });
 
-
+        ReadCBrelatedData(postFix);
         setTextSize(Integer.valueOf(sharedpreferences.getString("CharSize", "9")));
         displayCalculation(dfHc, dfSextantAltitudeSA, null);
     }
@@ -459,6 +470,7 @@ public class fragment_sextant extends Fragment {
             if (HCfromParent!=HCFromSharedPref)
             {
                 dfHo.setText( calculus.Real2DMS(HCfromParent));
+                bCalledByNa=true;
                 pbReset.performClick();
             }
             else {

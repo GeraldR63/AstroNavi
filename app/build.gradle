@@ -59,8 +59,8 @@ android {
         applicationId "com.nav.astronavigator"
         minSdk 21
         targetSdk 32
-        versionCode 12
-        versionName "Mast und Schotbruch 2.14"
+        versionCode 13
+        versionName "Mast und Schotbruch 2.15 (Shit happened)"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

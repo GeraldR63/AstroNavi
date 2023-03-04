@@ -452,7 +452,7 @@ public class NADataAndCalc {
           editor.putString("DRLong",na.mdfDRLong.getText().toString());
           editor.putString("DRLat",na.mdfDRLat.getText().toString());
           editor.apply();
-          editor.commit();
+          //editor.commit();
 
       }
       } catch (Exception e)

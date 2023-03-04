@@ -90,6 +90,12 @@ Version History Log:
     <td>RN</td>
     <td>Added a dialog to allow a user to change GHA,GHAcor, DECLINATION, DECcorr for all of the Celestial Bodys to have as best as possible accuracy.</td>
   </tr>
+    <tr>
+    <td>20230304</td>
+    <td>11:11 GMT</td>
+    <td>RN</td>
+    <td>Some bug fixes applied and changes to the user interface to avoid unnecessary steps when going from and back to a dialog. This software must be as user friendly as possible. However, the code behind the scenes is wired. It's just rapid development and I started with the idea to solve a small problem and than it grew because it's probably the last software I write in my life. Wrote enough stuff last 40 years. I'm tired.</td>
+  </tr>
   
 
 </table> 

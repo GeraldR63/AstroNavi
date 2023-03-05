@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.Html;
 import android.text.Layout;
@@ -51,7 +52,7 @@ public class AstroNavigator extends Fragment {
        Sorry. I'm very upset to this. I love the people in the US. The only ones ever paid for my ShareWare
        in the past 40 years came from the USA. Germans pay for nothing. But they pay now a price. A high price.
      */
-
+    static NADataAndCalc NADataAndCalc=new NADataAndCalc();
     private FragmentFirstBinding binding;
     private EditText mdfSextant;
     private EditText mdfDeclination;
@@ -72,7 +73,7 @@ public class AstroNavigator extends Fragment {
     private Button pbIncrCharset;
     private Button pbDecrCharset;
     private Button pbButtonFirst;
-    private Image  idImageView;
+    //private Image  idImageView;
 
 
 
@@ -87,10 +88,12 @@ public class AstroNavigator extends Fragment {
 
     Boolean bDocVisible=true;
 
-
+    //Thread thread;
+    //Handler handler;
 
     protected void calculate(View view)
     {
+
         calculus calculus=new calculus(view);
         double GMT_ZERO=12*60*60;  // 12:00:00 in Greenwich
         double SM=1.852;
@@ -191,11 +194,24 @@ public class AstroNavigator extends Fragment {
         // Get the count text view
         sharedpreferences = getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-
-
+        /*
+        Thread thread = new Thread(runnable);
+        thread.start();
+        */
         return binding.getRoot();
 
     }
+     /*
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            // This runs in background thread. Do heavy operations here
+            mdfDeclination.setText(NADataAndCalc.getCurrentDeclSun());
+            System.out.println("ooppss");
+        }
+        // This thread will die once it comes out of the run method
+    };
+    */
 
     public static float pxFromDp(float dp, Context mContext) {
         return dp * mContext.getResources().getDisplayMetrics().density;
@@ -331,7 +347,13 @@ public class AstroNavigator extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 //do here your calculation
-                calculate(view);
+                try {
+                    calculate(view);
+                }
+                catch (Exception e)
+                {
+
+                }
 
             }
         });
@@ -347,7 +369,13 @@ public class AstroNavigator extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 //do here your calculation
-                calculate(view);
+                try {
+                    calculate(view);
+                }
+                catch (Exception e)
+                {
+
+                }
 
             }
         });
@@ -363,7 +391,13 @@ public class AstroNavigator extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 //do here your calculation
-                calculate(view);
+                try {
+                    calculate(view);
+                }
+                catch (Exception e)
+                {
+
+                }
 
             }
         });
@@ -382,7 +416,13 @@ public class AstroNavigator extends Fragment {
                         .navigate(R.id.action_FirstFragment_to_Sextant);
                 // Nach der Berechnung von Hc diese anzeigen.
                 mdfSextant.setText( sharedpreferences.getString("sextant", "000°00'00.00\""));
-                calculate(view);
+                try {
+
+                    calculate(view);
+                } catch (Exception e)
+                {
+
+                }
                 setTextSize(Integer.valueOf(sharedpreferences.getString("CharSize", "9")));
             }
         });
@@ -394,7 +434,12 @@ public class AstroNavigator extends Fragment {
             @Override
             public void onClick(View v)
             {
-                calculate(v);
+                try {
+                    calculate(v);
+                } catch (Exception e)
+                {
+
+                }
             }
         });
 
@@ -435,8 +480,32 @@ public class AstroNavigator extends Fragment {
             }
         });
 
+        //mdfDeclination.setText(NADataAndCalc.getCurrentDeclSun());
+        /*
+        thread=new Thread( new Runnable() { @Override public void run() {
+            mdfDeclination.setText(NADataAndCalc.getCurrentDeclSun());
+            System.out.println("Ooopss");
+        } } );
+        thread.start();
+        */
+        /*
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                // display your time here...
+                mdfDeclination.setText(NADataAndCalc.getCurrentDeclSun());
+                System.out.println("Ooopss");
+            }
+        }, 1000); // here 1 seconds to refresh time after 1 seconds
 
-
+        new Runnable() {
+            @Override
+            public void run() {
+                // This runs in background thread. Do heavy operations here
+                mdfDeclination.setText(NADataAndCalc.getCurrentDeclSun());
+            }
+            // This thread will die once it comes out of the run method
+        };
+        */
 
         //SharedPreferences prefs = this.getSharedPreferences("general_settings", Context.MODE_PRIVATE);
         mdfSextant.setText( sharedpreferences.getString("sextant", "021°00'00.00\""));

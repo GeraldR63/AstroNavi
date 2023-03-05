@@ -155,6 +155,7 @@ class STARS {
         public String getDecl() { return calculus.Real2DMS(decl);}
         public String getDeclCor() { return String.format(Locale.ROOT,"%.12f",declcor);}
 
+
 };
 
 

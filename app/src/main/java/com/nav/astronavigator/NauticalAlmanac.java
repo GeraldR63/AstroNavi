@@ -43,8 +43,8 @@ public class NauticalAlmanac extends Fragment {
      */
     // To have NADataAndCalc static is essential!
     static com.nav.astronavigator.NADataAndCalc  NADataAndCalc=new NADataAndCalc();
-    com.nav.astronavigator.CelestialBodys CelestialBodys; //=new CelestialBodys(this);
-    printSightRedcution printSightRedcution;
+    static com.nav.astronavigator.CelestialBodys CelestialBodys; //=new CelestialBodys(this);
+    static printSightRedcution printSightRedcution;
 
     Boolean bCalculated=false;                       // Wird zum Drucken gebraucht. Drucken nur nach erfolgreicher Berechnung.
     private FragmentSecondBinding binding;

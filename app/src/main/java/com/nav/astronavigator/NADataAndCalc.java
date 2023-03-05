@@ -564,7 +564,7 @@ public class NADataAndCalc {
 
 
         Seconds=calculus.mdy_sect( date,  time);
-        double d=-23.45 * Math.cos((360*24*60*60) / (365*24*60*60)* (Seconds + (10*24*60*60)));
+        double d=-23.45 * Math.cos((360.0*24.*60.*60.) / (365.0*24.*60.*60.)* (Seconds + (10.0*24.*60.*60.)));
         return calculus.Real2DMS(d);
     }
 

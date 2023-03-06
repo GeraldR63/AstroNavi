@@ -111,6 +111,12 @@ Version History Log:
     <td>RN</td>
     <td>Shit happened. Previous release worked only in emulator and had massive problems at the real device. Sextant Correction crashed the app. Fixed this and a recalculation issue.</td>
   </tr>
+    <tr>
+    <td>20230306</td>
+    <td>16:00 GMT</td>
+    <td>RN</td>
+    <td>Added a dialog to have the calculation of the SUN's declination. I work an the PSA and SPA code to get better results. The current formula is nearby but it will be up to 1 or 2 degrees false. That's up to 220km! Inacceptable. However, it's a demo. I will solve this issue. Take some time.</td>
+  </tr>
   
 
 </table> 

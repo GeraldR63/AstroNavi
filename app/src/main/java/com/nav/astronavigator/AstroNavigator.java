@@ -242,6 +242,11 @@ public class AstroNavigator extends Fragment {
 
     {
         super.onViewCreated(view, savedInstanceState);
+
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.remove("WhoAmI");
+        editor.apply();
+
         mdfSextant=view.findViewById(R.id.dfSextant);
 
         mdfDeclination=view.findViewById(R.id.dfDeclination);

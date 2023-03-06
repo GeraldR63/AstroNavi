@@ -228,6 +228,11 @@ public class NauticalAlmanac extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        {
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.remove("WhoAmI");
+            editor.apply();
+        }
 
         CelestialBodys=new CelestialBodys(sharedpreferences);
 

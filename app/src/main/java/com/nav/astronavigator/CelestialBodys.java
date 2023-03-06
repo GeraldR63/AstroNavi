@@ -595,8 +595,12 @@ void initStartable()
         Calendar calendar = new GregorianCalendar(year, month-1, day);
         double dayOfYear = calendar.get(Calendar.DAY_OF_YEAR)-1;
         //System.out.println("Day of year"+dayOfYear);
-
-        r = dayOfYear*24*60*60;
+        if ((year!=0) & (month!=0) & (day!=0)) {
+            r = dayOfYear * 24 * 60 * 60;
+        } else
+        {
+            r=0;
+        }
         r +=  hour*60*60;
         r +=  minute*60;
         r +=  seconds;
@@ -604,9 +608,10 @@ void initStartable()
     }
 
 
-    public static double timeToAngle(double ltime){
-        double r = ((ltime / 24) * twopi);
-        return Math.toDegrees(r)-180;
+    public static double timeToAngle(double ltime){  // Time in Seconds since 00:00:00
+        //Real length of a day is 23 hours, 56 minutes, and 4 seconds
+        double r = (((ltime) / (24*60*60)  ) * twopi);
+        return Math.toDegrees(r)+180;
     }
 
     public  static String getDeclSun(String date, String time) {

@@ -2,6 +2,7 @@ package com.nav.astronavigator;
 
 import android.app.Fragment;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 
@@ -46,6 +47,8 @@ public class SunDeclination extends DialogFragment {
     TextView dfTime;
     TextView dfDeclination;
 
+    TextView dfGHA;
+
     // TODO: Customize parameters
     public static SunDeclination newInstance(int itemCount) {
         final SunDeclination fragment = new SunDeclination();
@@ -81,6 +84,11 @@ public class SunDeclination extends DialogFragment {
         dfDate=view.findViewById(R.id.dfSunDate);
         dfTime=view.findViewById(R.id.dfSunTime);
         dfDeclination=view.findViewById(R.id.dfSunDeclination);
+        dfDeclination.setEnabled(false);
+        dfDeclination.setTextColor(Color.BLACK);
+        dfGHA=view.findViewById(R.id.dfSunGHA);
+        dfGHA.setEnabled(false);
+        dfGHA.setTextColor(Color.BLACK);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         String date = sdf.format(new Date());
@@ -92,6 +100,8 @@ public class SunDeclination extends DialogFragment {
         try {
             CelestialBodys cb=new CelestialBodys(null);
             dfDeclination.setText(cb.getDeclSun(dfDate.getText().toString(), dfTime.getText().toString()));
+
+            dfGHA.setText(calculus.Real2DMS(cb.timeToAngle(cb.date2seconds("00.00.0000", dfTime.getText().toString()))));
         } catch (Exception e)
         {
 
@@ -112,6 +122,8 @@ public class SunDeclination extends DialogFragment {
                 CelestialBodys cb=new CelestialBodys(null);
                 try {
                     dfDeclination.setText(cb.getDeclSun(dfDate.getText().toString(), dfTime.getText().toString()));
+
+                    dfGHA.setText(calculus.Real2DMS(cb.timeToAngle(cb.date2seconds("00.00.0000", dfTime.getText().toString()))));
                 } catch (Exception e)
                 {
 
@@ -133,6 +145,8 @@ public class SunDeclination extends DialogFragment {
                 CelestialBodys cb=new CelestialBodys(null);
                 try{
                 dfDeclination.setText(cb.getDeclSun(dfDate.getText().toString(), dfTime.getText().toString()));
+
+                    dfGHA.setText(calculus.Real2DMS(cb.timeToAngle(cb.date2seconds("00.00.0000", dfTime.getText().toString()))));
             } catch (Exception e)
             {
 

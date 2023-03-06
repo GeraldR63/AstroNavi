@@ -11,8 +11,8 @@
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 13,
-      "versionName": "Mast und Schotbruch 2.15 (Shit happened)",
+      "versionCode": 14,
+      "versionName": "Mast und Schotbruch 2.16 (bug fix)",
       "outputFile": "app-release.apk"
     }
   ],

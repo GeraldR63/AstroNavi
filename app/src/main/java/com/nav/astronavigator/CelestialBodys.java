@@ -19,6 +19,9 @@ import android.content.SharedPreferences;
 import java.lang.reflect.Constructor;
 import java.util.Locale;
 
+import android.icu.util.Calendar;
+import android.icu.util.GregorianCalendar;
+
 class STARS {
     String name;
     String name_ger;
@@ -163,7 +166,10 @@ class STARS {
 
 public class CelestialBodys {
 
-com.nav.astronavigator.calculus c;
+    static double pi=3.14159265358979323846;
+    static double twopi=(2*pi);
+
+    com.nav.astronavigator.calculus c;
 STARS startable[]=new STARS[70];
 planets planets=new planets();
 
@@ -177,8 +183,11 @@ CelestialBodys(SharedPreferences na)
 {
     this.na=na;
 
-    initStartable();
-    planets.initPlanets();
+    if (na!=null) {  // If created just to get some calculation primitives than initialization is not required.
+                     // For Example: time2Angle or getDeclSun
+        initStartable();
+        planets.initPlanets();
+    }
 }
 
 void initStartable()
@@ -563,8 +572,54 @@ void initStartable()
         }
 
     }
+    public static double  date2seconds(String Date, String Time)
+        /*
+
+         */
+    {
+        double r;
+        int year,month,day;
+        int hour, minute, seconds;
+        /* Parser hh:mm:ss */
+        int position=Time.indexOf(":");
+        hour  =  Integer.valueOf(Time.substring(0,position));
+        minute = Integer.valueOf(Time.substring(position + 1, position=Time.indexOf(":", position+1)));
+        seconds= Integer.valueOf(Time.substring(position+1, Time.length()));
+
+        /* Parser dd.mm.yyyy */
+        position=Date.indexOf(".");
+        day  =  Integer.valueOf(Date.substring(0,position));
+        month = Integer.valueOf(Date.substring(position + 1, position=Date.indexOf(".", position+1)));
+        year= Integer.valueOf(Date.substring(position+1, Date.length()));
+
+        Calendar calendar = new GregorianCalendar(year, month-1, day);
+        double dayOfYear = calendar.get(Calendar.DAY_OF_YEAR)-1;
+        //System.out.println("Day of year"+dayOfYear);
+
+        r = dayOfYear*24*60*60;
+        r +=  hour*60*60;
+        r +=  minute*60;
+        r +=  seconds;
+        return r;
+    }
 
 
+    public static double timeToAngle(double ltime){
+        double r = ((ltime / 24) * twopi);
+        return Math.toDegrees(r)-180;
+    }
 
+    public  static String getDeclSun(String date, String time) {
+        // My version caculates this figure for seconds
+        // This calculation is correct but do not fit to the Nautical Almanac
+        // This function is not 100% accurate. The position can be up to 2° false (Thats 220km!)
+        // ToDo: Refine this, it's precession is poor
+
+        double Seconds=0;
+        Seconds= date2seconds( date,  time);
+        double calc=(360. / 365.)* ((Seconds/(24.*60.*60.))-81.);        //Exact 21.07.2023
+        double da=23.43640 * Math.sin(Math.toRadians(calc));
+        return calculus.Real2DMS(da);
+    }
 
 }

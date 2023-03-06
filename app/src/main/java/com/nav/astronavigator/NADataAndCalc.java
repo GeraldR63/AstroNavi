@@ -540,33 +540,7 @@ public class NADataAndCalc {
         return range_degrees(c1+c2*(dWhole+dFrac));
     }
 
-    public  String getCurrentDeclSun(double Seconds) {   // Seconds since 1.1.yyyy 00:00:00 of the year
-        //Formula below is per day and means probably the declination at high noon
-        //d is day of the year
-        //δ =−23.45°×cos(360 / 365× (d + 10))
-        // Todo: Check  formula for SUN declination
-        // My version caculates this figure for seconds
-        double d=-23.45 * Math.cos((360*24*60*60) / (365*24*60*60)* (Seconds + (10*24*60*60)));
-        return calculus.Real2DMS(d);
-    }
-    public  String getCurrentDeclSun() {   // Seconds since 1.1.yyyy 00:00:00 of the year
-        //Formula below is per day and means probably the declination at high noon
-        //d is day of the year
-        //δ =−23.45°×cos(360 / 365× (d + 10))
-        // Todo: Check  formula for SUN declination
-        // My version caculates this figure for seconds
-        double Seconds=0;
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-        String date = sdf.format(new Date());
-        sdf = new SimpleDateFormat("HH:mm:ss");
-        String time = sdf.format(new Date());
-
-
-        Seconds=calculus.mdy_sect( date,  time);
-        double d=-23.45 * Math.cos((360.0*24.*60.*60.) / (365.0*24.*60.*60.)* (Seconds + (10.0*24.*60.*60.)));
-        return calculus.Real2DMS(d);
-    }
 
 
 }

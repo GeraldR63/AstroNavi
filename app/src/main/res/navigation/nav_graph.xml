@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_Sextant"
             app:destination="@id/Sextant" />
+        <action
+            android:id="@+id/action_FirstFragment_to_frameSunDialog"
+            app:destination="@id/frameSunDialog" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -57,5 +60,17 @@
             android:id="@+id/action_CBCorrection_to_SecondFragment"
             app:destination="@id/SecondFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/frameSunDialog"
+        android:name="com.nav.astronavigator.SunDeclination"
+        android:label="Get declination of SUN"
+        tools:layout="@layout/fragment_sun_declination_list_dialog">
+
+        <action
+            android:id="@+id/action_SunDialog_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+
 
 </navigation>

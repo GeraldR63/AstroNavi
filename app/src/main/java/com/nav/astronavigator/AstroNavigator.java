@@ -74,7 +74,7 @@ public class AstroNavigator extends Fragment {
     private Button pbDecrCharset;
     private Button pbButtonFirst;
     //private Image  idImageView;
-
+    private Button pbSunDeclination;
 
 
 
@@ -282,6 +282,8 @@ public class AstroNavigator extends Fragment {
         HTMLView.setVisibility(View.INVISIBLE);
         pbShowDocumentation=view.findViewById(R.id.pbShowPDFDoc);
 
+        pbSunDeclination=view.findViewById(R.id.pbSun);
+
 
 
         pbShowDocumentation.setOnClickListener(new View.OnClickListener(){
@@ -450,6 +452,27 @@ public class AstroNavigator extends Fragment {
                         .navigate(R.id.action_FirstFragment_to_SecondFragment);
             }
         });
+
+        pbSunDeclination.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+
+                NavHostFragment.findNavController(AstroNavigator.this).navigate(R.id.action_FirstFragment_to_frameSunDialog);
+
+
+
+                /*
+                SunDeclination newFragment = new SunDeclination();
+                newFragment.show(getSupportFragmentManager(), "SUN Declination");
+
+                 */
+
+
+            }
+        });
+
 
         pbIncrCharset.setOnClickListener(new View.OnClickListener() {
             @Override

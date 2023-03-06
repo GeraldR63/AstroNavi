@@ -268,3 +268,11 @@ After having had a valid calculation it's possible to print, after pressing the 
 Image below is a scan from the printed sheet.
 
 <img src="https://github.com/GeraldR63/AstroNavi/blob/main/Sight%20Reduction%20Form.jpg" width="900" height="1024">
+
+
+<hr>
+New 20230306 Calculation of SUN's declination for "Simple" navigation.
+
+The image below shows all of the dialogs this app offer and the flow between them. The new dialog "Get declination of SUN" is available via  "Simple Navigation (SUN)". This dialog do not offer high precesion. Precision  seem to be at noon high and at midnight low. Compared the calculation with Nautical Almanac and for the tested days I had a difference of a few minutes which do not matter up to one degree and more. This matters. One degree is a huge failure. I'm working on a much better solution but now I have to  use "Jean Meeus Astronomical Algorithms" to fix this. This will take a few days to get a working solution.
+
+<img src="https://github.com/GeraldR63/AstroNavi/blob/main/application.png" width="900" height="1024">

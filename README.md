@@ -117,6 +117,12 @@ Version History Log:
     <td>RN</td>
     <td>Added a dialog to have the calculation of the SUN's declination. I work an the PSA and SPA code to get better results. The current formula is nearby but it will be up to 1 or 2 degrees false. That's up to 220km! Inacceptable. However, it's a demo. I will solve this issue. Take some time.</td>
   </tr>
+    <tr>
+    <td>20230307</td>
+    <td>16:00 GMT</td>
+    <td>RN</td>
+    <td>Added some "fancy gizmos". A time that refreshs the date and time in the "Celestial Body Correction" and the "Get declination of SUN" dialog. That's easy going and makes sense in this context. But in my opinion "fancy gizmo". However, I need some time for this Astro Math stuff.</td>
+  </tr>
   
 
 </table> 

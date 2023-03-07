@@ -121,7 +121,7 @@ Version History Log:
     <td>20230307</td>
     <td>16:00 GMT</td>
     <td>RN</td>
-    <td>Added some "fancy gizmos". A time that refreshs the date and time in the "Celestial Body Correction" and the "Get declination of SUN" dialog. That's easy going and makes sense in this context. But in my opinion "fancy gizmo". However, I need some time for this Astro Math stuff.</td>
+    <td>Added some "fancy gizmos". A timer that refreshs the date and time in the "Celestial Body Correction" and the "Get declination of SUN" dialog. That's easy going and makes sense in this context. But in my opinion "fancy gizmo". However, I need some time for this Astro Math stuff.</td>
   </tr>
   
 

@@ -81,7 +81,7 @@
         android:layout_width="163dp"
         android:layout_height="47dp"
         android:layout_marginStart="112dp"
-        android:layout_marginTop="476dp"
+        android:layout_marginTop="520dp"
         android:text="Back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -158,7 +158,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="476dp"
+        android:layout_marginTop="520dp"
         android:text="+"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -169,8 +169,8 @@
         android:id="@+id/pbDecCRCharset"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="292dp"
-        android:layout_marginTop="476dp"
+        android:layout_marginStart="290dp"
+        android:layout_marginTop="520dp"
         android:text="-"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -206,8 +206,8 @@
         android:id="@+id/pbNextCorrCB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="292dp"
-        android:layout_marginTop="428dp"
+        android:layout_marginStart="290dp"
+        android:layout_marginTop="472dp"
         android:text="Next"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -217,7 +217,7 @@
         android:layout_width="89dp"
         android:layout_height="46dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="428dp"
+        android:layout_marginTop="472dp"
         android:text="PREV"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -227,7 +227,7 @@
         android:layout_width="163dp"
         android:layout_height="47dp"
         android:layout_marginStart="112dp"
-        android:layout_marginTop="428dp"
+        android:layout_marginTop="472dp"
         android:text="Reset CB"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -294,6 +294,16 @@
         android:layout_marginTop="372dp"
         android:ems="10"
         android:inputType="datetime|time"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/cbTimerDeclinationOnOff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="424dp"
+        android:text="Timer on/off"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

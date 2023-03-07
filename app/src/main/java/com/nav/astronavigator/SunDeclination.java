@@ -16,12 +16,14 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.nav.astronavigator.databinding.FragmentSunDeclinationListDialogItemBinding;
@@ -42,6 +44,7 @@ public class SunDeclination extends DialogFragment {
     private static final String ARG_ITEM_COUNT = "item_count";
     private FragmentSunDeclinationListDialogBinding binding;
 
+    CheckBox cbTimerOnOff;
     Button pbBack;
     TextView dfDate;
     TextView dfTime;
@@ -68,6 +71,39 @@ public class SunDeclination extends DialogFragment {
 
     }
 
+    Boolean bAuto=true;
+    private void startTimerThread() {
+        Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            public void run() {
+
+                while (true) {
+                    try {
+                        Thread.sleep(1000);
+                    }
+                    catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (bAuto==true) {
+                        handler.post(new Runnable() {
+                            public void run() {
+                                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy");
+                                String date = sdf.format(new Date());
+                                dfDate.setText(date);
+
+                                sdf = new java.text.SimpleDateFormat("HH:mm:ss");
+                                String time = sdf.format(new Date());
+                                dfTime.setText(time);
+                            }
+                        });
+                    }
+                }
+
+            }
+        };
+        new Thread(runnable).start();
+    }
 
 
 
@@ -80,6 +116,9 @@ public class SunDeclination extends DialogFragment {
         recyclerView.setAdapter(new ItemAdapter(getArguments().getInt(ARG_ITEM_COUNT)));
         */
 
+        cbTimerOnOff=view.findViewById(R.id.cbTimerOnOff);
+
+
         pbBack=view.findViewById(R.id.pbSunBack);
         dfDate=view.findViewById(R.id.dfSunDate);
         dfTime=view.findViewById(R.id.dfSunTime);
@@ -89,6 +128,9 @@ public class SunDeclination extends DialogFragment {
         dfGHA=view.findViewById(R.id.dfSunGHA);
         dfGHA.setEnabled(false);
         dfGHA.setTextColor(Color.BLACK);
+
+        cbTimerOnOff.setChecked(true);
+        startTimerThread();
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         String date = sdf.format(new Date());
@@ -121,8 +163,8 @@ public class SunDeclination extends DialogFragment {
                 //do here your calculation
                 CelestialBodys cb=new CelestialBodys(null);
                 try {
+                    //bAuto=false;
                     dfDeclination.setText(cb.getDeclSun(dfDate.getText().toString(), dfTime.getText().toString()));
-
                     dfGHA.setText(calculus.Real2DMS(cb.timeToAngle(cb.date2seconds("00.00.0000", dfTime.getText().toString()))));
                 } catch (Exception e)
                 {
@@ -144,8 +186,8 @@ public class SunDeclination extends DialogFragment {
                 //do here your calculation
                 CelestialBodys cb=new CelestialBodys(null);
                 try{
-                dfDeclination.setText(cb.getDeclSun(dfDate.getText().toString(), dfTime.getText().toString()));
-
+                    //bAuto=false;
+                    dfDeclination.setText(cb.getDeclSun(dfDate.getText().toString(), dfTime.getText().toString()));
                     dfGHA.setText(calculus.Real2DMS(cb.timeToAngle(cb.date2seconds("00.00.0000", dfTime.getText().toString()))));
             } catch (Exception e)
             {
@@ -155,17 +197,28 @@ public class SunDeclination extends DialogFragment {
             }
         });
 
+        cbTimerOnOff.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                if (bAuto) {
+                                                    bAuto ^= bAuto;
+                                                }
+                                                else
+                                                {
+                                                    bAuto=true;
+                                                }
+                                            }
+                                        });
 
-        if (pbBack!=null) {
+
             pbBack.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
                     NavHostFragment.findNavController(SunDeclination.this).navigate(R.id.FirstFragment);
                 }
 
             });
-        }
+
 
     }
 

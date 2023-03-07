@@ -9,12 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.nav.astronavigator.databinding.FragmentSextantBinding;
@@ -43,6 +45,7 @@ public class Fragment_CBCorrection extends Fragment {
 
     com.nav.astronavigator.CelestialBodys CelestialBodys; //=new CelestialBodys(this);
 
+    CheckBox cbTimerOnOff;
     Button pbBack;
     Button pbIncrCharset;
     Button pbDecrCharset;
@@ -160,6 +163,42 @@ public class Fragment_CBCorrection extends Fragment {
 
     }
 
+
+    Boolean bAuto=true;
+    private void startTimerThread() {
+        Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+            public void run() {
+
+                while (true) {
+                    try {
+                        Thread.sleep(1000);
+                    }
+                    catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (bAuto==true) {
+                        handler.post(new Runnable() {
+                            public void run() {
+                                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy");
+                                String date = sdf.format(new Date());
+                                dfTestDate.setText(date);
+
+                                sdf = new java.text.SimpleDateFormat("HH:mm:ss");
+                                String time = sdf.format(new Date());
+                                dfTestTime.setText(time);
+                                calculate();
+                            }
+                        });
+                    }
+                }
+
+            }
+        };
+        new Thread(runnable).start();
+    }
+
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -204,6 +243,9 @@ public class Fragment_CBCorrection extends Fragment {
         ShowCBDataFromInternalTable();
         calculate();
 
+        cbTimerOnOff=getView().findViewById(R.id.cbTimerDeclinationOnOff);
+        cbTimerOnOff.setChecked(true);
+        startTimerThread();
 
         pbIncrCharset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -404,6 +446,18 @@ public class Fragment_CBCorrection extends Fragment {
             }
         });
 
+        cbTimerOnOff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (bAuto) {
+                    bAuto ^= bAuto;
+                }
+                else
+                {
+                    bAuto=true;
+                }
+            }
+        });
 
 
     }

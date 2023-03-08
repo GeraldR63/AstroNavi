@@ -596,21 +596,29 @@ void initStartable()
         double dayOfYear = calendar.get(Calendar.DAY_OF_YEAR)-1;
         //System.out.println("Day of year"+dayOfYear);
         if ((year!=0) & (month!=0) & (day!=0)) {
-            r = dayOfYear * 24 * 60 * 60;
+            r = dayOfYear * 24. * 60. * 60.;
+            //23 hours, 56 minutes and 4.09
+            //r = dayOfYear * (23*60*60+56*60+4.09); // Real length of a day on earth
         } else
         {
             r=0;
         }
-        r +=  hour*60*60;
-        r +=  minute*60;
+
+        r +=  hour*60.*60.;
+        r +=  minute*60.;
         r +=  seconds;
-        return r;
+
+        double correctionPerDayPercent=(23.*60.*60.+56.*60.+4.09)/(24.*60.*60.);
+        //correctionPerDayPercent=1.0;
+         // Wir sind jeden Tag 0.9856 Grad weiter!
+        return r*correctionPerDayPercent;
     }
 
 
     public static double timeToAngle(double ltime){  // Time in Seconds since 00:00:00
         //Real length of a day is 23 hours, 56 minutes, and 4 seconds
-        double r = (((ltime) / (24*60*60)  ) * twopi);
+         double r = (((ltime) / (24*60*60)  ) * twopi);
+        //double r = (((ltime) / (23.*60.*60.+56.*60.+4.09)  ) * twopi);
         return Math.toDegrees(r)+180;
     }
 
@@ -622,7 +630,8 @@ void initStartable()
 
         double Seconds=0;
         Seconds= date2seconds( date,  time);
-        double calc=(360. / 365.)* ((Seconds/(24.*60.*60.))-81.);        //Exact 21.07.2023
+        double calc=(360. /* 360.9856 */ / 365.25)* ((Seconds/(24.*60.*60.))-81.);        //Exact 21.07.2023
+        //double calc=( 360.9856  / 365.25)* ((Seconds/(23.*60.*60.+56.*60.+4.09))-81.);        //Exact 21.07.2023
         double da=23.43640 * Math.sin(Math.toRadians(calc));
         return calculus.Real2DMS(da);
     }

@@ -79,8 +79,8 @@
         android:id="@+id/pbSunBack"
         android:layout_width="246dp"
         android:layout_height="44dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="316dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="480dp"
         android:text="BACK"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -116,23 +116,55 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView42"
-        android:layout_width="359dp"
-        android:layout_height="169dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="380dp"
-        android:text="Calculation here is up to now just a good estimation. It's required to add additional corrections. If you compare the data with the one in the Nautical Almanac than you will see difference of up to one degree or more. That's more than 100km failure! I'm working on this problem but it's complex and I want a simple solution for this which reflect Moon and the ellipse of the earth's orbit. That's why the calculation here is just for informational purpose! Be aware if you copy data and paste them into other dialogs."
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <CheckBox
         android:id="@+id/cbTimerOnOff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="128dp"
-        android:layout_marginTop="256dp"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="420dp"
         android:text="Timer on/off"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView42"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="264dp"
+        android:text="Bearing"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView43"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="316dp"
+        android:text="Elevation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfSunBearing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="252dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfSunElevation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="304dp"
+        android:ems="10"
+        android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

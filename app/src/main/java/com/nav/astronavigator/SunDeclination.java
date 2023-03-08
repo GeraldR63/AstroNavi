@@ -52,6 +52,9 @@ public class SunDeclination extends DialogFragment {
 
     TextView dfGHA;
 
+    TextView dfSunBearing;
+    TextView dfSunElevation;
+
     // TODO: Customize parameters
     public static SunDeclination newInstance(int itemCount) {
         final SunDeclination fragment = new SunDeclination();
@@ -95,6 +98,14 @@ public class SunDeclination extends DialogFragment {
                                 sdf = new java.text.SimpleDateFormat("HH:mm:ss");
                                 String time = sdf.format(new Date());
                                 dfTime.setText(time);
+
+                                /*
+                                  Up to now Greenwich England.
+                                  Should be calculated position of vessel.
+                                 */
+
+                                dfSunElevation.setText(getElevation(0.001475,51.477811, date, time));
+                                dfSunBearing.setText(getAzimuth(0.001475,51.477811, date, time));
                             }
                         });
                     }
@@ -129,6 +140,14 @@ public class SunDeclination extends DialogFragment {
         dfGHA.setEnabled(false);
         dfGHA.setTextColor(Color.BLACK);
 
+        dfSunBearing=view.findViewById(R.id.dfSunBearing);
+        dfSunBearing.setEnabled(false);
+        dfSunBearing.setTextColor(Color.BLACK);
+
+        dfSunElevation=view.findViewById(R.id.dfSunElevation);
+        dfSunElevation.setEnabled(false);
+        dfSunElevation.setTextColor(Color.BLACK);
+
         cbTimerOnOff.setChecked(true);
         startTimerThread();
 
@@ -142,8 +161,9 @@ public class SunDeclination extends DialogFragment {
         try {
             CelestialBodys cb=new CelestialBodys(null);
             dfDeclination.setText(cb.getDeclSun(dfDate.getText().toString(), dfTime.getText().toString()));
-
             dfGHA.setText(calculus.Real2DMS(cb.timeToAngle(cb.date2seconds("00.00.0000", dfTime.getText().toString()))));
+            dfSunElevation.setText(getElevation(0.001475,51.477811, date, time));
+            dfSunBearing.setText(getAzimuth(0.001475,51.477811, date, time));
         } catch (Exception e)
         {
 
@@ -166,6 +186,8 @@ public class SunDeclination extends DialogFragment {
                     //bAuto=false;
                     dfDeclination.setText(cb.getDeclSun(dfDate.getText().toString(), dfTime.getText().toString()));
                     dfGHA.setText(calculus.Real2DMS(cb.timeToAngle(cb.date2seconds("00.00.0000", dfTime.getText().toString()))));
+                    dfSunElevation.setText(getElevation(0.001475,51.477811, dfDate.getText().toString(), dfTime.getText().toString()));
+                    dfSunBearing.setText(getAzimuth(0.001475,51.477811, dfDate.getText().toString(), dfTime.getText().toString()));
                 } catch (Exception e)
                 {
 
@@ -189,6 +211,8 @@ public class SunDeclination extends DialogFragment {
                     //bAuto=false;
                     dfDeclination.setText(cb.getDeclSun(dfDate.getText().toString(), dfTime.getText().toString()));
                     dfGHA.setText(calculus.Real2DMS(cb.timeToAngle(cb.date2seconds("00.00.0000", dfTime.getText().toString()))));
+                    dfSunElevation.setText(getElevation(0.001475,51.477811, dfDate.getText().toString(), dfTime.getText().toString()));
+                    dfSunBearing.setText(getAzimuth(0.001475,51.477811, dfDate.getText().toString(), dfTime.getText().toString()));
             } catch (Exception e)
             {
 
@@ -264,6 +288,190 @@ public class SunDeclination extends DialogFragment {
         public int getItemCount() {
             return mItemCount;
         }
-
     }
+    class cTime
+    {
+        public int iYear;
+        public  int iMonth;
+        public  int iDay;
+        public  double dHours;
+        public  double dMinutes;
+        public  double dSeconds;
+        public  double dTimeZone;
+    };
+
+    class cLocation
+    {
+        public double dLongitude;
+        public double dLatitude;
+    };
+
+    class cSunCoordinates
+    {
+        public double dZenithAngle;
+        public double dAzimuth;
+        public double dDeclination;
+        public double dHourAngle;
+        public double dElevation;
+        //public double dAzimuth;
+        public double dRefraction;
+        //public double dHourAngle;
+
+    };
+
+    public  cSunCoordinates sunPos(cTime udtTime,cLocation udtLocation, cSunCoordinates udtSunCoordinates) {
+
+        double pi, tau,rpd;
+        double rlat,rlon,utim;
+        double dy1,dy2,dy3,dy4,dnum;
+        double slon, sano,ecli,obli;
+        double rasc,decl,stim,hang;
+        double tmpx,tmpy,targ;
+
+        // Set conversion factors
+        pi=4*Math.atan(1);
+        tau=pi+pi;
+        rpd=pi/180;
+
+        //Latitude and Longitude to radians
+
+        rlat=udtLocation.dLatitude * rpd;
+        rlon=udtLocation.dLongitude * rpd;
+
+        //Decimal hour of the day at Greenwich
+
+        utim=udtTime.dHours - udtTime.dTimeZone + udtTime.dMinutes/60+udtTime.dSeconds /3600;
+
+        // Das from J2000 good for 1901 to 2099
+
+        dy1=Math.floor((udtTime.iMonth+9)/12);
+        dy2=Math.floor(7*(udtTime.iYear +dy1)/4);
+        dy3=Math.floor(275*udtTime.iMonth/9);
+        dy4=367 * udtTime.iYear - dy2 +dy3;
+        dnum=dy4+udtTime.iDay - 730531.5 + utim/24;
+
+        // Mean longitude of the sun
+
+        slon=rnge(dnum * 0.01720279239 + 4.894967873, 0, tau);
+
+        //System.out.println("slon="+slon);
+
+        // Mean anomaly of the Sun
+
+        sano=rnge(dnum * 0.01720197034 + 6.240040768, 0 ,tau);
+        //System.out.println("sano="+sano);
+
+        // Ecliptic longitude of the Sun
+        ecli = slon + 0.03342305518 * Math.sin(sano)+0.0003490658504 * Math.sin(2 * sano);
+        //System.out.println("ecli="+ecli);
+
+        // Obliquity of the ecliptic
+        obli= 0.4090877234 - 0.000000006981317008 * dnum;
+        //System.out.println("obli="+obli);
+
+        //Right ascension f the sun
+        tmpx= Math.cos(obli) * Math.sin(ecli);
+        tmpy= Math.cos(ecli);
+        rasc= Math.atan2(tmpx, tmpy);
+        //System.out.println("rasc="+rasc);
+
+        //Declination of the sun
+        decl= Math.asin(Math.sin(obli)*Math.sin(ecli));
+
+        //System.out.println("decl="+Real2DMS(decl));
+
+
+        //Local sideral tim
+        stim=rnge(4.894961213+(6.300388099*dnum)+rlon,0,tau);
+        //System.out.println("stim="+stim);
+
+        //Hour angle of sun
+        hang=rnge(stim-rasc,0,tau);
+        //System.out.println("hang="+hang);
+
+
+        //Local elevation of the sun
+        udtSunCoordinates.dElevation= Math.asin(Math.sin(decl) * Math.sin(rlat)+Math.cos(decl)*Math.cos(rlat) * Math.cos(hang));
+
+        //Local azimuth of sun
+        tmpx= -Math.cos(decl) * Math.cos(rlat)*Math.sin(hang);
+        tmpy= Math.sin(decl) - Math.sin(rlat)*Math.sin(udtSunCoordinates.dElevation);
+        udtSunCoordinates.dAzimuth= Math.atan2(tmpx, tmpy);
+
+        //Convert azimuth and elevation to degrees
+        udtSunCoordinates.dAzimuth=rnge(udtSunCoordinates.dAzimuth/rpd,0,360);
+        udtSunCoordinates.dElevation=rnge(udtSunCoordinates.dElevation/rpd,-180,180);
+
+        //Refraction correction
+        targ =   (udtSunCoordinates.dElevation + (10.3/(  udtSunCoordinates.dElevation+5.11)))*rpd;
+        udtSunCoordinates.dRefraction=(1.02/Math.tan(targ))/60;
+
+        // Adjust elevation for refraction
+        udtSunCoordinates.dElevation+=udtSunCoordinates.dRefraction;
+        return udtSunCoordinates;
+    }
+
+    public  double rnge (double x, double rMin, double rMax) {
+        double shiftedX, delta;
+
+        shiftedX=x-rMin;
+        delta=rMax-rMin;
+
+        return (((shiftedX % delta) +delta)%delta)+rMin;
+    }
+
+    public   String getAzimuth(Double longitude, Double latitude, String iDate, String iTime)
+    {
+
+        cTime udtTime=new cTime();
+
+        udtTime=DateTime2cTime (iDate, iTime);
+        cSunCoordinates udtSunCoordinates=new cSunCoordinates();
+        cLocation udtLocation=new cLocation();
+        udtLocation.dLongitude=longitude;
+        udtLocation.dLatitude=latitude;
+
+        udtTime.dTimeZone=-1.0;
+
+        udtSunCoordinates= sunPos( udtTime, udtLocation,  udtSunCoordinates);
+
+        return calculus.Real2DMS(udtSunCoordinates.dAzimuth);
+    }
+
+    public   String getElevation(Double longitude, Double latitude, String iDate, String iTime)
+    {
+
+        cTime udtTime=new cTime();
+
+        udtTime=DateTime2cTime (iDate, iTime);
+        cSunCoordinates udtSunCoordinates=new cSunCoordinates();
+        cLocation udtLocation=new cLocation();
+        udtLocation.dLongitude=longitude;
+        udtLocation.dLatitude=latitude;
+
+        udtTime.dTimeZone=-0.0;
+
+        udtSunCoordinates= sunPos( udtTime, udtLocation,  udtSunCoordinates);
+
+        return calculus.Real2DMS(udtSunCoordinates.dElevation);
+    }
+
+    public  cTime  DateTime2cTime (String Date, String Time)
+    {
+        cTime cTime=new cTime();
+        int position=Time.indexOf(":");
+        cTime.dHours  =  Integer.valueOf(Time.substring(0,position));
+        cTime.dMinutes = Integer.valueOf(Time.substring(position + 1, position=Time.indexOf(":", position+1)));
+        cTime.dSeconds= Integer.valueOf(Time.substring(position+1, Time.length()));
+
+        /* Parser dd.mm.yyyy */
+        position=Date.indexOf(".");
+        cTime.iDay  =  Integer.valueOf(Date.substring(0,position));
+        cTime.iMonth = Integer.valueOf(Date.substring(position + 1, position=Date.indexOf(".", position+1)));
+        cTime.iYear= Integer.valueOf(Date.substring(position+1, Date.length()));
+
+        return cTime;
+    }
+
+
 }

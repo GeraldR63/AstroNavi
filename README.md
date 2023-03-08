@@ -123,6 +123,12 @@ Version History Log:
     <td>RN</td>
     <td>Added some "fancy gizmos". A timer that refreshs the date and time in the "Celestial Body Correction" and the "Get declination of SUN" dialog. That's easy going and makes sense in this context. But in my opinion "fancy gizmo". However, I need some time for this Astro Math stuff.</td>
   </tr>
+    <tr>
+    <td>20230309</td>
+    <td>00:33 GMT</td>
+    <td>RN</td>
+    <td>Added another "fancy gizmo". Now the software show the Bearing and Elevation of the Sun if you are located in Greenwich. Next update this will use the calculated position in the Nautical Almanac dialog.</td>
+  </tr>
   
 
 </table> 

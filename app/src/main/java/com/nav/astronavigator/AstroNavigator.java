@@ -516,33 +516,6 @@ public class AstroNavigator extends Fragment {
             }
         });
 
-        //mdfDeclination.setText(NADataAndCalc.getCurrentDeclSun());
-        /*
-        thread=new Thread( new Runnable() { @Override public void run() {
-            mdfDeclination.setText(NADataAndCalc.getCurrentDeclSun());
-            System.out.println("Ooopss");
-        } } );
-        thread.start();
-        */
-        /*
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                // display your time here...
-                mdfDeclination.setText(NADataAndCalc.getCurrentDeclSun());
-                System.out.println("Ooopss");
-            }
-        }, 1000); // here 1 seconds to refresh time after 1 seconds
-
-        new Runnable() {
-            @Override
-            public void run() {
-                // This runs in background thread. Do heavy operations here
-                mdfDeclination.setText(NADataAndCalc.getCurrentDeclSun());
-            }
-            // This thread will die once it comes out of the run method
-        };
-        */
-
         //SharedPreferences prefs = this.getSharedPreferences("general_settings", Context.MODE_PRIVATE);
         mdfSextant.setText( sharedpreferences.getString("sextant", "021°00'00.00\""));
         mdfDeclination.setText( sharedpreferences.getString("declination", "022°00'00.00\""));

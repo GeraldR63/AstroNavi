@@ -77,10 +77,10 @@
 
     <Button
         android:id="@+id/pbSunBack"
-        android:layout_width="246dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="480dp"
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="560dp"
         android:text="BACK"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -186,6 +186,26 @@
         android:layout_marginTop="144dp"
         android:ems="10"
         android:inputType="numberSigned|numberDecimal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/pbSunIncCharset"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="560dp"
+        android:text="+"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/pbSunDecCharset"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="304dp"
+        android:layout_marginTop="560dp"
+        android:text="-"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

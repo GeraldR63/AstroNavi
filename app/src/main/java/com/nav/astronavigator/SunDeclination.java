@@ -1,6 +1,5 @@
 package com.nav.astronavigator;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -10,11 +9,8 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-
 import androidx.fragment.app.DialogFragment;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
@@ -59,6 +55,10 @@ public class SunDeclination extends DialogFragment {
     TextView dfSunBearing;
     TextView dfSunElevation;
     TextView dfTZ;
+
+    private Button pbIncrCharset;
+    private Button pbDecrCharset;
+
 
     double longitude;                // Current position from  AstroNavigation dialog.
     double latitude;
@@ -147,6 +147,22 @@ public class SunDeclination extends DialogFragment {
         }
     }
 
+    public static float pxFromDp(float dp, Context mContext) {
+        return dp * mContext.getResources().getDisplayMetrics().density;
+    }
+
+    public void setTextSize (int dp)
+    {
+        dfDeclination.setTextSize(pxFromDp(dp, getActivity()));
+        dfDate.setTextSize(pxFromDp(dp, getActivity()));
+        dfSunBearing.setTextSize(pxFromDp(dp, getActivity()));
+        dfGHA.setTextSize(pxFromDp(dp, getActivity()));
+        dfSunElevation.setTextSize(pxFromDp(dp, getActivity()));
+        dfDate.setTextSize(pxFromDp(dp, getActivity()));
+        dfTime.setTextSize(pxFromDp(dp, getActivity()));
+        dfTZ.setTextSize(pxFromDp(dp, getActivity()));
+        cbTimerOnOff.setTextSize(pxFromDp(dp, getActivity()));
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -206,6 +222,38 @@ public class SunDeclination extends DialogFragment {
 
         dfDate.setText(date);
         dfTime.setText(time);
+        pbIncrCharset=view.findViewById(R.id.pbSunIncCharset);
+        pbDecrCharset=view.findViewById(R.id.pbSunDecCharset);
+        pbIncrCharset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Integer n=Integer.valueOf(sharedpreferences.getString("CharSize", "9"))+1;
+
+                n=(n>=40?n=40:n);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("CharSize",n.toString());
+                editor.apply();
+                //editor.commit();
+                setTextSize(n);
+            }
+        });
+
+        pbDecrCharset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Integer n=Integer.valueOf(sharedpreferences.getString("CharSize", "9"))-1;
+
+                n=(n<=2?n=2:n);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("CharSize",n.toString());
+                editor.apply();
+                //editor.commit();
+                setTextSize(n);
+
+            }
+        });
+
+
         try {
             CelestialBodys cb=new CelestialBodys(null);
             dfDeclination.setText(cb.getDeclSun(dfDate.getText().toString(), dfTime.getText().toString()));
@@ -288,6 +336,7 @@ public class SunDeclination extends DialogFragment {
 
             });
 
+        setTextSize(Integer.valueOf(sharedpreferences.getString("CharSize", "9")));
 
     }
 

@@ -99,9 +99,11 @@ public class AstroNavigator extends Fragment {
         double SM=1.852;
         double ZenithDistance= 90-calculus.DMS2Real(mdfSextant.getText().toString());
         double Declination= calculus.DMS2Real(mdfDeclination.getText().toString());
-        double Latitude= 0;  // Verienfacht nur zum Testen.
+        double Latitude= 0;  // Vereinfacht nur zum Testen.
         double LocalTimeHighNoon=calculus.HMS2Real(mdfLocalHighNoon.getText().toString())*60*60;
-        double DegreePerSecond=360.00/24.00/60.00/60.00;  //Winkelgrad um den sich die Erde pro Sekunde dreht.
+        double DegreePerSecond=360/24.00/60.00/60.00;  //Winkelgrad um den sich die Erde pro Sekunde dreht.
+        //(23.*60.*60.+56.*60.+4.09)/(24.*60.*60.);    //Korrekturfaktor pro Tag
+
         double tLongitude;
         double tGHA;
 
@@ -123,6 +125,7 @@ public class AstroNavigator extends Fragment {
             if (LocalTimeHighNoon < GMT_ZERO) {
                 //tDir="E";
                 tLong = "E " + String.valueOf(calculus.Real2DMS(tLongitude));
+                tLongitude*=-1;
             } else {
                 //tDir="W";
                 tLong = "W " + String.valueOf(calculus.Real2DMS(tLongitude));
@@ -172,6 +175,11 @@ public class AstroNavigator extends Fragment {
 
             textDecimalLatitude.setText(String.format("%.5f", Latitude)+"°");
             mdfLatitude.setText(calculus.Real2DMS(Latitude));
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            editor.putString("SimpleLatitude",""+Latitude);                  //Used in SunDeclination as position to get  Bearing and Elevation of sun
+            editor.putString("SimpleLongitude",""+tLongitude);
+            editor.apply();
+
         }
         catch (Exception e)
         {
@@ -559,6 +567,9 @@ public class AstroNavigator extends Fragment {
         editor.putString("sextant",mdfSextant.getText().toString());
         editor.putString("declination",mdfDeclination.getText().toString());
         editor.putString("NS", (mcbSouth.isChecked() == true ? "S":"N"));
+
+        editor.putString("SimpleLatitude",mdfDeclination.getText().toString());
+        editor.putString("SimpleLongitude",mdfDeclination.getText().toString());
 
         editor.putString("LocalHighNoon",mdfLocalHighNoon.getText().toString());
         editor.putString("WhoAmI","SIMPLE");

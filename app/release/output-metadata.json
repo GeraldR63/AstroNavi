@@ -11,8 +11,8 @@
       "type": "SINGLE",
       "filters": [],
       "attributes": [],
-      "versionCode": 15,
-      "versionName": "Mast und Schotbruch 2.17 (bug fix plus SUN GHA and Declination)",
+      "versionCode": 16,
+      "versionName": "Mast und Schotbruch 2.18 (SUN bearing and Elevation)",
       "outputFile": "app-release.apk"
     }
   ],

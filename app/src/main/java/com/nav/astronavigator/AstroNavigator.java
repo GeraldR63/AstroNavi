@@ -421,22 +421,26 @@ public class AstroNavigator extends Fragment {
             @Override
             public void onClick(View v)
             {
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("WhoAmI","SIMPLE");
-                editor.putString("CurrentHC",""+calculus.DMS2Real(String.valueOf(mdfSextant.getText())));
-                editor.apply();
-                //editor.commit();
-
-                NavHostFragment.findNavController(AstroNavigator.this)
-                        .navigate(R.id.action_FirstFragment_to_Sextant);
-                // Nach der Berechnung von Hc diese anzeigen.
-                mdfSextant.setText( sharedpreferences.getString("sextant", "000°00'00.00\""));
                 try {
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.putString("WhoAmI", "SIMPLE");
+                    editor.putString("CurrentHC", "" + calculus.DMS2Real(String.valueOf(mdfSextant.getText())));
+                    editor.apply();
+                    //editor.commit();
 
-                    calculate(view);
-                } catch (Exception e)
+                    NavHostFragment.findNavController(AstroNavigator.this)
+                            .navigate(R.id.action_FirstFragment_to_Sextant);
+                    // Nach der Berechnung von Hc diese anzeigen.
+                    mdfSextant.setText(sharedpreferences.getString("sextant", "000°00'00.00\""));
+                    try {
+                        calculate(view);
+                    } catch (Exception e) {
+
+                    }
+                }catch (Exception e)
                 {
-
+                    DelayedMessage msg=new DelayedMessage(view);
+                    msg.ShowSnackbar("Format error Hc-omputed! DMS!");
                 }
                 setTextSize(Integer.valueOf(sharedpreferences.getString("CharSize", "9")));
             }

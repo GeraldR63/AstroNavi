@@ -232,11 +232,11 @@ public class SunDeclination extends DialogFragment {
         setSun(dfDate.getText().toString(), dfTime.getText().toString());
 
     }
-
+     String sCharSetSizeName="SunCharSize";
     void TextSize2SharedPref(Integer n)
     {
         SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString("SunCharSize",n.toString());
+        editor.putString(sCharSetSizeName,n.toString());
         editor.apply();
         setTextSize(n);
     }
@@ -334,7 +334,7 @@ public class SunDeclination extends DialogFragment {
         pbIncrCharset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer n=Integer.valueOf(sharedpreferences.getString("SunCharSize", "9"))+1;
+                Integer n=Integer.valueOf(sharedpreferences.getString(sCharSetSizeName, "9"))+1;
 
                 n=(n>=40?n=40:n);
                 TextSize2SharedPref( n);
@@ -344,7 +344,7 @@ public class SunDeclination extends DialogFragment {
         pbDecrCharset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer n=Integer.valueOf(sharedpreferences.getString("SunCharSize", "9"))-1;
+                Integer n=Integer.valueOf(sharedpreferences.getString(sCharSetSizeName, "9"))-1;
 
                 n=(n<=2?n=2:n);
                 TextSize2SharedPref(n);
@@ -448,7 +448,7 @@ public class SunDeclination extends DialogFragment {
         dfDate.setText( sharedpreferences.getString("SunDate", "01.01.2000"));
         dfTime.setText( sharedpreferences.getString("SunTime", "00:00:00"));
         dfTZ.setText( sharedpreferences.getString("SunTZ", "1"));
-        setTextSize(Integer.valueOf(sharedpreferences.getString("SunCharSize", "9")));
+        setTextSize(Integer.valueOf(sharedpreferences.getString(sCharSetSizeName, "9")));
 
 
 

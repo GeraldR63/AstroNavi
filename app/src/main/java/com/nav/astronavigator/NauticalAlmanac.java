@@ -225,11 +225,11 @@ public class NauticalAlmanac extends Fragment {
             mdfStatus.setText("Input error. Check date/time for CB");
         }
     }
-
+    String sCharSetSizeName="NACharSize";
     void TextSize2SharedPref(Integer n)
     {
         SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString("NACharSize",n.toString());
+        editor.putString(sCharSetSizeName,n.toString());
         editor.apply();
         setTextSize(n);
     }
@@ -598,7 +598,7 @@ public class NauticalAlmanac extends Fragment {
         pbIncrCharset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer n=Integer.valueOf(sharedpreferences.getString("NACharSize", "9"))+1;
+                Integer n=Integer.valueOf(sharedpreferences.getString(sCharSetSizeName, "9"))+1;
 
                 n=(n>=40?n=40:n);
                 TextSize2SharedPref(n);
@@ -608,7 +608,7 @@ public class NauticalAlmanac extends Fragment {
         pbDecrCharset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer n=Integer.valueOf(sharedpreferences.getString("NACharSize", "9"))-1;
+                Integer n=Integer.valueOf(sharedpreferences.getString(sCharSetSizeName, "9"))-1;
 
                 n=(n<=2?n=2:n);
                 TextSize2SharedPref(n);
@@ -624,7 +624,7 @@ public class NauticalAlmanac extends Fragment {
         mdfHeading.setText( sharedpreferences.getString("DRHeading", "172°"));
         mdfSpeed.setText( sharedpreferences.getString("DRSpeed", "18.5kn"));
         mdfPosition.setText( sharedpreferences.getString("LastPosition", "000°00'00.0\" 000°00'00.0\""));
-        setTextSize(Integer.valueOf(sharedpreferences.getString("NACharSize", "9")));
+        setTextSize(Integer.valueOf(sharedpreferences.getString(sCharSetSizeName, "9")));
         CBcounter[0]=Integer.valueOf(sharedpreferences.getString("ActiveStar_1", "1"));
         CBcounter[1]=Integer.valueOf(sharedpreferences.getString("ActiveStar_2", "2"));
         CBcounter[2]=Integer.valueOf(sharedpreferences.getString("ActiveStar_3", "3"));

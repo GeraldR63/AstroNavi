@@ -180,11 +180,11 @@ public class fragment_sextant extends Fragment {
         }
 
     }
-
+    String sCharSetSizeName="SexCharSize";
     void TextSize2SharedPref(Integer n)
     {
         SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString("SexCharSize",n.toString());
+        editor.putString(sCharSetSizeName,n.toString());
         editor.apply();
         setTextSize(n);
     }
@@ -400,7 +400,7 @@ public class fragment_sextant extends Fragment {
         pbIncrCharset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer n=Integer.valueOf(sharedpreferences.getString("SexCharSize", "9"))+1;
+                Integer n=Integer.valueOf(sharedpreferences.getString(sCharSetSizeName, "9"))+1;
                 n=(n>=40?n=40:n);
                 TextSize2SharedPref(n);
             }
@@ -409,7 +409,7 @@ public class fragment_sextant extends Fragment {
         pbDecrCharset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer n=Integer.valueOf(sharedpreferences.getString("SexCharSize", "9"))-1;
+                Integer n=Integer.valueOf(sharedpreferences.getString(sCharSetSizeName, "9"))-1;
 
                 n=(n<=2?n=2:n);
                 TextSize2SharedPref(n);
@@ -417,7 +417,7 @@ public class fragment_sextant extends Fragment {
         });
 
         ReadCBrelatedData(postFix);
-        setTextSize(Integer.valueOf(sharedpreferences.getString("SexCharSize", "9")));
+        setTextSize(Integer.valueOf(sharedpreferences.getString(sCharSetSizeName, "9")));
         displayCalculation(dfHc, dfSextantAltitudeSA, null);
     }
 
@@ -464,7 +464,7 @@ public class fragment_sextant extends Fragment {
             Double HCFromSharedPref;
             HCFromSharedPref=calculateHC();
 
-            System.out.println(HCFromSharedPref+" == "+HCfromParent);
+            //System.out.println(HCFromSharedPref+" == "+HCfromParent);
             if (HCfromParent!=HCFromSharedPref)
             {
                 dfHo.setText( calculus.Real2DMS(HCfromParent));

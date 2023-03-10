@@ -158,9 +158,7 @@ public class Fragment_CBCorrection extends Fragment {
             dfDeclinationToday.setText(t);
             dfSHAToday.setBackgroundColor(Color.WHITE);
             dfDeclinationToday.setBackgroundColor(Color.WHITE);
-
         }
-
     }
 
 
@@ -184,7 +182,6 @@ public class Fragment_CBCorrection extends Fragment {
                                 java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy");
                                 String date = sdf.format(new Date());
                                 dfTestDate.setText(date);
-
                                 sdf = new java.text.SimpleDateFormat("HH:mm:ss");
                                 String time = sdf.format(new Date());
                                 dfTestTime.setText(time);
@@ -199,10 +196,11 @@ public class Fragment_CBCorrection extends Fragment {
         new Thread(runnable).start();
     }
 
+    String sCharSetSizeName="CBCharSize";  //Reduce redundancies
     void TextSize2SharedPref(Integer n)
     {
         SharedPreferences.Editor editor = sharedpreferences.edit();
-        editor.putString("CBCharSize",n.toString());
+        editor.putString(sCharSetSizeName,n.toString());
         editor.apply();
         setTextSize(n);
     }
@@ -258,7 +256,7 @@ public class Fragment_CBCorrection extends Fragment {
         pbIncrCharset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer n=Integer.valueOf(sharedpreferences.getString("CBCharSize", "9"))+1;
+                Integer n=Integer.valueOf(sharedpreferences.getString(sCharSetSizeName, "9"))+1;
                 n=(n>=40?n=40:n);
                 TextSize2SharedPref(n);
             }
@@ -267,7 +265,7 @@ public class Fragment_CBCorrection extends Fragment {
         pbDecrCharset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer n=Integer.valueOf(sharedpreferences.getString("CBCharSize", "9"))-1;
+                Integer n=Integer.valueOf(sharedpreferences.getString(sCharSetSizeName, "9"))-1;
                 n=(n<=2?n=2:n);
                 TextSize2SharedPref(n);
             }
@@ -454,7 +452,7 @@ public class Fragment_CBCorrection extends Fragment {
         });
 
         try {
-            setTextSize(Integer.valueOf(sharedpreferences.getString("CBCharSize", "9")) - 1);
+            setTextSize(Integer.valueOf(sharedpreferences.getString(sCharSetSizeName, "9")) - 1);
         } catch (Exception e)
         {
 

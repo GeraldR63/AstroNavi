@@ -135,6 +135,13 @@ Version History Log:
     <td>RN</td>
     <td>Added standard application behaviour (+ and - button) and persistence after closing a dialog to the "Get declination of SUN" dialog.</td>
   </tr>
+   <tr>
+    <td>20230310</td>
+    <td>17:29 GMT</td>
+    <td>RN</td>
+    <td>Fixed issues related to usage of TimeZone. The application was designed to work only with GMT and not with TimeZones. To add TZ made some trouble.</td>
+  </tr>
+
   
 
 </table> 

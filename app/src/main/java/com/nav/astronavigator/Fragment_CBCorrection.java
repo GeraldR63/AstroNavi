@@ -19,13 +19,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import com.nav.astronavigator.databinding.FragmentSextantBinding;
+//import com.nav.astronavigator.databinding.FragmentSextantBinding;
 
-import org.w3c.dom.Text;
+//import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
+//import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,12 +36,12 @@ public class Fragment_CBCorrection extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    //private static final String ARG_PARAM1 = "param1";
+    //private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    //private String mParam1;
+    //private String mParam2;
 
     com.nav.astronavigator.CelestialBodys CelestialBodys; //=new CelestialBodys(this);
 
@@ -80,7 +80,7 @@ public class Fragment_CBCorrection extends Fragment {
         dfTestDate.setTextSize(pxFromDp(dp, getActivity()));
         dfTestTime.setTextSize(pxFromDp(dp, getActivity()));
     }
-    private FragmentSextantBinding binding;
+    //private FragmentSextantBinding binding;
     public static final String MyPREFERENCES = "AstroNavPrefs" ;
     SharedPreferences sharedpreferences;
 
@@ -96,7 +96,9 @@ public class Fragment_CBCorrection extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment Fragment_CBCorrection.
      */
+
     // TODO: Rename and change types and number of parameters
+    /*
     public static Fragment_CBCorrection newInstance(String param1, String param2) {
         Fragment_CBCorrection fragment = new Fragment_CBCorrection();
         Bundle args = new Bundle();
@@ -105,14 +107,10 @@ public class Fragment_CBCorrection extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
+   */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
 

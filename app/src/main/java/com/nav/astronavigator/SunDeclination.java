@@ -149,7 +149,7 @@ public class SunDeclination extends DialogFragment {
 
         String  tLong="";
         try {
-            double LocalTimeHighNoon = (calculus.HMS2Real(dfTime.getText().toString()) * 60 * 60)+Double.valueOf(dfTZ.getText().toString())*60*60;
+            double LocalTimeHighNoon = (calculus.HMS2Real(dfTime.getText().toString()) * 60 * 60)+(-1*Double.valueOf(dfTZ.getText().toString())*60*60);
             double DegreePerSecond = 360. / 24.00 / 60.00 / 60.00;
             double GMT_ZERO=12.*60.*60.;  // 12:00:00 in Greenwich
 
@@ -173,8 +173,8 @@ public class SunDeclination extends DialogFragment {
         if (false==false) {
 
             try{
-                    dfSunElevation.setText(getElevation(longitude, latitude, date, time, Double.valueOf(dfTZ.getText().toString())));
-                    dfSunBearing.setText(getAzimuth(longitude, latitude, date, time, Double.valueOf(dfTZ.getText().toString())));
+                    dfSunElevation.setText(getElevation(longitude, latitude, date, time, -1.*Double.valueOf(dfTZ.getText().toString())));
+                    dfSunBearing.setText(getAzimuth(longitude, latitude, date, time, -1.*Double.valueOf(dfTZ.getText().toString())));
                     calculate();
                     dfLongByPureMath.setText(tLong);
             } catch (Exception e)
@@ -247,7 +247,7 @@ public class SunDeclination extends DialogFragment {
         dfTime=view.findViewById(R.id.dfSunTime);
         dfTZ=view.findViewById(R.id.dfTZ);
         //ToDo: preset TZ by long/lat
-        dfTZ.setText("-1");
+        dfTZ.setText("1");
 
         dfDeclination=view.findViewById(R.id.dfSunDeclination);
         dfDeclination.setEnabled(false);
@@ -440,7 +440,7 @@ public class SunDeclination extends DialogFragment {
 
         dfDate.setText( sharedpreferences.getString("SunDate", "01.01.2000"));
         dfTime.setText( sharedpreferences.getString("SunTime", "00:00:00"));
-        dfTZ.setText( sharedpreferences.getString("SunTZ", "-1"));
+        dfTZ.setText( sharedpreferences.getString("SunTZ", "1"));
         setTextSize(Integer.valueOf(sharedpreferences.getString("CharSize", "9")));
 
 

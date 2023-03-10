@@ -27,11 +27,13 @@ public class calculus {
        Sorry. I'm very upset to this. I love the people in the US. The only ones ever paid for my ShareWare
        in the past 40 years came from the USA. Germans pay for nothing. But they pay now a price. A high price.
      */
+    static double pi=3.14159265358979323846;
+    static double twopi=(2*pi);
 
     static View view;
     //static DialogBox DialogBox=new DialogBox(view);
     static DelayedMessage msg;
-    static double pi= 3.14159265358979323846;
+    //static double pi= 3.14159265358979323846;
 
     calculus(View view)
     {
@@ -379,5 +381,13 @@ public class calculus {
          }
          return cv;
      }
+
+    public static double timeToAngle(double ltime){  // Time in Seconds since 00:00:00
+        //Real length of a day is 23 hours, 56 minutes, and 4 seconds
+        double r = (((ltime) / (24*60*60)  ) * twopi);
+        //double r = (((ltime) / (23.*60.*60.+56.*60.+4.09)  ) * twopi);
+        return Math.toDegrees(r)+180;
+    }
+
 
 }

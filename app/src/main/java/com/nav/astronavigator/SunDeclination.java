@@ -37,6 +37,7 @@ import java.util.Date;
  */
 public class SunDeclination extends DialogFragment {
 
+
     // TODO: Customize parameter argument names
     private static final String ARG_ITEM_COUNT = "item_count";
     private FragmentSunDeclinationListDialogBinding binding;
@@ -55,6 +56,9 @@ public class SunDeclination extends DialogFragment {
     TextView dfSunBearing;
     TextView dfSunElevation;
     TextView dfTZ;
+
+    TextView dfLatByPureMath;   //This is the theoretical Latitude.
+    TextView dfLongByPureMath;  //This is the theoretical Longitude.
 
     private Button pbIncrCharset;
     private Button pbDecrCharset;
@@ -103,32 +107,76 @@ public class SunDeclination extends DialogFragment {
                                 java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd.MM.yyyy");
                                 String date = sdf.format(new Date());
                                 dfDate.setText(date);
-
                                 sdf = new java.text.SimpleDateFormat("HH:mm:ss");
                                 String time = sdf.format(new Date());
                                 dfTime.setText(time);
-
                                 setSun(date,time);
-
-
+                                //calculate();
                             }
                         });
                     }
                 }
-
             }
         };
         new Thread(runnable).start();
     }
 
+    void calculate()
+    {
+        double ZenithDistance= 90-calculus.DMS2Real(dfSunElevation.getText().toString());
+        double Declination= calculus.DMS2Real(dfDeclination.getText().toString());
+        double Latitude= 0;  // Vereinfacht nur zum Testen.
+
+        System.out.println("ZenithDistance="+ZenithDistance+" Declination="+Declination);
+        if (Declination<0.0) {
+            Latitude = ZenithDistance + (Declination);
+            //mdfDistance.setText(String.valueOf((Latitude + Declination) * 60 * SM));  //Object below Equator
+        } else {
+            if (Declination < ZenithDistance) {
+                Latitude = Declination + ZenithDistance;
+            } else {
+                Latitude = Declination - ZenithDistance;
+            }
+        }
+
+        Latitude=(Latitude>90.0?Latitude-90:Latitude);
+
+        dfLatByPureMath.setText(calculus.Real2DMS(Latitude));
+    }
+
     void setSun( String date, String time)
     {
 
-        if (false==false) {
-            try {
+        String  tLong="";
+        try {
+            double LocalTimeHighNoon = (calculus.HMS2Real(dfTime.getText().toString()) * 60 * 60)+Double.valueOf(dfTZ.getText().toString())*60*60;
+            double DegreePerSecond = 360. / 24.00 / 60.00 / 60.00;
+            double GMT_ZERO=12.*60.*60.;  // 12:00:00 in Greenwich
 
-                dfSunElevation.setText(getElevation(longitude, latitude, date, time, Double.valueOf(dfTZ.getText().toString())));
-                dfSunBearing.setText(getAzimuth(longitude, latitude, date, time, Double.valueOf(dfTZ.getText().toString())));
+            double tLongitude = Math.abs((GMT_ZERO - LocalTimeHighNoon) * DegreePerSecond);
+
+            if (LocalTimeHighNoon < GMT_ZERO) {
+                //tDir="E";
+                tLong = "E " + String.valueOf(calculus.Real2DMS(tLongitude));
+                tLongitude *= -1;
+            } else {
+                //tDir="W";
+                tLong = "W " + String.valueOf(calculus.Real2DMS(tLongitude));
+            }
+        }
+
+        catch (Exception e) {
+            tLong="???°??'??.??\"";
+        }
+
+
+        if (false==false) {
+
+            try{
+                    dfSunElevation.setText(getElevation(longitude, latitude, date, time, Double.valueOf(dfTZ.getText().toString())));
+                    dfSunBearing.setText(getAzimuth(longitude, latitude, date, time, Double.valueOf(dfTZ.getText().toString())));
+                    calculate();
+                    dfLongByPureMath.setText(tLong);
             } catch (Exception e)
             {
 
@@ -144,6 +192,8 @@ public class SunDeclination extends DialogFragment {
 
             dfSunElevation.setText(getElevation(longitude, latitude, d, t,-7));
             dfSunBearing.setText(getAzimuth(longitude, latitude, d, t,-7));
+            calculate();
+            dfLongByPureMath.setText(tLong);
         }
     }
 
@@ -162,6 +212,8 @@ public class SunDeclination extends DialogFragment {
         dfTime.setTextSize(pxFromDp(dp, getActivity()));
         dfTZ.setTextSize(pxFromDp(dp, getActivity()));
         cbTimerOnOff.setTextSize(pxFromDp(dp, getActivity()));
+        dfLongByPureMath.setTextSize(pxFromDp(dp, getActivity()));
+        dfLatByPureMath.setTextSize(pxFromDp(dp, getActivity()));
     }
 
     @Override
@@ -207,12 +259,39 @@ public class SunDeclination extends DialogFragment {
         dfSunBearing=view.findViewById(R.id.dfSunBearing);
         dfSunBearing.setEnabled(false);
         dfSunBearing.setTextColor(Color.BLACK);
+        dfSunBearing.setBackgroundColor(Color.rgb(128,255, 128));
 
         dfSunElevation=view.findViewById(R.id.dfSunElevation);
         dfSunElevation.setEnabled(false);
         dfSunElevation.setTextColor(Color.BLACK);
+        dfSunElevation.setBackgroundColor(Color.rgb(128,255, 128));
 
-        cbTimerOnOff.setChecked(true);
+        /*
+           ToDO: This Latitude depends on the Elevation taken at the position in the Simple Navigation Dialog.
+                 That's why this Latitude is probably "bullshit".
+                 Hheck the math behind the scenes.
+
+                 Assume you are  at long/lat and see the sun at bearing and elevation and than you calculate
+                 the Latitude of the position where the sun reaches at this point in time the highest point.
+                 Well...that's what I need here. Maybe the related calculation is true. I've not checked this.
+         */
+        dfLatByPureMath=view.findViewById(R.id.dfSunTheoreticalLat);
+        dfLatByPureMath.setEnabled(false);
+        dfLatByPureMath.setTextColor(Color.BLACK);
+        dfLatByPureMath.setBackgroundColor(Color.rgb(255,128, 128));
+
+        dfLongByPureMath=view.findViewById(R.id.dfSunLongitude);
+        dfLongByPureMath.setEnabled(false);
+        dfLongByPureMath.setTextColor(Color.BLACK);
+        dfLongByPureMath.setBackgroundColor(Color.rgb(128,255, 128));
+
+
+
+        if (sharedpreferences.getString("SunTimer", "0").equals("1"))
+        {  cbTimerOnOff.setChecked(true);      bAuto=true;  }
+        else
+        { cbTimerOnOff.setChecked(false);bAuto=false;}
+
         startTimerThread();
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
@@ -264,6 +343,29 @@ public class SunDeclination extends DialogFragment {
 
         }
 
+        dfTZ.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                //do here your calculation
+                CelestialBodys cb=new CelestialBodys(null);
+                try {
+                    //bAuto=false;
+                    dfDeclination.setText(cb.getDeclSun(dfDate.getText().toString(), dfTime.getText().toString()));
+                    dfGHA.setText(calculus.Real2DMS(cb.timeToAngle(cb.date2seconds("00.00.0000", dfTime.getText().toString()))));
+                    setSun(dfDate.getText().toString(), dfTime.getText().toString());
+                } catch (Exception e)
+                {
+
+                }
+
+            }
+        });
 
 
         dfDate.addTextChangedListener(new TextWatcher() {
@@ -336,15 +438,15 @@ public class SunDeclination extends DialogFragment {
 
             });
 
+        dfDate.setText( sharedpreferences.getString("SunDate", "01.01.2000"));
+        dfTime.setText( sharedpreferences.getString("SunTime", "00:00:00"));
+        dfTZ.setText( sharedpreferences.getString("SunTZ", "-1"));
         setTextSize(Integer.valueOf(sharedpreferences.getString("CharSize", "9")));
 
+
+
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
 
     private class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -569,5 +671,21 @@ public class SunDeclination extends DialogFragment {
         return cTime;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        //Editor editor = sharedpreferences.edit();
+        editor.putString("key", "value");
+
+        editor.putString("SunDate",dfDate.getText().toString());
+        editor.putString("SunTime",dfTime.getText().toString());
+        editor.putString("SunTimer", (cbTimerOnOff.isChecked() == true ? "1":"0"));
+
+        editor.putString("SunTZ",dfTZ.getText().toString());
+        editor.apply();
+
+        binding = null;
+    }
 
 }

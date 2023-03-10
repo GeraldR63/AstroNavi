@@ -141,6 +141,13 @@ Version History Log:
     <td>RN</td>
     <td>Fixed issues related to usage of TimeZone. The application was designed to work only with GMT and not with TimeZones. To add TZ made some trouble.</td>
   </tr>
+     <tr>
+    <td>20230310</td>
+    <td>21:00 GMT</td>
+    <td>RN</td>
+    <td>Fixed some minor bugs with DMS input to avoid crashes forced by false user input. It's also allowed now to have individual character size for all of the dialogs.</td>
+  </tr>
+
 
   
 

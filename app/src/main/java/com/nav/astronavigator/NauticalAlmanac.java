@@ -226,6 +226,15 @@ public class NauticalAlmanac extends Fragment {
         }
     }
 
+    void TextSize2SharedPref(Integer n)
+    {
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("NACharSize",n.toString());
+        editor.apply();
+        setTextSize(n);
+    }
+
+
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         {
@@ -592,11 +601,7 @@ public class NauticalAlmanac extends Fragment {
                 Integer n=Integer.valueOf(sharedpreferences.getString("NACharSize", "9"))+1;
 
                 n=(n>=40?n=40:n);
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("NACharSize",n.toString());
-                editor.apply();
-                //editor.commit();
-                setTextSize(n);
+                TextSize2SharedPref(n);
             }
         });
 
@@ -606,12 +611,7 @@ public class NauticalAlmanac extends Fragment {
                 Integer n=Integer.valueOf(sharedpreferences.getString("NACharSize", "9"))-1;
 
                 n=(n<=2?n=2:n);
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("NACharSize",n.toString());
-                editor.apply();
-                //editor.commit();
-                setTextSize(n);
-
+                TextSize2SharedPref(n);
             }
         });
 

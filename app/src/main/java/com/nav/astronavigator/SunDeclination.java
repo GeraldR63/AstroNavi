@@ -232,6 +232,15 @@ public class SunDeclination extends DialogFragment {
         setSun(dfDate.getText().toString(), dfTime.getText().toString());
 
     }
+
+    void TextSize2SharedPref(Integer n)
+    {
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("SunCharSize",n.toString());
+        editor.apply();
+        setTextSize(n);
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -328,11 +337,7 @@ public class SunDeclination extends DialogFragment {
                 Integer n=Integer.valueOf(sharedpreferences.getString("SunCharSize", "9"))+1;
 
                 n=(n>=40?n=40:n);
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("SunCharSize",n.toString());
-                editor.apply();
-                //editor.commit();
-                setTextSize(n);
+                TextSize2SharedPref( n);
             }
         });
 
@@ -342,12 +347,7 @@ public class SunDeclination extends DialogFragment {
                 Integer n=Integer.valueOf(sharedpreferences.getString("SunCharSize", "9"))-1;
 
                 n=(n<=2?n=2:n);
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("SunCharSize",n.toString());
-                editor.apply();
-                //editor.commit();
-                setTextSize(n);
-
+                TextSize2SharedPref(n);
             }
         });
 

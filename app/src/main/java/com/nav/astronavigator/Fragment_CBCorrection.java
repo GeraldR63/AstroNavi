@@ -199,6 +199,14 @@ public class Fragment_CBCorrection extends Fragment {
         new Thread(runnable).start();
     }
 
+    void TextSize2SharedPref(Integer n)
+    {
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("CBCharSize",n.toString());
+        editor.apply();
+        setTextSize(n);
+    }
+
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -251,13 +259,8 @@ public class Fragment_CBCorrection extends Fragment {
             @Override
             public void onClick(View view) {
                 Integer n=Integer.valueOf(sharedpreferences.getString("CBCharSize", "9"))+1;
-
                 n=(n>=40?n=40:n);
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("CBCharSize",n.toString());
-                editor.apply();
-                //editor.commit();
-                setTextSize(n);
+                TextSize2SharedPref(n);
             }
         });
 
@@ -265,14 +268,8 @@ public class Fragment_CBCorrection extends Fragment {
             @Override
             public void onClick(View view) {
                 Integer n=Integer.valueOf(sharedpreferences.getString("CBCharSize", "9"))-1;
-
                 n=(n<=2?n=2:n);
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("CBCharSize",n.toString());
-                editor.apply();
-                //editor.commit();
-                setTextSize(n);
-
+                TextSize2SharedPref(n);
             }
         });
 
@@ -280,8 +277,6 @@ public class Fragment_CBCorrection extends Fragment {
             @Override
             public void onClick(View view) {
                 try {
-
-
                     if (bCanSave == true) {
                         CelestialBodys.startable[CBcounter].modifyStar(calculus.DMS2Real(String.valueOf(dfSHA.getText())),
                                 Double.valueOf(String.valueOf(dfSHACorr.getText())),
@@ -295,7 +290,6 @@ public class Fragment_CBCorrection extends Fragment {
                 if (CBcounter<65) {CBcounter++;} else {CBcounter=0;}
                 ShowCBDataFromInternalTable();
                 calculate();
-
             }
         });
 
@@ -460,7 +454,6 @@ public class Fragment_CBCorrection extends Fragment {
         });
 
         try {
-
             setTextSize(Integer.valueOf(sharedpreferences.getString("CBCharSize", "9")) - 1);
         } catch (Exception e)
         {

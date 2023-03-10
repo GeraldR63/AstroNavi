@@ -67,6 +67,8 @@ public class SunDeclination extends DialogFragment {
     double longitude;                // Current position from  AstroNavigation dialog.
     double latitude;
 
+    NADataAndCalc na=new NADataAndCalc();
+
     // TODO: Customize parameters
     public static SunDeclination newInstance(int itemCount) {
         final SunDeclination fragment = new SunDeclination();
@@ -173,8 +175,11 @@ public class SunDeclination extends DialogFragment {
         if (false==false) {
 
             try{
-                    dfSunElevation.setText(getElevation(longitude, latitude, date, time, -1.*Double.valueOf(dfTZ.getText().toString())));
-                    dfSunBearing.setText(getAzimuth(longitude, latitude, date, time, -1.*Double.valueOf(dfTZ.getText().toString())));
+                    /*
+                           longitude here by -1 because the algorithm expect negative values for west longitudes!
+                     */
+                    dfSunElevation.setText(getElevation(longitude*-1, latitude, date, time, Double.valueOf(dfTZ.getText().toString())));
+                    dfSunBearing.setText(getAzimuth(longitude*-1, latitude, date, time, Double.valueOf(dfTZ.getText().toString())));
                     calculate();
                     dfLongByPureMath.setText(tLong);
             } catch (Exception e)
@@ -185,7 +190,7 @@ public class SunDeclination extends DialogFragment {
         else
         {
             // Sample data to check algorithm
-            longitude=-104.7417;
+            longitude=-104.7417;  // !!!!!!! REMEMBER THAT IN THIS ALGORITHM -longitude is WEST!!!!!!!
             latitude=40.6028;
             String d="11.12.2019";
             String t="10:09:08";
@@ -216,6 +221,17 @@ public class SunDeclination extends DialogFragment {
         dfLatByPureMath.setTextSize(pxFromDp(dp, getActivity()));
     }
 
+    void computeAndSetData()
+    {
+        CelestialBodys cb=new CelestialBodys(null);
+        dfDeclination.setText(cb.getDeclSun(dfDate.getText().toString(), dfTime.getText().toString(),dfTZ.getText().toString()));
+        //dfGHA.setText(calculus.Real2DMS(cb.timeToAngle(cb.date2seconds("00.00.0000", dfTime.getText().toString(),dfTZ.getText().toString()))));
+        double d=cb.date2seconds(dfDate.getText().toString(), dfTime.getText().toString(),dfTZ.getText().toString());
+        double d2=cb.date2seconds(dfDate.getText().toString(), "00:00:00",dfTZ.getText().toString());
+        dfGHA.setText(calculus.Real2DMS((cb.timeToAngle(d-d2))));
+        setSun(dfDate.getText().toString(), dfTime.getText().toString());
+
+    }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -252,9 +268,12 @@ public class SunDeclination extends DialogFragment {
         dfDeclination=view.findViewById(R.id.dfSunDeclination);
         dfDeclination.setEnabled(false);
         dfDeclination.setTextColor(Color.BLACK);
+        dfDeclination.setBackgroundColor(Color.rgb(255,165, 0));
+
         dfGHA=view.findViewById(R.id.dfSunGHA);
         dfGHA.setEnabled(false);
         dfGHA.setTextColor(Color.BLACK);
+        dfGHA.setBackgroundColor(Color.rgb(255,128, 128));
 
         dfSunBearing=view.findViewById(R.id.dfSunBearing);
         dfSunBearing.setEnabled(false);
@@ -283,7 +302,7 @@ public class SunDeclination extends DialogFragment {
         dfLongByPureMath=view.findViewById(R.id.dfSunLongitude);
         dfLongByPureMath.setEnabled(false);
         dfLongByPureMath.setTextColor(Color.BLACK);
-        dfLongByPureMath.setBackgroundColor(Color.rgb(128,255, 128));
+        dfLongByPureMath.setBackgroundColor(Color.rgb(255,165, 0));
 
 
 
@@ -334,10 +353,7 @@ public class SunDeclination extends DialogFragment {
 
 
         try {
-            CelestialBodys cb=new CelestialBodys(null);
-            dfDeclination.setText(cb.getDeclSun(dfDate.getText().toString(), dfTime.getText().toString()));
-            dfGHA.setText(calculus.Real2DMS(cb.timeToAngle(cb.date2seconds("00.00.0000", dfTime.getText().toString()))));
-            setSun(date,time);
+            computeAndSetData();
         } catch (Exception e)
         {
 
@@ -353,12 +369,8 @@ public class SunDeclination extends DialogFragment {
             @Override
             public void afterTextChanged(Editable s) {
                 //do here your calculation
-                CelestialBodys cb=new CelestialBodys(null);
-                try {
-                    //bAuto=false;
-                    dfDeclination.setText(cb.getDeclSun(dfDate.getText().toString(), dfTime.getText().toString()));
-                    dfGHA.setText(calculus.Real2DMS(cb.timeToAngle(cb.date2seconds("00.00.0000", dfTime.getText().toString()))));
-                    setSun(dfDate.getText().toString(), dfTime.getText().toString());
+                try{
+                computeAndSetData();
                 } catch (Exception e)
                 {
 
@@ -378,12 +390,9 @@ public class SunDeclination extends DialogFragment {
             @Override
             public void afterTextChanged(Editable s) {
                 //do here your calculation
-                CelestialBodys cb=new CelestialBodys(null);
+
                 try {
-                    //bAuto=false;
-                    dfDeclination.setText(cb.getDeclSun(dfDate.getText().toString(), dfTime.getText().toString()));
-                    dfGHA.setText(calculus.Real2DMS(cb.timeToAngle(cb.date2seconds("00.00.0000", dfTime.getText().toString()))));
-                    setSun(dfDate.getText().toString(), dfTime.getText().toString());
+                    computeAndSetData();
                 } catch (Exception e)
                 {
 
@@ -402,12 +411,10 @@ public class SunDeclination extends DialogFragment {
             @Override
             public void afterTextChanged(Editable s) {
                 //do here your calculation
-                CelestialBodys cb=new CelestialBodys(null);
+
                 try{
                     //bAuto=false;
-                    dfDeclination.setText(cb.getDeclSun(dfDate.getText().toString(), dfTime.getText().toString()));
-                    dfGHA.setText(calculus.Real2DMS(cb.timeToAngle(cb.date2seconds("00.00.0000", dfTime.getText().toString()))));
-                    setSun(dfDate.getText().toString(), dfTime.getText().toString());
+                    computeAndSetData();
             } catch (Exception e)
             {
 

@@ -250,11 +250,11 @@ public class Fragment_CBCorrection extends Fragment {
         pbIncrCharset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer n=Integer.valueOf(sharedpreferences.getString("CharSize", "9"))+1;
+                Integer n=Integer.valueOf(sharedpreferences.getString("CBCharSize", "9"))+1;
 
                 n=(n>=40?n=40:n);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("CharSize",n.toString());
+                editor.putString("CBCharSize",n.toString());
                 editor.apply();
                 //editor.commit();
                 setTextSize(n);
@@ -264,11 +264,11 @@ public class Fragment_CBCorrection extends Fragment {
         pbDecrCharset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer n=Integer.valueOf(sharedpreferences.getString("CharSize", "9"))-1;
+                Integer n=Integer.valueOf(sharedpreferences.getString("CBCharSize", "9"))-1;
 
                 n=(n<=2?n=2:n);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("CharSize",n.toString());
+                editor.putString("CBCharSize",n.toString());
                 editor.apply();
                 //editor.commit();
                 setTextSize(n);
@@ -459,7 +459,13 @@ public class Fragment_CBCorrection extends Fragment {
             }
         });
 
+        try {
 
+            setTextSize(Integer.valueOf(sharedpreferences.getString("CBCharSize", "9")) - 1);
+        } catch (Exception e)
+        {
+
+        }
     }
 
         @Override

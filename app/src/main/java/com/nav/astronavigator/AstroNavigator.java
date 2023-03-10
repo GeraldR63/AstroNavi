@@ -442,7 +442,7 @@ public class AstroNavigator extends Fragment {
                     DelayedMessage msg=new DelayedMessage(view);
                     msg.ShowSnackbar("Format error Hc-omputed! DMS!");
                 }
-                setTextSize(Integer.valueOf(sharedpreferences.getString("CharSize", "9")));
+                setTextSize(Integer.valueOf(sharedpreferences.getString("AstroCharSize", "9")));
             }
         });
 
@@ -494,11 +494,11 @@ public class AstroNavigator extends Fragment {
         pbIncrCharset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer n=Integer.valueOf(sharedpreferences.getString("CharSize", "9"))+1;
+                Integer n=Integer.valueOf(sharedpreferences.getString("AstroCharSize", "9"))+1;
 
                 n=(n>=40?n=40:n);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("CharSize",n.toString());
+                editor.putString("AstroCharSize",n.toString());
                 editor.apply();
                 //editor.commit();
                 setTextSize(n);
@@ -508,11 +508,11 @@ public class AstroNavigator extends Fragment {
         pbDecrCharset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer n=Integer.valueOf(sharedpreferences.getString("CharSize", "9"))-1;
+                Integer n=Integer.valueOf(sharedpreferences.getString("AstroCharSize", "9"))-1;
 
                 n=(n<=2?n=2:n);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("CharSize",n.toString());
+                editor.putString("AstroCharSize",n.toString());
                 editor.apply();
                 //editor.commit();
                 setTextSize(n);
@@ -524,7 +524,7 @@ public class AstroNavigator extends Fragment {
         mdfSextant.setText( sharedpreferences.getString("sextant", "021°00'00.00\""));
         mdfDeclination.setText( sharedpreferences.getString("declination", "022°00'00.00\""));
         mdfLocalHighNoon.setText( sharedpreferences.getString("LocalHighNoon", "12:00:00"));
-        setTextSize(Integer.valueOf(sharedpreferences.getString("CharSize", "9")));
+        setTextSize(Integer.valueOf(sharedpreferences.getString("AstroCharSize", "9")));
 
         if (sharedpreferences.getString("NS", "S").equals("S"))
         {  mcbSouth.setChecked(true);        }

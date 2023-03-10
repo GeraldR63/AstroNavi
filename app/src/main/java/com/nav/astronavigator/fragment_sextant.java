@@ -392,11 +392,11 @@ public class fragment_sextant extends Fragment {
         pbIncrCharset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer n=Integer.valueOf(sharedpreferences.getString("CharSize", "9"))+1;
+                Integer n=Integer.valueOf(sharedpreferences.getString("SexCharSize", "9"))+1;
 
                 n=(n>=40?n=40:n);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("CharSize",n.toString());
+                editor.putString("SexCharSize",n.toString());
                 editor.apply();
                 //editor.commit();
                 setTextSize(n);
@@ -406,11 +406,11 @@ public class fragment_sextant extends Fragment {
         pbDecrCharset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer n=Integer.valueOf(sharedpreferences.getString("CharSize", "9"))-1;
+                Integer n=Integer.valueOf(sharedpreferences.getString("SexCharSize", "9"))-1;
 
                 n=(n<=2?n=2:n);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("CharSize",n.toString());
+                editor.putString("SexCharSize",n.toString());
                 editor.apply();
                 //editor.commit();
                 setTextSize(n);
@@ -419,7 +419,7 @@ public class fragment_sextant extends Fragment {
         });
 
         ReadCBrelatedData(postFix);
-        setTextSize(Integer.valueOf(sharedpreferences.getString("CharSize", "9")));
+        setTextSize(Integer.valueOf(sharedpreferences.getString("SexCharSize", "9")));
         displayCalculation(dfHc, dfSextantAltitudeSA, null);
     }
 

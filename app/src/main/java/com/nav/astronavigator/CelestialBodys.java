@@ -13,10 +13,10 @@ package com.nav.astronavigator;
        in the past 40 years came from the USA. Germans pay for nothing. But they pay now a price. A high price.
      */
 
-import android.content.Context;
+//import android.content.Context;
 import android.content.SharedPreferences;
 
-import java.lang.reflect.Constructor;
+//import java.lang.reflect.Constructor;
 import java.util.Locale;
 
 import android.icu.util.Calendar;

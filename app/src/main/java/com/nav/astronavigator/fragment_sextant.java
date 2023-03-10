@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import com.nav.astronavigator.databinding.FragmentSextantBinding;
 
-import java.util.Locale;
+//import java.util.Locale;
     /*
        (w) 2022 to 2023 by Gerald Roehrbein
        This code is under the GPL 2.0

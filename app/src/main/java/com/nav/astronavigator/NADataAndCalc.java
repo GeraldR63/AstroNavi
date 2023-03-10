@@ -1,17 +1,17 @@
 package com.nav.astronavigator;
 
-import android.app.Fragment;
-import android.content.Context;
+//import android.app.Fragment;
+//import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.view.View;
 
-import com.nav.astronavigator.NauticalAlmanac;
-import com.nav.astronavigator.DelayedMessage;
-import com.nav.astronavigator.calculus;
+//import com.nav.astronavigator.NauticalAlmanac;
+//import com.nav.astronavigator.DelayedMessage;
+//import com.nav.astronavigator.calculus;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+//import java.text.SimpleDateFormat;
+//import java.util.Date;
 import java.util.Locale;
     /*
        (w) 2022 to 2023 by Gerald Roehrbein
@@ -76,7 +76,7 @@ class NAData
                               // fuer welche der drei Instanzen die Daten aus den
                               // SharedPreferences zu laden sind.
                               //
-    public static final String MyPREFERENCES = "AstroNavPrefs" ;
+    //public static final String MyPREFERENCES = "AstroNavPrefs" ;
 
 
      public void readPrefs(int activeStar,SharedPreferences sharedpreferences)

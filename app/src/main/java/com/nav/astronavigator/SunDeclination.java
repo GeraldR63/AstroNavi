@@ -67,7 +67,7 @@ public class SunDeclination extends DialogFragment {
     double longitude;                // Current position from  AstroNavigation dialog.
     double latitude;
 
-    NADataAndCalc na=new NADataAndCalc();
+    //NADataAndCalc na=new NADataAndCalc();
 
     // TODO: Customize parameters
     public static SunDeclination newInstance(int itemCount) {
@@ -159,11 +159,11 @@ public class SunDeclination extends DialogFragment {
 
             if (LocalTimeHighNoon < GMT_ZERO) {
                 //tDir="E";
-                tLong = "E " + String.valueOf(calculus.Real2DMS(tLongitude));
+                tLong = "E " + (calculus.Real2DMS(tLongitude));
                 tLongitude *= -1;
             } else {
                 //tDir="W";
-                tLong = "W " + String.valueOf(calculus.Real2DMS(tLongitude));
+                tLong = "W " + (calculus.Real2DMS(tLongitude));
             }
         }
 
@@ -172,7 +172,7 @@ public class SunDeclination extends DialogFragment {
         }
 
 
-        if (false==false) {
+        if (true) {
 
             try{
                     /*

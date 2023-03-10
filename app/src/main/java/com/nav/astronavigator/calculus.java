@@ -1,18 +1,18 @@
 package com.nav.astronavigator;
-import android.content.Context;
-import android.graphics.Color;
+//import android.content.Context;
+//import android.graphics.Color;
 import android.view.View;
-import android.widget.LinearLayout;
+//import android.widget.LinearLayout;
 
-import com.nav.astronavigator.DelayedMessage;
-import com.google.android.material.snackbar.Snackbar;
+//import com.nav.astronavigator.DelayedMessage;
+//import com.google.android.material.snackbar.Snackbar;
 
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.IllegalFormatPrecisionException;
+//import java.text.DecimalFormat;
+//import java.text.SimpleDateFormat;
+//import java.util.Date;
+//import java.util.IllegalFormatPrecisionException;
 import java.util.Locale;
-import com.nav.astronavigator.DialogBox;
+//import com.nav.astronavigator.DialogBox;
 
 public class calculus {
     /*

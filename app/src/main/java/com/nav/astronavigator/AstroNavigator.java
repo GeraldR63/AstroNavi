@@ -2,24 +2,24 @@ package com.nav.astronavigator;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.media.Image;
-import android.os.Build;
+//import android.graphics.Color;
+//import android.media.Image;
+//import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
+//import android.os.Handler;
 import android.text.Editable;
 import android.text.Html;
-import android.text.Layout;
+//import android.text.Layout;
 import android.text.TextWatcher;
-import android.util.TypedValue;
+//import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+//import android.widget.RadioButton;
+//import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,14 +29,14 @@ import androidx.navigation.fragment.NavHostFragment;
 
 
 import com.nav.astronavigator.databinding.FragmentFirstBinding;
-import com.nav.astronavigator.calculus;
-import com.nav.astronavigator.DialogBox;
+//import com.nav.astronavigator.calculus;
+//import com.nav.astronavigator.DialogBox;
 
 //import org.apache.commons.compress.utils.IOUtils;
 
-import org.w3c.dom.Text;
+//import org.w3c.dom.Text;
 
-import java.io.IOException;
+//import java.io.IOException;
 import java.io.InputStream;
 
 public class AstroNavigator extends Fragment {
@@ -52,7 +52,7 @@ public class AstroNavigator extends Fragment {
        Sorry. I'm very upset to this. I love the people in the US. The only ones ever paid for my ShareWare
        in the past 40 years came from the USA. Germans pay for nothing. But they pay now a price. A high price.
      */
-    static NADataAndCalc NADataAndCalc=new NADataAndCalc();
+    //static NADataAndCalc NADataAndCalc=new NADataAndCalc();
     private FragmentFirstBinding binding;
     private EditText mdfSextant;
     private EditText mdfDeclination;
@@ -84,7 +84,7 @@ public class AstroNavigator extends Fragment {
 
     public static final String MyPREFERENCES = "AstroNavPrefs" ;
     SharedPreferences sharedpreferences;
-    private CoordinatorLayout coordinatorLayout;
+    //private CoordinatorLayout coordinatorLayout;
 
     Boolean bDocVisible=true;
 

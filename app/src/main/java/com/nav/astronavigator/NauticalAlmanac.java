@@ -4,14 +4,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.print.PrintManager;
+//import android.print.PrintManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
+//import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -21,12 +21,12 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.nav.astronavigator.databinding.FragmentSecondBinding;
-import com.nav.astronavigator.CelestialBodys;
-import com.nav.astronavigator.DelayedMessage;
-import com.nav.astronavigator.NADataAndCalc;
+//import com.nav.astronavigator.CelestialBodys;
+//import com.nav.astronavigator.DelayedMessage;
+//import com.nav.astronavigator.NADataAndCalc;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+//import java.text.SimpleDateFormat;
+//import java.util.Date;
 
 public class NauticalAlmanac extends Fragment {
     /*
@@ -97,7 +97,7 @@ public class NauticalAlmanac extends Fragment {
 
     public static final String MyPREFERENCES = "AstroNavPrefs" ;
     SharedPreferences sharedpreferences;
-    private CoordinatorLayout coordinatorLayout;
+    //private CoordinatorLayout coordinatorLayout;
 
     String postFixLast="_1";
     int activeStar=1;          //Numerisches Synonym fuer postFixLast

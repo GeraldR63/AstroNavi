@@ -129,6 +129,12 @@ Version History Log:
     <td>RN</td>
     <td>Added another "fancy gizmo". Now the software show the Bearing and Elevation of the Sun if you are located in Greenwich. Next update this will use the calculated position in the Nautical Almanac dialog.</td>
   </tr>
+    <tr>
+    <td>20230310</td>
+    <td>12:00 GMT</td>
+    <td>RN</td>
+    <td>Added standard application behaviour (+ and - button) and persistence after closing a dialog to the "Get declination of SUN" dialog.</td>
+  </tr>
   
 
 </table> 

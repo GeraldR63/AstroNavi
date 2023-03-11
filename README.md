@@ -147,6 +147,12 @@ Version History Log:
     <td>RN</td>
     <td>Fixed some minor bugs with DMS input to avoid crashes forced by false user input. It's also allowed now to have individual character size for all of the dialogs.</td>
   </tr>
+     <tr>
+    <td>20230311</td>
+    <td>21:00 GMT</td>
+    <td>RN</td>
+    <td>Calculating a proper declination. This value is much better than all of the ones calculated before. Not 100% those of the NA but nearby perfect. I will now work on the GHA problem. After that I will add as best as possible calculation.</td>
+  </tr>
 
 
   

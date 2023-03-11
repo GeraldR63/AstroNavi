@@ -197,7 +197,13 @@ public class fragment_sextant extends Fragment {
         postFix=sharedpreferences.getString("ActiveCB", "_1");
 
         // If the HC is different to the one in SharedPreferences than reset Mask!
-        HCfromParent=Double.valueOf(sharedpreferences.getString("CurrentHC", "-1").replace(",","."));
+        try {
+            HCfromParent = Double.valueOf(sharedpreferences.getString("CurrentHC", "-1").replace(",", "."));
+        }
+        catch (Exception e)
+        {
+
+        }
         //System.out.println("CurrentHC="+sharedpreferences.getString("CurrentHC", "-1").replace(",","."));
 
         //editor.putString("WhoAmI","SIMPLE");

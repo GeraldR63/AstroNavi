@@ -10,8 +10,12 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.Html;
 //import android.text.Layout;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.text.Spanned;
 import android.text.TextWatcher;
 //import android.util.TypedValue;
+import android.text.method.NumberKeyListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +42,36 @@ import com.nav.astronavigator.databinding.FragmentFirstBinding;
 
 //import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+class DMSFilter extends NumberKeyListener {
+
+    /*
+       ToDo: If ready to run move filter and function below into this class and create file "DMSFilter.java".
+     */
+
+    @Override
+    public int getInputType() {
+        return InputType.TYPE_CLASS_DATETIME;
+    }
+
+    @Override
+    protected char[] getAcceptedChars() {
+        return new char[]{'+','-','0', '1', '2','°', '3', '4','\'', '5', '6','.', '7', '8','"','9','N','S','E','W',' '};
+    }
+
+
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end,
+                                   Spanned dest, int dstart, int dend) {
+
+         return null;
+    };
+}
 
 public class AstroNavigator extends Fragment {
     /*
@@ -189,7 +223,41 @@ public class AstroNavigator extends Fragment {
     }
 
 
+    public  static boolean bDMSParser(String inputStr)    {
+        boolean retval=false;
 
+            if (!inputStr.matches ("^([+-]?\\d{0,}\\°?\\d{0,}\\.?\\d{0,}\\'?\\d{0,}\\.?\\d{0,}\\\"?)$" ))
+            {
+                return false;
+            }
+
+            String dummy=inputStr;
+
+            if (dummy.indexOf("°")!=-1) {
+                String sub = dummy.substring(0, dummy.indexOf("°"));
+                //System.out.println("Substring degrees "+sub);
+                 if (sub.length()>0) {
+
+                     try {
+                         int degrees = Integer.valueOf(sub);
+                         //System.out.println("degrees "+degrees);
+                         if (degrees > 359) {
+                             //System.out.println("Degrees above 360? ");
+                             //DialogBox.show("Alert","Degrees above 359°");
+                             return false;
+                         }
+                     } catch (Exception e) {
+                         return false;
+                     }
+                 }
+            }
+
+            /*
+              ToDo: Add code to check range of minutes and seconds also!
+             */
+
+            return true;
+    }
 
     @Override
     public View onCreateView(
@@ -265,6 +333,49 @@ public class AstroNavigator extends Fragment {
         editor.apply();
 
         mdfSextant=view.findViewById(R.id.dfSextant);
+
+        InputFilter filter = new InputFilter() {
+            public CharSequence filter(CharSequence source, int start, int end,
+                                       Spanned dest, int dstart, int dend) {
+
+                /*
+                     ToDo: Move this in the  DMSFilter class if it works!
+
+                     Since development of a DMS parser takes a lot of time I avoided this up to now
+                     but it makes sense to have one.
+
+                */
+
+                //System.out.println("Source      "+source+" "+start+" "+end);
+                //System.out.println("Destination "+dest+" "+dstart+" "+dend);
+
+                for (int i = start; i < end; i++) {
+
+                    char allowed[]={'+','-','0', '1', '2','°', '3', '4','\'', '5', '6','.', '7', '8','"','9'};
+                    boolean bMatches=false;
+
+                    for (int n=0;n<allowed.length;n++) {
+                        if (source.charAt(i)==allowed[n]) {bMatches=true;}   // Zulassiges zeichen
+                    }
+                    //if (!Character.isLetterOrDigit(source.charAt(i))) {
+                    if (!bMatches) {
+                        return "";
+                    }
+                    if (dest.length()!=0) {
+                        if (!bDMSParser(dest.toString())) {
+                            return "";
+                        }
+                    }
+
+                }
+                return null;
+            }
+        };
+
+
+        mdfSextant.setFilters(new InputFilter[]{filter,  new InputFilter.LengthFilter(16)});
+
+        //mdfSextant.setFilters(new InputFilter[] { new DMSFilter(), new InputFilter.LengthFilter(16)});
 
         mdfDeclination=view.findViewById(R.id.dfDeclination);
 
@@ -367,10 +478,19 @@ public class AstroNavigator extends Fragment {
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                /*
+                if (!bDMSParser(s.toString()))
+                {
+                    //mdfSextant.setText(s.toString().subSequence(0,s.length()-1));
+                }
+
+                */
             }
             @Override
             public void afterTextChanged(Editable s) {
                 //do here your calculation
+
                 try {
                     calculate(view);
                 }

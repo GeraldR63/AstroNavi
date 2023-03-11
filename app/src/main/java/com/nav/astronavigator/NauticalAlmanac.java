@@ -562,35 +562,47 @@ public class NauticalAlmanac extends Fragment {
             @Override
             public void onClick(View view) {
                 // Die richtigen Parameter an das Unterfenster zuverlässig übergeben.
-                if (CB1.isChecked())
+                try{
+                        if (CB1.isChecked())
+                        {
+                            postFixLast="_1";
+                            activeStar=1;
+                        }
+                        if (CB2.isChecked())
+                        {
+                            postFixLast="_2";
+                            activeStar=2;
+                        }
+                        if (CB3.isChecked())
+                        {
+                            postFixLast="_3";
+                            activeStar=3;
+                        }
+
+                        double HCfromParent = Double.valueOf(mdfHo.getText().toString());  // Force exception in case of false format!
+                        SaveCBrelatedData(postFixLast,false);
+
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        editor.putString("ActiveCB","_"+activeStar);
+                        editor.putString("WhoAmI","COMPLEX");
+                        editor.putString("CurrentHC",""+mdfHo.getText());
+                        editor.apply();
+                        //editor.commit();
+
+                        NavHostFragment.findNavController(NauticalAlmanac.this)
+                                .navigate(R.id.action_SecondFragment_to_Sextant);
+
+                        refreshCBrelatedData(postFixLast);
+                }catch (Exception e)
                 {
-                    postFixLast="_1";
-                    activeStar=1;
+                    DelayedMessage msg=new DelayedMessage(view);
+                    msg.ShowSnackbar("Format error Hc-omputed! DMS!");
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+                    editor.remove("WhoAmI");
+                    editor.remove("ActiveCB");
+                    editor.remove("CurrentHC");
+                    editor.apply();
                 }
-                if (CB2.isChecked())
-                {
-                    postFixLast="_2";
-                    activeStar=2;
-                }
-                if (CB3.isChecked())
-                {
-                    postFixLast="_3";
-                    activeStar=3;
-                }
-
-                SaveCBrelatedData(postFixLast,false);
-
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("ActiveCB","_"+activeStar);
-                editor.putString("WhoAmI","COMPLEX");
-                editor.putString("CurrentHC",""+mdfHo.getText());
-                editor.apply();
-                //editor.commit();
-
-                NavHostFragment.findNavController(NauticalAlmanac.this)
-                        .navigate(R.id.action_SecondFragment_to_Sextant);
-
-                refreshCBrelatedData(postFixLast);
 
             }
         });

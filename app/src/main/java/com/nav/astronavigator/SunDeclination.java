@@ -180,6 +180,7 @@ public class SunDeclination extends DialogFragment {
                      */
                     dfSunElevation.setText(getElevation(longitude*-1, latitude, date, time, Double.valueOf(dfTZ.getText().toString())));
                     dfSunBearing.setText(getAzimuth(longitude*-1, latitude, date, time, Double.valueOf(dfTZ.getText().toString())));
+                    dfDeclination.setText(getDeclination(longitude*-1, latitude, date, time, Double.valueOf(dfTZ.getText().toString())));
                     calculate();
                     dfLongByPureMath.setText(tLong);
             } catch (Exception e)
@@ -189,7 +190,7 @@ public class SunDeclination extends DialogFragment {
         }
         else
         {
-            // Sample data to check algorithm
+            // Sample data to check algorithm. Just for Debugging!
             longitude=-104.7417;  // !!!!!!! REMEMBER THAT IN THIS ALGORITHM -longitude is WEST!!!!!!!
             latitude=40.6028;
             String d="11.12.2019";
@@ -197,6 +198,7 @@ public class SunDeclination extends DialogFragment {
 
             dfSunElevation.setText(getElevation(longitude, latitude, d, t,-7));
             dfSunBearing.setText(getAzimuth(longitude, latitude, d, t,-7));
+            dfDeclination.setText(getDeclination(longitude, latitude, d, t,-7));
             calculate();
             dfLongByPureMath.setText(tLong);
         }
@@ -224,7 +226,8 @@ public class SunDeclination extends DialogFragment {
     void computeAndSetData()
     {
         CelestialBodys cb=new CelestialBodys(null);
-        dfDeclination.setText(cb.getDeclSun(dfDate.getText().toString(), dfTime.getText().toString(),dfTZ.getText().toString()));
+        //dfDeclination.setText(cb.getDeclSun(dfDate.getText().toString(), dfTime.getText().toString(),dfTZ.getText().toString()));
+        //dfDeclination.setText(getDeclination(dfDate.getText().toString(), dfTime.getText().toString(),dfTZ.getText().toString()));
         //dfGHA.setText(calculus.Real2DMS(cb.timeToAngle(cb.date2seconds("00.00.0000", dfTime.getText().toString(),dfTZ.getText().toString()))));
         double d=cb.date2seconds(dfDate.getText().toString(), dfTime.getText().toString(),dfTZ.getText().toString());
         double d2=cb.date2seconds(dfDate.getText().toString(), "00:00:00",dfTZ.getText().toString());
@@ -277,7 +280,7 @@ public class SunDeclination extends DialogFragment {
         dfDeclination=view.findViewById(R.id.dfSunDeclination);
         dfDeclination.setEnabled(false);
         dfDeclination.setTextColor(Color.BLACK);
-        dfDeclination.setBackgroundColor(Color.rgb(255,165, 0));
+        dfDeclination.setBackgroundColor(Color.rgb(128,255, 128));
 
         dfGHA=view.findViewById(R.id.dfSunGHA);
         dfGHA.setEnabled(false);
@@ -518,6 +521,7 @@ public class SunDeclination extends DialogFragment {
         public double dElevation;
         //public double dAzimuth;
         public double dRefraction;
+
         //public double dHourAngle;
 
     };
@@ -579,7 +583,8 @@ public class SunDeclination extends DialogFragment {
         //System.out.println("rasc="+rasc);
 
         //Declination of the sun
-        decl= Math.asin(Math.sin(obli)*Math.sin(ecli));
+        decl= Math.asin(Math.sin(obli)*Math.sin(ecli));        //RAD
+        udtSunCoordinates.dDeclination=Math.toDegrees(decl);
 
         //System.out.println("decl="+Real2DMS(decl));
 
@@ -660,6 +665,26 @@ public class SunDeclination extends DialogFragment {
 
         return calculus.Real2DMS(udtSunCoordinates.dElevation);
     }
+
+    public   String getDeclination(Double longitude, Double latitude, String iDate, String iTime, double tz)
+    {
+
+        cTime udtTime=new cTime();
+
+        udtTime=DateTime2cTime (iDate, iTime);
+        cSunCoordinates udtSunCoordinates=new cSunCoordinates();
+        cLocation udtLocation=new cLocation();
+        udtLocation.dLongitude=longitude;
+        udtLocation.dLatitude=latitude;
+
+
+        udtTime.dTimeZone=tz;
+
+        udtSunCoordinates= sunPos( udtTime, udtLocation,  udtSunCoordinates);
+
+        return calculus.Real2DMS(udtSunCoordinates.dDeclination);
+    }
+
 
     public  cTime  DateTime2cTime (String Date, String Time)
     {

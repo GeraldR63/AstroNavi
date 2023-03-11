@@ -153,6 +153,12 @@ Version History Log:
     <td>RN</td>
     <td>Calculating a proper declination. This value is much better than all of the ones calculated before. Not 100% those of the NA but nearby perfect. I will now work on the GHA problem. After that I will add as best as possible calculation.</td>
   </tr>
+     <tr>
+    <td>20230311</td>
+    <td>21:00 GMT</td>
+    <td>RN</td>
+    <td>Added a parser for DMS input. I want to force the users to enter valid data into the fields because there are some stupids which try decimal format and wonder about what happens.</td>
+  </tr>
 
 
   

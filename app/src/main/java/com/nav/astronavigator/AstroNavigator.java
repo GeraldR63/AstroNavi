@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 //import android.graphics.Color;
 //import android.media.Image;
 //import android.os.Build;
+import android.graphics.Color;
 import android.os.Bundle;
 //import android.os.Handler;
 import android.text.Editable;
@@ -26,6 +27,7 @@ import android.widget.EditText;
 //import android.widget.RadioButton;
 //import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -36,45 +38,22 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.nav.astronavigator.databinding.FragmentFirstBinding;
 //import com.nav.astronavigator.calculus;
 //import com.nav.astronavigator.DialogBox;
-
+import com.nav.astronavigator.DMSFilter;
 //import org.apache.commons.compress.utils.IOUtils;
 
 //import org.w3c.dom.Text;
 
 //import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class DMSFilter extends NumberKeyListener {
 
-    /*
-       ToDo: If ready to run move filter and function below into this class and create file "DMSFilter.java".
-     */
-
-    @Override
-    public int getInputType() {
-        return InputType.TYPE_CLASS_DATETIME;
-    }
-
-    @Override
-    protected char[] getAcceptedChars() {
-        return new char[]{'+','-','0', '1', '2','°', '3', '4','\'', '5', '6','.', '7', '8','"','9','N','S','E','W',' '};
-    }
-
-
-        @Override
-        public CharSequence filter(CharSequence source, int start, int end,
-                                   Spanned dest, int dstart, int dend) {
-
-         return null;
-    };
-}
-
-public class AstroNavigator extends Fragment {
+public class AstroNavigator extends Fragment  {
     /*
        (w) 2022 to 2023 by Gerald Roehrbein
        This code is under the GPL 2.0
@@ -224,7 +203,7 @@ public class AstroNavigator extends Fragment {
     }
 
 
-    public  static boolean bDMSParser(String inputStr)    {
+    public  static boolean bDMSParser(String inputStr, double maxDegree)    {
         boolean retval=false;
 
             if (!inputStr.matches ("^([+-]?\\d{0,3}\\°?\\d{0,2}\\.?\\d{0,2}\\'?\\d{0,2}\\.?\\d{0,2}\\\"?)$" ))
@@ -245,7 +224,7 @@ public class AstroNavigator extends Fragment {
                          double degrees = Double.valueOf(sub);
                          if ((double)comp!=degrees) return false;
                          //System.out.println("degrees "+degrees);
-                         if (degrees > 359) {
+                         if (degrees > maxDegree-1) {
                              //System.out.println("Degrees above 360? ");
                              //DialogBox.show("Alert","Degrees above 359°");
                              return false;
@@ -255,16 +234,16 @@ public class AstroNavigator extends Fragment {
                      }
                  }
             }
-
+        double minutes=0;
         if ((dummy.indexOf("°")!=-1) && (dummy.indexOf("'")!=-1)) {
              String sub=dummy.substring(dummy.indexOf("°") + 1, dummy.indexOf("'"));
             //System.out.println("Substring degrees "+sub);
             if (sub.length()>5) return false;
             if (sub.length()>0  ) {
                 try {
-                    double degrees = Double.valueOf(sub);
+                      minutes = Double.valueOf(sub);
                     //System.out.println("degrees "+degrees);
-                    if (degrees > 59.99) {
+                    if (minutes > 59.99) {
                         //System.out.println("Degrees above 360? ");
                         //DialogBox.show("Alert","Degrees above 359°");
                         return false;
@@ -281,11 +260,11 @@ public class AstroNavigator extends Fragment {
             if (sub.length()>5) return false;
             if (sub.length()>0  ) {
                 try {
-                    double degrees = Double.valueOf(sub);
+                    double seconds = Double.valueOf(sub);
                     //System.out.println("degrees "+degrees);
-                    if (degrees > 59.99) {
-                        //System.out.println("Degrees above 360? ");
-                        //DialogBox.show("Alert","Degrees above 359°");
+
+                    if (seconds > ((60. -minutes)*60.)) {
+                        // Es duerfen nur die bis zu 360° oder 180°  fehlenden Sekunden eingegeben werden
                         return false;
                     }
                 } catch (Exception e) {
@@ -376,53 +355,10 @@ public class AstroNavigator extends Fragment {
         editor.apply();
 
         mdfSextant=view.findViewById(R.id.dfSextant);
-
-        InputFilter filter = new InputFilter() {
-            public CharSequence filter(CharSequence source, int start, int end,
-                                       Spanned dest, int dstart, int dend) {
-
-                /*
-                     ToDo: Move this in the  DMSFilter class if it works!
-
-                     Since development of a DMS parser takes a lot of time I avoided this up to now
-                     but it makes sense to have one.
-
-                */
-
-                //System.out.println("Source      "+source+" "+start+" "+end);
-                //System.out.println("Destination "+dest+" "+dstart+" "+dend);
-
-                for (int i = start; i < end; i++) {
-
-                    char allowed[]={'+','-','0', '1', '2','°', '3', '4','\'', '5', '6','.', '7', '8','"','9'};
-                    boolean bMatches=false;
-
-                    for (int n=0;n<allowed.length;n++) {
-                        if (source.charAt(i)==allowed[n]) {bMatches=true;}   // Zulassiges zeichen
-                    }
-                    //if (!Character.isLetterOrDigit(source.charAt(i))) {
-                    if (!bMatches) {
-                        return "";           //Illegal character!
-                    }
-
-                    if (dest.length()!=0) {
-                        if (!bDMSParser(dest.toString())) {
-                            return "";
-                            //return "";
-                        }
-                    }
-
-                }
-                return null;
-            }
-        };
-
-
-        mdfSextant.setFilters(new InputFilter[]{filter,  new InputFilter.LengthFilter(17)});
-
-        //mdfSextant.setFilters(new InputFilter[] { new DMSFilter(), new InputFilter.LengthFilter(16)});
+        mdfSextant.setFilters(new InputFilter[] { new DMSFilter(), new InputFilter.LengthFilter(17)});
 
         mdfDeclination=view.findViewById(R.id.dfDeclination);
+        mdfDeclination.setFilters(new InputFilter[] { new DMSFilter(), new InputFilter.LengthFilter(17)});
 
         mdfGHA=view.findViewById(R.id.dfGHA);
 
@@ -525,22 +461,49 @@ public class AstroNavigator extends Fragment {
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                //if (old.length()>0)
-                if (!bDMSParser(s.toString()))
+                if (s.length()>0)
                 {
-                    //mdfSextant.setText(s.toString().subSequence(0,s.length()-1));
-                    mdfSextant.setText(old);
+
+                    char signs[]={'N','S','W','E','+','-'};
+                    String parse = s.toString();
+                    double maxDegree = 360;
+                    for (int ctr = 0; ctr < signs.length; ctr++) {
+                        if (s.toString().getBytes(StandardCharsets.UTF_8)[0] == signs[ctr]) {
+                            parse = s.toString().substring(1, s.length());
+                            maxDegree = 180;
+                        }
+                    }
+
+                    //if (old.length()>0)
+                    if (!bDMSParser(parse, maxDegree)) {
+                        mdfSextant.setText(old);
+                        return;
+                    }
+                    if (parse.matches("^([+-]?\\d{0,4})$")) {  // Check for Number! If someone try to enter decimal number out of range!
+                        if (parse.length()>0) {
+                            double d = Double.valueOf(parse);
+                            if (d >= maxDegree) {
+                                mdfDeclination.setText(old);
+                                return;
+                            }
+
+                            if (d <= -maxDegree) {
+                                mdfDeclination.setText(old);
+                                return;
+                            }
+                        }
+                    }
                 }
 
-
             }
-            @Override
+
+                @Override
             public void afterTextChanged(Editable s) {
                 //do here your calculation
 
                 try {
                     calculate(view);
+                    //mdfSextant.setBackgroundColor(Color.WHITE);
                 }
                 catch (Exception e)
                 {
@@ -550,19 +513,56 @@ public class AstroNavigator extends Fragment {
             }
         });
 
-
         mdfDeclination.addTextChangedListener(new TextWatcher() {
+            String old;
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                old=s.toString();
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+
+                    char signs[] = {'N', 'W', '+', 'S', 'E', '-'};
+                    String parse = s.toString();
+                    double maxDegree = 360;
+                    for (int ctr = 0; ctr < signs.length; ctr++) {
+                        if (s.toString().getBytes(StandardCharsets.UTF_8)[0] == signs[ctr]) {
+                            parse = s.toString().substring(1, s.length());
+                            maxDegree = 180;
+                        }
+                    }
+                    //System.out.println("maxDegree= "+maxDegree);
+                    if (!bDMSParser(parse, maxDegree)) {
+                        mdfDeclination.setText(old);
+                        return;
+                    }
+
+                    //System.out.println("Check for simple number!");
+
+                    // "^([+-]?\\d{0,3}\\°?\\d{0,2}\\.?\\d{0,2}\\'?\\d{0,2}\\.?\\d{0,2}\\\"?)$"
+                    if (parse.matches("^([+-]?\\d{0,4})$")) {
+                        if (parse.length()>0) {
+                            double d = Double.valueOf(parse);
+                            if (d >= maxDegree) {
+                                mdfDeclination.setText(old);
+                                return;
+                            }
+
+                            if (d <= -maxDegree) {
+                                mdfDeclination.setText(old);
+                                return;
+                            }
+                        }
+                    }
+                }
             }
             @Override
             public void afterTextChanged(Editable s) {
                 //do here your calculation
                 try {
                     calculate(view);
+                    //mdfDeclination.setBackgroundColor(Color.WHITE);
                 }
                 catch (Exception e)
                 {

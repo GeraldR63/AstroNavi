@@ -16,6 +16,7 @@ import android.text.Spanned;
 import android.text.TextWatcher;
 //import android.util.TypedValue;
 import android.text.method.NumberKeyListener;
+import android.text.style.BackgroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -226,12 +227,13 @@ public class AstroNavigator extends Fragment {
     public  static boolean bDMSParser(String inputStr)    {
         boolean retval=false;
 
-            if (!inputStr.matches ("^([+-]?\\d{0,}\\°?\\d{0,}\\.?\\d{0,}\\'?\\d{0,}\\.?\\d{0,}\\\"?)$" ))
+            if (!inputStr.matches ("^([+-]?\\d{0,3}\\°?\\d{0,2}\\.?\\d{0,2}\\'?\\d{0,2}\\.?\\d{0,2}\\\"?)$" ))
             {
                 return false;
             }
 
             String dummy=inputStr;
+
 
             if (dummy.indexOf("°")!=-1) {
                 String sub = dummy.substring(0, dummy.indexOf("°"));
@@ -239,7 +241,9 @@ public class AstroNavigator extends Fragment {
                  if (sub.length()>0) {
 
                      try {
-                         int degrees = Integer.valueOf(sub);
+                         int comp=Integer.valueOf(sub);
+                         double degrees = Double.valueOf(sub);
+                         if ((double)comp!=degrees) return false;
                          //System.out.println("degrees "+degrees);
                          if (degrees > 359) {
                              //System.out.println("Degrees above 360? ");
@@ -251,6 +255,45 @@ public class AstroNavigator extends Fragment {
                      }
                  }
             }
+
+        if ((dummy.indexOf("°")!=-1) && (dummy.indexOf("'")!=-1)) {
+             String sub=dummy.substring(dummy.indexOf("°") + 1, dummy.indexOf("'"));
+            //System.out.println("Substring degrees "+sub);
+            if (sub.length()>5) return false;
+            if (sub.length()>0  ) {
+                try {
+                    double degrees = Double.valueOf(sub);
+                    //System.out.println("degrees "+degrees);
+                    if (degrees > 59.99) {
+                        //System.out.println("Degrees above 360? ");
+                        //DialogBox.show("Alert","Degrees above 359°");
+                        return false;
+                    }
+                } catch (Exception e) {
+                    return false;
+                }
+            }
+        }
+
+        if ((dummy.indexOf("'")!=-1) && (dummy.indexOf("\"")!=-1)) {
+            String sub=dummy.substring(dummy.indexOf("'") + 1, dummy.indexOf("\""));
+            //System.out.println("Substring degrees "+sub);
+            if (sub.length()>5) return false;
+            if (sub.length()>0  ) {
+                try {
+                    double degrees = Double.valueOf(sub);
+                    //System.out.println("degrees "+degrees);
+                    if (degrees > 59.99) {
+                        //System.out.println("Degrees above 360? ");
+                        //DialogBox.show("Alert","Degrees above 359°");
+                        return false;
+                    }
+                } catch (Exception e) {
+                    return false;
+                }
+            }
+        }
+
 
             /*
               ToDo: Add code to check range of minutes and seconds also!
@@ -359,11 +402,13 @@ public class AstroNavigator extends Fragment {
                     }
                     //if (!Character.isLetterOrDigit(source.charAt(i))) {
                     if (!bMatches) {
-                        return "";
+                        return "";           //Illegal character!
                     }
+
                     if (dest.length()!=0) {
                         if (!bDMSParser(dest.toString())) {
                             return "";
+                            //return "";
                         }
                     }
 
@@ -373,7 +418,7 @@ public class AstroNavigator extends Fragment {
         };
 
 
-        mdfSextant.setFilters(new InputFilter[]{filter,  new InputFilter.LengthFilter(16)});
+        mdfSextant.setFilters(new InputFilter[]{filter,  new InputFilter.LengthFilter(17)});
 
         //mdfSextant.setFilters(new InputFilter[] { new DMSFilter(), new InputFilter.LengthFilter(16)});
 
@@ -473,19 +518,22 @@ public class AstroNavigator extends Fragment {
         snackbar.show();
         */
         mdfSextant.addTextChangedListener(new TextWatcher() {
+            String old;
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                old=s.toString();
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                /*
+                //if (old.length()>0)
                 if (!bDMSParser(s.toString()))
                 {
                     //mdfSextant.setText(s.toString().subSequence(0,s.length()-1));
+                    mdfSextant.setText(old);
                 }
 
-                */
+
             }
             @Override
             public void afterTextChanged(Editable s) {

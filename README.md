@@ -219,12 +219,12 @@ Version History Log:
   </tr>
    <tr>
     <td>total 360°</td>
-    <td>total +180°"</td>
-    <td>total N90°"</td>
-    <td>total W180°"</td>
-    <td>total -180°"</td>
-    <td>total S90°"</td>
-    <td>total E180°"</td>
+    <td>total +180°</td>
+    <td>total N90°</td>
+    <td>total W180°</td>
+    <td>total -180°</td>
+    <td>total S90°</td>
+    <td>total E180°</td>
   </tr>
 
   

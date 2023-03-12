@@ -172,6 +172,12 @@ Version History Log:
     <td>RN</td>
     <td>DMS parser is working more or less perfect but one issue: If you enter a dot in degree...than shit happens.</td>    
   </tr>
+     <tr>
+    <td>20230312</td>
+    <td>16:21 GMT</td>
+    <td>RN</td>
+    <td>DMS parser is working perfect. Now users are forced to enter valid DMS.</td>    
+  </tr>
 
 
   

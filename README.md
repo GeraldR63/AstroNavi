@@ -226,9 +226,12 @@ Version History Log:
     <td>total S90°</td>
     <td>total E180°</td>
   </tr>
-
-  
 </table>
+
+The DMS format algorithm checks that the decimal value of the input do not exceed the allowed total value for a field with given sign.
+That's why E179°59.99'00.59" is same es E179°59'59.99". Both is in decimal 180°.
+Allowed are two numbers after the comma but only for minutes an number. It should be impossible to enter a decimal value.
+The algorithm do not allow to delete ° or ' or ". It's required to have these always in the field to make it work.
 <hr>
 
 

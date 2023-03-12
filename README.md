@@ -162,8 +162,13 @@ Version History Log:
     <td>20230312</td>
     <td>01:01 GMT</td>
     <td>RN</td>
-    <td>DMS parser is working. One small issue if there is a + or - sign in use It's working in the "Simple Navigation" dialog for field "Hc-omputed". It works good but not really perfect. Crude mix of TextChangedListener and InputFilter. No clue how to do this stuff not that stupid! Hate this so called OOP languages. If this would be an OOP language I would derive EditText build what's required to have a DMS field than the new TextField class would be available in the designer and I could paint it into dialogs the way I want. Girls, we had better IDE's 30 years ago. Generation X,Y,Z? Go play Barbie!</td>
-    
+    <td>DMS parser is working with some small faults.</td>    
+  </tr>
+     <tr>
+    <td>20230312</td>
+    <td>01:01 GMT</td>
+    <td>RN</td>
+    <td>DMS parser is working more or less perfect but one issue: If you enter a dot in degree...than shit happens.</td>    
   </tr>
 
 

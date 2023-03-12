@@ -202,6 +202,7 @@ public class AstroNavigator extends Fragment  {
 
     }
 
+    /*
 
     public  static boolean bDMSParser(String inputStr, double maxDegree)    {
         boolean retval=false;
@@ -274,13 +275,13 @@ public class AstroNavigator extends Fragment  {
         }
 
 
-            /*
-              ToDo: Add code to check range of minutes and seconds also!
-             */
+
+       //  ToDo: Add code to check range of minutes and seconds also!
+
 
             return true;
     }
-
+    */
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -455,46 +456,14 @@ public class AstroNavigator extends Fragment  {
         */
         mdfSextant.addTextChangedListener(new TextWatcher() {
             String old;
+            DMSFilter DMSFilter=new DMSFilter();
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 old=s.toString();
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length()>0)
-                {
-
-                    char signs[]={'N','S','W','E','+','-'};
-                    String parse = s.toString();
-                    double maxDegree = 360;
-                    for (int ctr = 0; ctr < signs.length; ctr++) {
-                        if (s.toString().getBytes(StandardCharsets.UTF_8)[0] == signs[ctr]) {
-                            parse = s.toString().substring(1, s.length());
-                            maxDegree = 180;
-                        }
-                    }
-
-                    //if (old.length()>0)
-                    if (!bDMSParser(parse, maxDegree)) {
-                        mdfSextant.setText(old);
-                        return;
-                    }
-                    if (parse.matches("^([+-]?\\d{0,4})$")) {  // Check for Number! If someone try to enter decimal number out of range!
-                        if (parse.length()>0) {
-                            double d = Double.valueOf(parse);
-                            if (d >= maxDegree) {
-                                mdfDeclination.setText(old);
-                                return;
-                            }
-
-                            if (d <= -maxDegree) {
-                                mdfDeclination.setText(old);
-                                return;
-                            }
-                        }
-                    }
-                }
-
+                DMSFilter.checkDMS(s.toString(),old,mdfSextant);
             }
 
                 @Override
@@ -515,47 +484,14 @@ public class AstroNavigator extends Fragment  {
 
         mdfDeclination.addTextChangedListener(new TextWatcher() {
             String old;
+            DMSFilter DMSFilter=new DMSFilter();
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 old=s.toString();
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.length() > 0) {
-
-                    char signs[] = {'N', 'W', '+', 'S', 'E', '-'};
-                    String parse = s.toString();
-                    double maxDegree = 360;
-                    for (int ctr = 0; ctr < signs.length; ctr++) {
-                        if (s.toString().getBytes(StandardCharsets.UTF_8)[0] == signs[ctr]) {
-                            parse = s.toString().substring(1, s.length());
-                            maxDegree = 180;
-                        }
-                    }
-                    //System.out.println("maxDegree= "+maxDegree);
-                    if (!bDMSParser(parse, maxDegree)) {
-                        mdfDeclination.setText(old);
-                        return;
-                    }
-
-                    //System.out.println("Check for simple number!");
-
-                    // "^([+-]?\\d{0,3}\\°?\\d{0,2}\\.?\\d{0,2}\\'?\\d{0,2}\\.?\\d{0,2}\\\"?)$"
-                    if (parse.matches("^([+-]?\\d{0,4})$")) {
-                        if (parse.length()>0) {
-                            double d = Double.valueOf(parse);
-                            if (d >= maxDegree) {
-                                mdfDeclination.setText(old);
-                                return;
-                            }
-
-                            if (d <= -maxDegree) {
-                                mdfDeclination.setText(old);
-                                return;
-                            }
-                        }
-                    }
-                }
+                DMSFilter.checkDMS(s.toString(),old,mdfDeclination);
             }
             @Override
             public void afterTextChanged(Editable s) {

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 //import android.print.PrintManager;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -259,7 +260,9 @@ public class NauticalAlmanac extends Fragment {
 
 
         mdfDRLat=getView().findViewById(R.id.dfDRLat);
+        mdfDRLat.setFilters(new InputFilter[] { new DMSFilter(), new InputFilter.LengthFilter(17)});
         mdfDRLong=getView().findViewById(R.id.dfDRLong);
+        mdfDRLong.setFilters(new InputFilter[] { new DMSFilter(), new InputFilter.LengthFilter(17)});
         mdfHeading=getView().findViewById(R.id.dfHeading);
         mdfSpeed=getView().findViewById(R.id.dfSpeed);
         pbCalcNA=getView().findViewById(R.id.pbCalcNA);
@@ -303,15 +306,18 @@ public class NauticalAlmanac extends Fragment {
         TextView24=getView().findViewById(R.id.textView24);
 
         mdfGHAAries=getView().findViewById(R.id.dfGHAAries);
+        mdfGHAAries.setFilters(new InputFilter[] { new DMSFilter(), new InputFilter.LengthFilter(17)});
         mdfGHAAriesPlus1=getView().findViewById(R.id.dfGHAAriesPlus1);
+        mdfGHAAriesPlus1.setFilters(new InputFilter[] { new DMSFilter(), new InputFilter.LengthFilter(17)});
         mdfSHA=getView().findViewById(R.id.dfSHA);
+        mdfSHA.setFilters(new InputFilter[] { new DMSFilter(), new InputFilter.LengthFilter(17)});
         mdfDeclinationNA=getView().findViewById(R.id.dfDeclinationNA);
+        mdfDeclinationNA.setFilters(new InputFilter[] { new DMSFilter(), new InputFilter.LengthFilter(17)});
 
         mdfPosition=getView().findViewById(R.id.dfPosition);
         mdfPosition.setEnabled(false);
         mdfPosition.setTextColor(Color.BLACK);
         mdfStatus=getView().findViewById(R.id.dfStatus);
-
         mdfStatus.setEnabled(false);
         mdfStatus.setTextColor(Color.BLACK);
 

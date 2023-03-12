@@ -178,11 +178,59 @@ Version History Log:
     <td>RN</td>
     <td>DMS parser is working perfect. Now users are forced to enter valid DMS.</td>    
   </tr>
+     <tr>
+    <td>20230312</td>
+    <td>21:57 GMT</td>
+    <td>RN</td>
+    <td>DMS parser is working perfect. Added DMS format check to all of the DMS inputfields. This seem to work good. Can not find any errors with this feature.</td>    
+  </tr>
+</table> 
+<hr>
+# Valid DMS format
+<table>
 
+  <tr>    
+    <th>No Sign</th>
+    <th>+</th>
+    <th>N</th>
+    <th>W</th>    
+    <th>-</th>
+    <th>S</th>
+    <th>E</th>
+  </tr>
+
+  <tr>
+    <td>359°59'59.99"</td>
+    <td>+179°59'59.99"</td>
+    <td>N89°59'59.99"</td>
+    <td>W179°59'59.99"</td>
+    <td>-179°59'59.99"</td>
+    <td>S89°59'59.99"</td>
+    <td>E179°59'59.99"</td>
+  </tr>
+   <tr>
+    <td>359°59.99'00.59"</td>
+    <td>+179°59.99'00.59"</td>
+    <td>N89°59.99'00.59"</td>
+    <td>W179°59.99'00.59"</td>
+    <td>-179°59.99'00.59"</td>
+    <td>S89°59.99'00.59"</td>
+    <td>E179°59.99'00.59"</td>
+  </tr>
+   <tr>
+    <td>total 360°</td>
+    <td>total +180°"</td>
+    <td>total N90°"</td>
+    <td>total W180°"</td>
+    <td>total -180°"</td>
+    <td>total S90°"</td>
+    <td>total E180°"</td>
+  </tr>
 
   
+</table>
+<hr>
 
-</table> 
 
 
 MOST RECENT VERSION WILL BE FOUND IN THE MASTER BRANCH! The MAIN branch will be updated by me only after major changes.

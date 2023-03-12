@@ -11,6 +11,7 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import android.os.Handler;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -205,11 +206,14 @@ public class Fragment_CBCorrection extends Fragment {
         dfCBName.setTextColor(Color.BLACK);
 
         dfSHA = getView().findViewById(R.id.dfCorrectionSHA);
+        dfSHA.setFilters(new InputFilter[] { new DMSFilter(), new InputFilter.LengthFilter(17)});
+
         dfSHACorr = getView().findViewById(R.id.dfCorrectionSHAcorr);
         dfSHAToday= getView().findViewById(R.id.dfSHAToday);
         dfSHAToday.setEnabled(false);
         dfSHAToday.setTextColor(Color.BLACK);
         dfDeclination = getView().findViewById(R.id.dfCorrectionDeclination);
+        dfDeclination.setFilters(new InputFilter[] { new DMSFilter(), new InputFilter.LengthFilter(17)});
         dfDeclCorr = getView().findViewById(R.id.dfCorrectionDeclCorr);
         dfDeclinationToday= getView().findViewById(R.id.dfDeclinationToday);
         dfDeclinationToday.setEnabled(false);
@@ -342,11 +346,15 @@ public class Fragment_CBCorrection extends Fragment {
         });
 
         dfSHA.addTextChangedListener(new TextWatcher() {
+            String old;
+            DMSFilter DMSFilter=new DMSFilter();
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                old=s.toString();
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                DMSFilter.checkDMS(s.toString(),old,dfSHA);
             }
             @Override
             public void afterTextChanged(Editable s) {
@@ -370,11 +378,15 @@ public class Fragment_CBCorrection extends Fragment {
         });
 
         dfDeclination.addTextChangedListener(new TextWatcher() {
+            String old;
+            DMSFilter DMSFilter=new DMSFilter();
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                old=s.toString();
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                DMSFilter.checkDMS(s.toString(),old,dfDeclination);
             }
             @Override
             public void afterTextChanged(Editable s) {

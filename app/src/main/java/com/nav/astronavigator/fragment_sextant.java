@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Selection;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.nav.astronavigator.databinding.FragmentSextantBinding;
+
+import org.w3c.dom.Text;
 
 //import java.util.Locale;
     /*
@@ -189,6 +193,29 @@ public class fragment_sextant extends Fragment {
         setTextSize(n);
     }
 
+    TextView initTextView(int id, boolean bEnabled, boolean bFilter, int iBackGroundColor, int iTextColor)
+    {
+        TextView tv;
+        tv=getView().findViewById(id);
+        tv.setEnabled(bEnabled);
+        if (bFilter)
+        tv.setFilters(new InputFilter[] { new DMSFilter(), new InputFilter.LengthFilter(17)});
+        tv.setBackgroundColor(iBackGroundColor);
+        tv.setTextColor(iTextColor);
+       return tv;
+    }
+
+    TextView initTextView( int id, boolean bEnabled, boolean bFilter, int iBackGroundColor)
+    {
+        return initTextView(id,bEnabled,bFilter, iBackGroundColor, Color.BLACK);
+    }
+
+    TextView initTextView( int id, boolean bEnabled, boolean bFilter)
+    {
+        return initTextView(id,bEnabled,bFilter, Color.WHITE, Color.BLACK);
+    }
+
+
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -218,52 +245,34 @@ public class fragment_sextant extends Fragment {
 
         pbIncrCharset = getView().findViewById(R.id.pbIncCRCharset);
         pbDecrCharset = getView().findViewById(R.id.pbDecCRCharset);
-
         pbBack = getView().findViewById(R.id.pbCRBackToSecondFrag);
-
         pbReset = getView().findViewById(R.id.pbReset);
 
-
         dfCB=getView().findViewById(R.id.dfCBCorrName);
-
         dfCB.setText("CB#"+postFix.substring(1,2));
         dfCB.setEnabled(false);
-        //dfCB.setBackgroundColor(Color.GRAY);
-        dfHo=getView().findViewById(R.id.dfCorrectionDeclination);
-
-        dfIndexCorrectionIC=getView().findViewById(R.id.dfCorrectionDeclCorr);
-
-        dfDIP=getView().findViewById(R.id.dfDIPCorr);
-
-        dfSextantAltitudeSA=getView().findViewById(R.id.dfSextantAltitude);
-
-        dfSextantAltitudeSA.setEnabled(false);
-        dfSextantAltitudeSA.setTextColor(Color.BLACK);
-        //dfSextantAltitudeSA.setBackgroundColor(Color.GRAY);
-        dfLIMB=getView().findViewById(R.id.dfLIMB);
-
-        dfAtmosphericCorrections=getView().findViewById(R.id.dfAtmosphericCorr);
-
-        dfAdditionalCorrections=getView().findViewById(R.id.dfAdditionalCorr);
-
-        dfHc=getView().findViewById(R.id.dfCorrectionSHAcorr);
-
-        dfHc.setEnabled(false);
-        dfHc.setTextColor(Color.BLACK);
-        dfHcDMS=getView().findViewById(R.id.dfCorrectionSHA);
-
-        dfHcDMS.setTextColor(Color.BLACK);
-        dfHcDMS.setEnabled(false);
-        //dfHc.setBackgroundColor(Color.GRAY);
 
 
+        dfHo=initTextView( R.id.dfCorrectionDeclination, true, true);
+        dfIndexCorrectionIC=initTextView(  R.id.dfCorrectionDeclCorr, true, true);
+        dfDIP=initTextView(  R.id.dfDIPCorr, true, true);
+        dfSextantAltitudeSA=initTextView(  R.id.dfSextantAltitude, false, false, Color.WHITE,Color.BLACK);
+        dfLIMB=initTextView(  R.id.dfLIMB, true, true);
+        dfAtmosphericCorrections=initTextView(  R.id.dfAtmosphericCorr, true, true);
+        dfAdditionalCorrections=initTextView(  R.id.dfAdditionalCorr, true, true);
+        dfHc=initTextView(  R.id.dfCorrectionSHAcorr, false, false, Color.WHITE,Color.BLACK);
+        dfHcDMS=initTextView( R.id.dfCorrectionSHA, false, false, Color.WHITE,Color.BLACK);
 
         dfHo.addTextChangedListener(new TextWatcher() {
+            String old;
+            DMSFilter DMSFilter=new DMSFilter();
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    old=s.toString();
                 }
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    DMSFilter.checkDMS(s.toString(),old,dfHo);
                 }
                 @Override
                 public void afterTextChanged(Editable s) {
@@ -273,11 +282,15 @@ public class fragment_sextant extends Fragment {
         });
 
         dfIndexCorrectionIC.addTextChangedListener(new TextWatcher() {
+            String old;
+            DMSFilter DMSFilter=new DMSFilter();
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                old=s.toString();
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                DMSFilter.checkDMS(s.toString(),old,dfIndexCorrectionIC);
             }
             @Override
             public void afterTextChanged(Editable s) {
@@ -287,11 +300,15 @@ public class fragment_sextant extends Fragment {
         });
 
         dfDIP.addTextChangedListener(new TextWatcher() {
+            String old;
+            DMSFilter DMSFilter=new DMSFilter();
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                old=s.toString();
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                DMSFilter.checkDMS(s.toString(),old,dfDIP);
             }
             @Override
             public void afterTextChanged(Editable s) {
@@ -301,11 +318,15 @@ public class fragment_sextant extends Fragment {
         });
 
         dfLIMB.addTextChangedListener(new TextWatcher() {
+            String old;
+            DMSFilter DMSFilter=new DMSFilter();
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                old=s.toString();
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                DMSFilter.checkDMS(s.toString(),old,dfLIMB);
             }
             @Override
             public void afterTextChanged(Editable s) {
@@ -315,11 +336,15 @@ public class fragment_sextant extends Fragment {
         });
 
         dfAtmosphericCorrections.addTextChangedListener(new TextWatcher() {
+            String old;
+            DMSFilter DMSFilter=new DMSFilter();
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                old=s.toString();
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                DMSFilter.checkDMS(s.toString(),old,dfAtmosphericCorrections);
             }
             @Override
             public void afterTextChanged(Editable s) {
@@ -329,11 +354,15 @@ public class fragment_sextant extends Fragment {
         });
 
         dfAdditionalCorrections.addTextChangedListener(new TextWatcher() {
+            String old;
+            DMSFilter DMSFilter=new DMSFilter();
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                old=s.toString();
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                DMSFilter.checkDMS(s.toString(),old,dfAdditionalCorrections);
             }
             @Override
             public void afterTextChanged(Editable s) {

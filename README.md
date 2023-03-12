@@ -2,10 +2,12 @@
 
 
 <center>
+ 
 <a href="https://www.hamqsl.com/solar.html" title="Click to add Solar-Terrestrial Data to your website!"><img src="https://www.hamqsl.com/solar101vhfpic.php"></a>
 </center>
 
 <center>
+ 
 <a href="https://www.hamqsl.com/solar.html" title="Click to add Solar-Terrestrial Data to your website!"><img src="https://www.hamqsl.com/solarmuf.php"></a>
 </center>
 

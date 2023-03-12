@@ -202,86 +202,6 @@ public class AstroNavigator extends Fragment  {
 
     }
 
-    /*
-
-    public  static boolean bDMSParser(String inputStr, double maxDegree)    {
-        boolean retval=false;
-
-            if (!inputStr.matches ("^([+-]?\\d{0,3}\\°?\\d{0,2}\\.?\\d{0,2}\\'?\\d{0,2}\\.?\\d{0,2}\\\"?)$" ))
-            {
-                return false;
-            }
-
-            String dummy=inputStr;
-
-
-            if (dummy.indexOf("°")!=-1) {
-                String sub = dummy.substring(0, dummy.indexOf("°"));
-                //System.out.println("Substring degrees "+sub);
-                 if (sub.length()>0) {
-
-                     try {
-                         int comp=Integer.valueOf(sub);
-                         double degrees = Double.valueOf(sub);
-                         if ((double)comp!=degrees) return false;
-                         //System.out.println("degrees "+degrees);
-                         if (degrees > maxDegree-1) {
-                             //System.out.println("Degrees above 360? ");
-                             //DialogBox.show("Alert","Degrees above 359°");
-                             return false;
-                         }
-                     } catch (Exception e) {
-                         return false;
-                     }
-                 }
-            }
-        double minutes=0;
-        if ((dummy.indexOf("°")!=-1) && (dummy.indexOf("'")!=-1)) {
-             String sub=dummy.substring(dummy.indexOf("°") + 1, dummy.indexOf("'"));
-            //System.out.println("Substring degrees "+sub);
-            if (sub.length()>5) return false;
-            if (sub.length()>0  ) {
-                try {
-                      minutes = Double.valueOf(sub);
-                    //System.out.println("degrees "+degrees);
-                    if (minutes > 59.99) {
-                        //System.out.println("Degrees above 360? ");
-                        //DialogBox.show("Alert","Degrees above 359°");
-                        return false;
-                    }
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-        }
-
-        if ((dummy.indexOf("'")!=-1) && (dummy.indexOf("\"")!=-1)) {
-            String sub=dummy.substring(dummy.indexOf("'") + 1, dummy.indexOf("\""));
-            //System.out.println("Substring degrees "+sub);
-            if (sub.length()>5) return false;
-            if (sub.length()>0  ) {
-                try {
-                    double seconds = Double.valueOf(sub);
-                    //System.out.println("degrees "+degrees);
-
-                    if (seconds > ((60. -minutes)*60.)) {
-                        // Es duerfen nur die bis zu 360° oder 180°  fehlenden Sekunden eingegeben werden
-                        return false;
-                    }
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-        }
-
-
-
-       //  ToDo: Add code to check range of minutes and seconds also!
-
-
-            return true;
-    }
-    */
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -300,22 +220,10 @@ public class AstroNavigator extends Fragment  {
         return binding.getRoot();
 
     }
-     /*
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            // This runs in background thread. Do heavy operations here
-            mdfDeclination.setText(NADataAndCalc.getCurrentDeclSun());
-            System.out.println("ooppss");
-        }
-        // This thread will die once it comes out of the run method
-    };
-    */
 
     public static float pxFromDp(float dp, Context mContext) {
         return dp * mContext.getResources().getDisplayMetrics().density;
     }
-
 
 
     public void setTextSize (int dp)

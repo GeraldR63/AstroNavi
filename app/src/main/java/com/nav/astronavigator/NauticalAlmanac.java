@@ -322,38 +322,122 @@ public class NauticalAlmanac extends Fragment {
         mdfStatus.setTextColor(Color.BLACK);
 
 
-
-
-
-        mdfGHAAries.addTextChangedListener(new TextWatcher() {
+        mdfDRLong.addTextChangedListener(new TextWatcher() {
+            String old;
+            DMSFilter DMSFilter=new DMSFilter();
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                old=s.toString();
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                DMSFilter.checkDMS(s.toString(),old,mdfDRLong);
             }
             @Override
             public void afterTextChanged(Editable s) {
                 //do here your calculation
-                mdfGHAAries.setBackgroundColor(Color.WHITE);
+                //mdfDRLong.setBackgroundColor(Color.WHITE);
+                //mdfStatus.setText("DR Longitude manual input");
+            }
+        });
+
+        mdfDRLat.addTextChangedListener(new TextWatcher() {
+            String old;
+            DMSFilter DMSFilter=new DMSFilter();
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                old=s.toString();
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                DMSFilter.checkDMS(s.toString(),old,mdfDRLat);
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                //do here your calculation
+                //mdfDRLat.setBackgroundColor(Color.WHITE);
+                //mdfStatus.setText("DR Latitude manual input");
+            }
+        });
+
+
+        mdfGHAAries.addTextChangedListener(new TextWatcher() {
+            String old;
+            DMSFilter DMSFilter=new DMSFilter();
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                old=s.toString();
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                DMSFilter.checkDMS(s.toString(),old,mdfGHAAries);
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                //do here your calculation
+                //mdfGHAAries.setBackgroundColor(Color.WHITE);
                 mdfStatus.setText("GHA Aries manual input");
             }
         });
 
         mdfGHAAriesPlus1.addTextChangedListener(new TextWatcher() {
+            String old;
+            DMSFilter DMSFilter=new DMSFilter();
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                old=s.toString();
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                DMSFilter.checkDMS(s.toString(),old,mdfGHAAriesPlus1);
             }
             @Override
             public void afterTextChanged(Editable s) {
                 //do here your calculation
-                mdfGHAAriesPlus1.setBackgroundColor(Color.WHITE);
+                //mdfGHAAriesPlus1.setBackgroundColor(Color.WHITE);
                 mdfStatus.setText("GHA AriesPlus1 manual input");
             }
         });
+
+        mdfSHA.addTextChangedListener(new TextWatcher() {
+            String old;
+            DMSFilter DMSFilter=new DMSFilter();
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                old=s.toString();
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                DMSFilter.checkDMS(s.toString(),old,mdfSHA);
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                //do here your calculation
+                //mdfSHA.setBackgroundColor(Color.WHITE);
+                mdfStatus.setText("SHA manual input");
+            }
+        });
+
+        mdfDeclinationNA.addTextChangedListener(new TextWatcher() {
+            String old;
+            DMSFilter DMSFilter=new DMSFilter();
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                old=s.toString();
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                DMSFilter.checkDMS(s.toString(),old,mdfDeclinationNA);
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                //do here your calculation
+                //mdfSHA.setBackgroundColor(Color.WHITE);
+                mdfStatus.setText("Declination manual input");
+            }
+        });
+
+
 
 
 

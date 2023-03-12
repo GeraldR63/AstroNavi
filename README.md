@@ -186,7 +186,7 @@ Version History Log:
   </tr>
 </table> 
 <hr>
-# Valid DMS format
+<big># Valid DMS format</big>
 <table>
 
   <tr>    

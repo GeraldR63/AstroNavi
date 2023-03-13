@@ -131,11 +131,11 @@ public class AstroNavigator extends Fragment  {
 
             if (LocalTimeHighNoon < GMT_ZERO) {
                 //tDir="E";
-                tLong = "E " + String.valueOf(calculus.Real2DMS(tLongitude));
+                tLong = "E" + String.valueOf(calculus.Real2DMS(tLongitude));
                 tLongitude*=-1;
             } else {
                 //tDir="W";
-                tLong = "W " + String.valueOf(calculus.Real2DMS(tLongitude));
+                tLong = "W" + String.valueOf(calculus.Real2DMS(tLongitude));
             }
 
 

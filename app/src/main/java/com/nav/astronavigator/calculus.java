@@ -54,11 +54,9 @@ public class calculus {
         // Parser fuer xxx°yy.yy'ss.ss"
         //             359°59.99'59.99"
         Degree_DMS=Degree_DMS.replace("E","-");  // East negative
-        Degree_DMS=Degree_DMS.replace("O","-");  // Ost negative
         Degree_DMS=Degree_DMS.replace("S","-");  // South negative
-        Degree_DMS=Degree_DMS.replace("e","-");  // East negative
-        Degree_DMS=Degree_DMS.replace("o","-");  // Ost negative
-        Degree_DMS=Degree_DMS.replace("s","-");  // South negative
+        Degree_DMS=Degree_DMS.replace("N","+");  // North positive
+        Degree_DMS=Degree_DMS.replace("W","+");  // West positive
 
 
         sign=Degree_DMS.contains("-")==true? -1: 1;

@@ -58,7 +58,6 @@ public class AstroNavigator extends Fragment  {
     private FragmentFirstBinding binding;
     private EditText mdfSextant;
     private EditText mdfDeclination;
-    private CheckBox mcbSouth;
     private EditText mdfGHA;
     private EditText mdfLatitude;
 
@@ -138,6 +137,7 @@ public class AstroNavigator extends Fragment  {
                 tLong = "W" + String.valueOf(calculus.Real2DMS(tLongitude));
             }
 
+            //ToDo: Very Simple GHA calculation. Change this to get better results.
 
             tGHA = Math.abs((GMT_ZERO + LocalTimeHighNoon) * DegreePerSecond);
             if (tGHA > 360) {
@@ -165,7 +165,8 @@ public class AstroNavigator extends Fragment  {
                                    ‣ Latitude= (90º – Ho) – declination
              */
 
-            if (mcbSouth.isChecked()) {
+
+            if (calculus.DMS2Real(mdfSextant.getText().toString())<0.0) {
                 Latitude = ZenithDistance - Declination;
                 mdfDistance.setText(String.valueOf((Latitude + Declination) * 60 * SM));  //Object below Equator
             } else {
@@ -295,9 +296,7 @@ public class AstroNavigator extends Fragment  {
         mdfGHA=view.findViewById(R.id.dfGHA);
 
         mdfGHA.setEnabled(false);
-        mcbSouth=view.findViewById(R.id.cbNS);
-        mcbSouth.setVisibility(View.INVISIBLE);
-        //mcbSouth=view.findViewById(R.id.cbNS);
+
         mdfLatitude=view.findViewById(R.id.dfLatitude);
 
         mdfLatitude.setEnabled(false);
@@ -541,21 +540,7 @@ public class AstroNavigator extends Fragment  {
 
         calculate(view);
 
-        mcbSouth.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v)
-            {
-                try {
-                    if (!Character.isDigit(mdfDeclination.getText().charAt(0))) {  // If there is a sign in front of the DMS than ignore settings in SharePrefs
-                        mcbSouth.setChecked(false);
-                    }
-                    calculate(v);
-                } catch (Exception e)
-                {
 
-                }
-            }
-        });
 
         pbButtonFirst.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -572,19 +557,6 @@ public class AstroNavigator extends Fragment  {
 
 
                 NavHostFragment.findNavController(AstroNavigator.this).navigate(R.id.action_FirstFragment_to_frameSunDialog);
-                mcbSouth.setChecked(false); // If SUN dialog pushes data than data come with correct sign. mcbSouth is not required
-                                            // ToDo: Concider to remove the mcbSouth checkbox! It was just useful as the project started
-                                            // and this software wasn't able to deal with +-NSEW.
-
-
-
-                /*
-                SunDeclination newFragment = new SunDeclination();
-                newFragment.show(getSupportFragmentManager(), "SUN Declination");
-
-                 */
-
-
             }
         });
 
@@ -612,22 +584,13 @@ public class AstroNavigator extends Fragment  {
 
         //SharedPreferences prefs = this.getSharedPreferences("general_settings", Context.MODE_PRIVATE);
         mdfSextant.setText( sharedpreferences.getString("sextant", "021°00'00.00\""));
-        mdfDeclination.setText( sharedpreferences.getString("declination", "022°00'00.00\""));
+        mdfDeclination.setText( sharedpreferences.getString("declination", "-022°00'00.00\""));
         mdfLocalHighNoon.setText( sharedpreferences.getString("LocalHighNoon", "11:24:00"));
         setTextSize(Integer.valueOf(sharedpreferences.getString(sCharSetSizeName, "9")));
 
-        if (Character.isDigit(mdfDeclination.getText().charAt(0))) {  // If there is a sign in front of the DMS than ignore settings in SharePrefs
-            if (sharedpreferences.getString("NS", "S").equals("S")) {
-                mcbSouth.setChecked(true);
-            } else {
-                mcbSouth.setChecked(false);
-            }
-            calculate(view);
-        }
-        else
-        {
-            mcbSouth.setChecked(false);
-        }
+
+          calculate(view);
+
     }
 
     @Override
@@ -640,7 +603,6 @@ public class AstroNavigator extends Fragment  {
 
         editor.putString("sextant",mdfSextant.getText().toString());
         editor.putString("declination",mdfDeclination.getText().toString());
-        editor.putString("NS", (mcbSouth.isChecked() == true ? "S":"N"));
 
         //editor.putString("SimpleLatitude",mdfDeclination.getText().toString());
         //editor.putString("SimpleLongitude",mdfDeclination.getText().toString());

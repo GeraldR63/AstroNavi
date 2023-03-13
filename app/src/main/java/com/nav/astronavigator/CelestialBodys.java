@@ -623,18 +623,4 @@ void initStartable()
         return Math.toDegrees(r)+180;
     }
 
-    public  static String getDeclSun(String date, String time, String tz) {
-        // My version caculates this figure for seconds
-        // This calculation is correct but do not fit to the Nautical Almanac
-        // This function is not 100% accurate. The position can be up to 2° false (Thats 220km!)
-        // ToDo: Refine this, it's precession is poor
-
-        double Seconds=0;
-        Seconds= date2seconds( date,  time, tz);
-        double calc=(360.  / 365.25)* ((Seconds/(24.*60.*60.))-81.);              //Exact 21.07.2023
-        //double calc=( 360.9856  * ((Seconds/(23.*60.*60.+56.*60.+4.09))-81.);        //Exact 21.07.2023
-        double da=23.43640 * Math.sin(Math.toRadians(calc));
-        return calculus.Real2DMS(da);
-    }
-
 }

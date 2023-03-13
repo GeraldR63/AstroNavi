@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.text.Editable;
@@ -24,8 +23,8 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.nav.astronavigator.databinding.FragmentSunDeclinationListDialogItemBinding;
 import com.nav.astronavigator.databinding.FragmentSunDeclinationListDialogBinding;
+import com.nav.astronavigator.databinding.FragmentSunDeclinationListDialogItemBinding;
 
 import java.util.Date;
 
@@ -59,7 +58,7 @@ public class SunDeclination extends DialogFragment {
     TextView dfSunElevation;
     TextView dfTZ;
 
-    TextView dfLatByPureMath;   //This is the theoretical Latitude.
+    TextView dfSunGHA;   //This is the theoretical Latitude.
     TextView dfLongByPureMath;  //This is the theoretical Longitude.
 
     private Button pbIncrCharset;
@@ -145,7 +144,7 @@ public class SunDeclination extends DialogFragment {
 
         Latitude=(Latitude>90.0?Latitude-90:Latitude);
 
-        dfLatByPureMath.setText(calculus.Real2DMS(Latitude));
+        //dfLatByPureMath.setText(calculus.Real2DMS(Latitude));
     }
 
     void setSun( String date, String time)
@@ -183,8 +182,14 @@ public class SunDeclination extends DialogFragment {
                     dfSunElevation.setText(getElevation(longitude*-1, latitude, date, time, Double.valueOf(dfTZ.getText().toString())));
                     dfSunBearing.setText(getAzimuth(longitude*-1, latitude, date, time, Double.valueOf(dfTZ.getText().toString())));
                     dfDeclination.setText(getDeclination(longitude*-1, latitude, date, time, Double.valueOf(dfTZ.getText().toString())));
+                    NADataAndCalc na=new NADataAndCalc();
+
+                    dfGHA.setText(calculus.Real2DMS(na.GHAAries(dfDate.getText().toString(),dfTime.getText().toString())));
                     calculate();
                     dfLongByPureMath.setText(tLong);
+                    dfSunGHA.setText(calculus.Real2DMS(
+                        getSHA(longitude*-1, latitude, date, time, Double.valueOf(dfTZ.getText().toString()))
+                                ));
             } catch (Exception e)
             {
 
@@ -223,18 +228,21 @@ public class SunDeclination extends DialogFragment {
         cbTimerOnOff.setTextSize(pxFromDp(dp, getActivity()));
         cbPublishSunData.setTextSize(pxFromDp(dp, getActivity()));
         dfLongByPureMath.setTextSize(pxFromDp(dp, getActivity()));
-        dfLatByPureMath.setTextSize(pxFromDp(dp, getActivity()));
+        dfSunGHA.setTextSize(pxFromDp(dp, getActivity()));
     }
 
     void computeAndSetData()
     {
-        CelestialBodys cb=new CelestialBodys(null);
+        //CelestialBodys cb=new CelestialBodys(null);
         //dfDeclination.setText(cb.getDeclSun(dfDate.getText().toString(), dfTime.getText().toString(),dfTZ.getText().toString()));
         //dfDeclination.setText(getDeclination(dfDate.getText().toString(), dfTime.getText().toString(),dfTZ.getText().toString()));
         //dfGHA.setText(calculus.Real2DMS(cb.timeToAngle(cb.date2seconds("00.00.0000", dfTime.getText().toString(),dfTZ.getText().toString()))));
-        double d=cb.date2seconds(dfDate.getText().toString(), dfTime.getText().toString(),dfTZ.getText().toString());
-        double d2=cb.date2seconds(dfDate.getText().toString(), "00:00:00",dfTZ.getText().toString());
-        dfGHA.setText(calculus.Real2DMS((cb.timeToAngle(d-d2))));
+        //double d=cb.date2seconds(dfDate.getText().toString(), dfTime.getText().toString(),dfTZ.getText().toString());
+        //double d2=cb.date2seconds(dfDate.getText().toString(), "00:00:00",dfTZ.getText().toString());
+        //dfGHA.setText(calculus.Real2DMS((cb.timeToAngle(d-d2))));
+        //GHAAries(String Date, String Time)
+
+
         setSun(dfDate.getText().toString(), dfTime.getText().toString());
 
     }
@@ -287,10 +295,10 @@ public class SunDeclination extends DialogFragment {
         dfDeclination.setTextColor(Color.BLACK);
         dfDeclination.setBackgroundColor(Color.rgb(128,255, 128));
 
-        dfGHA=view.findViewById(R.id.dfSunGHA);
+        dfGHA=view.findViewById(R.id.dfSunGHAAries);
         dfGHA.setEnabled(false);
         dfGHA.setTextColor(Color.BLACK);
-        dfGHA.setBackgroundColor(Color.rgb(255,128, 128));
+        dfGHA.setBackgroundColor(Color.rgb(128,255, 128));
 
         dfSunBearing=view.findViewById(R.id.dfSunBearing);
         dfSunBearing.setEnabled(false);
@@ -311,10 +319,10 @@ public class SunDeclination extends DialogFragment {
                  the Latitude of the position where the sun reaches at this point in time the highest point.
                  Well...that's what I need here. Maybe the related calculation is true. I've not checked this.
          */
-        dfLatByPureMath=view.findViewById(R.id.dfSunTheoreticalLat);
-        dfLatByPureMath.setEnabled(false);
-        dfLatByPureMath.setTextColor(Color.BLACK);
-        dfLatByPureMath.setBackgroundColor(Color.rgb(255,128, 128));
+        dfSunGHA=view.findViewById(R.id.dfSunGHA);
+        dfSunGHA.setEnabled(false);
+        dfSunGHA.setTextColor(Color.BLACK);
+        dfSunGHA.setBackgroundColor(Color.rgb(128,255, 128));
 
         dfLongByPureMath=view.findViewById(R.id.dfSunLongitude);
         dfLongByPureMath.setEnabled(false);
@@ -513,8 +521,7 @@ public class SunDeclination extends DialogFragment {
         public double dElevation;
         //public double dAzimuth;
         public double dRefraction;
-
-        //public double dHourAngle;
+        public double dSiderialHourAngle;
 
     };
 
@@ -587,6 +594,7 @@ public class SunDeclination extends DialogFragment {
 
         //Hour angle of sun
         hang=rnge(stim-rasc,0,tau);
+        udtSunCoordinates.dSiderialHourAngle=Math.toDegrees(hang); //Math.toRadians(hang);
         //System.out.println("hang="+hang);
 
 
@@ -676,6 +684,26 @@ public class SunDeclination extends DialogFragment {
 
         return calculus.Real2DMS(udtSunCoordinates.dDeclination);
     }
+
+    public   double getSHA(Double longitude, Double latitude, String iDate, String iTime, double tz)
+    {
+
+        cTime udtTime=new cTime();
+
+        udtTime=DateTime2cTime (iDate, iTime);
+        cSunCoordinates udtSunCoordinates=new cSunCoordinates();
+        cLocation udtLocation=new cLocation();
+        udtLocation.dLongitude=longitude;
+        udtLocation.dLatitude=latitude;
+
+
+        udtTime.dTimeZone=tz;
+
+        udtSunCoordinates= sunPos( udtTime, udtLocation,  udtSunCoordinates);
+
+        return udtSunCoordinates.dSiderialHourAngle;
+    }
+
 
 
     public  cTime  DateTime2cTime (String Date, String Time)

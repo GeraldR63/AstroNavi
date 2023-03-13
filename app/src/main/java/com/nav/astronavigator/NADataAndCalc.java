@@ -486,6 +486,7 @@ public class NADataAndCalc {
 
     public double GHAAries(String Date, String Time)
     /*
+           REMEMBER THIS IS GHAAries and NOTHING ELSE!
            This function give the same results as Stellarium give. This code is NOT taken from Stelarium.
            It's my own stuff.
 
@@ -578,13 +579,13 @@ public class NADataAndCalc {
         int hour, minute, seconds;
         double c1=280.46061837;
         double c2=360.98564736629;
-        int  itz= Integer.valueOf(tz);  // Timezone to seconds
+        //int  itz= Integer.valueOf(tz)*-1;  // Timezone to seconds
 
 
 
         /* Parser hh:mm:ss */
         int position=Time.indexOf(":");
-        hour  =  Integer.valueOf(Time.substring(0,position))+itz;
+        hour  =  Integer.valueOf(Time.substring(0,position));
         minute = Integer.valueOf(Time.substring(position + 1, position=Time.indexOf(":", position+1)));
         seconds= Integer.valueOf(Time.substring(position+1, Time.length()));
 

@@ -2,55 +2,43 @@ package com.nav.astronavigator;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-//import android.graphics.Color;
-//import android.media.Image;
-//import android.os.Build;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
-//import android.os.Handler;
+import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.Html;
-//import android.text.Layout;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Spanned;
 import android.text.TextWatcher;
-//import android.util.TypedValue;
+
 import android.text.method.NumberKeyListener;
 import android.text.style.BackgroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-//import android.widget.RadioButton;
-//import android.widget.RadioGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 
+import com.google.android.material.snackbar.Snackbar;
 import com.nav.astronavigator.databinding.FragmentFirstBinding;
-//import com.nav.astronavigator.calculus;
-//import com.nav.astronavigator.DialogBox;
-import com.nav.astronavigator.DMSFilter;
-//import org.apache.commons.compress.utils.IOUtils;
 
-//import org.w3c.dom.Text;
-
-//import java.io.IOException;
+import java.io.File;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.Locale;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+//import com.bumptech.glide.annotation.GlideModule;
+//import com.bumptech.glide.module.AppGlideModule;
 
 
 public class AstroNavigator extends Fragment  {
@@ -94,6 +82,11 @@ public class AstroNavigator extends Fragment  {
 
     private TextView HTMLView;
     private Button pbShowDocumentation;
+
+    private ImageView ImageView;
+    private ImageView ImageViewDeclination;
+
+    private ImageView ImageViewEcliptic;
 
 
     public static final String MyPREFERENCES = "AstroNavPrefs" ;
@@ -254,6 +247,36 @@ public class AstroNavigator extends Fragment  {
         setTextSize(n);
     }
 
+    void scaleImage(ImageView vw,int x, int y,int height, int width)
+    {
+        /*
+        int height=350;
+        int width=350;
+        int x=100;
+        int y=200;
+         */
+
+        vw.getLayoutParams().height=height;
+        vw.getLayoutParams().width=width;
+        vw.setX(x);
+        vw.setY(y);
+        vw.requestLayout();
+
+    }
+    void scaleImage(ImageView vw)
+    {
+        scaleImage( vw,-52, -46,350, 350);
+    }
+
+    void scaleImage(ImageView vw, boolean bVisible)
+    {
+        scaleImage( vw,-52, -46,350, 350);
+        if (bVisible)
+            vw.setVisibility(View.VISIBLE);
+        else
+        vw.setVisibility(View.INVISIBLE);
+    }
+
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState)
 
     {
@@ -305,8 +328,55 @@ public class AstroNavigator extends Fragment  {
         HTMLView=view.findViewById(R.id.dfDocumentation);
         HTMLView.setVisibility(View.INVISIBLE);
         pbShowDocumentation=view.findViewById(R.id.pbShowPDFDoc);
-
         pbSunDeclination=view.findViewById(R.id.pbSun);
+
+        ImageView=view.findViewById(R.id.idImageView);
+        ImageViewDeclination=view.findViewById(R.id.imageViewDeclination);
+        ImageViewEcliptic=view.findViewById(R.id.imageViewEcliptic);
+
+
+        scaleImage(ImageView, true);
+        scaleImage(ImageViewDeclination,false);
+        scaleImage(ImageViewEcliptic, false);
+
+
+        ImageView.setOnClickListener(new View.OnClickListener() {
+                                                   @Override
+                                                   public void onClick(View v) {
+                                                       ImageView.setVisibility(View.INVISIBLE);
+                                                       ImageViewDeclination.setVisibility(View.VISIBLE);
+                                                       ImageViewEcliptic.setVisibility(View.INVISIBLE);
+                                                       Snackbar snackbar = Snackbar.make(view, "Image by Wikipedia. Declination here is for Astronomer!", Snackbar.LENGTH_LONG);
+
+                                                       snackbar.show();
+
+                                                   }
+                                               });
+        ImageViewDeclination.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageView.setVisibility(View.INVISIBLE);
+                ImageViewDeclination.setVisibility(View.INVISIBLE);
+                ImageViewEcliptic.setVisibility(View.VISIBLE);
+                Snackbar snackbar = Snackbar.make(view, "Image by Wikipedia. Declination Nautical +/-23.4°", Snackbar.LENGTH_LONG);
+                snackbar.show();
+
+            }
+        });
+
+        ImageViewEcliptic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageView.setVisibility(View.VISIBLE);
+                ImageViewDeclination.setVisibility(View.INVISIBLE);
+                ImageViewEcliptic.setVisibility(View.INVISIBLE);
+                Snackbar snackbar = Snackbar.make(view, "Image by US Navy public domain film", Snackbar.LENGTH_LONG);
+                snackbar.show();
+
+
+            }
+        });
+
 
 
 

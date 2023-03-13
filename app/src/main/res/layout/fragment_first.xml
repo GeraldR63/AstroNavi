@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".AstroNavigator">
 
+
     <Button
         android:id="@+id/button_first"
         android:layout_width="180dp"
@@ -338,8 +339,8 @@
         android:id="@+id/idImageView"
         android:layout_width="178dp"
         android:layout_height="133dp"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="420dp"
+        android:layout_marginStart="116dp"
+        android:layout_marginTop="424dp"
         android:src="@mipmap/ic_astronavigator"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -376,6 +377,26 @@
         android:layout_marginStart="288dp"
         android:layout_marginTop="496dp"
         android:text="SUN"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewEcliptic"
+        android:layout_width="151dp"
+        android:layout_height="136dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="416dp"
+        android:src="@mipmap/ic_ecliptic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewDeclination"
+        android:layout_width="156dp"
+        android:layout_height="153dp"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="416dp"
+        android:src="@mipmap/ic_declination"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

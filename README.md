@@ -184,6 +184,13 @@ Version History Log:
     <td>RN</td>
     <td>DMS parser is working perfect. Added DMS format check to all of the DMS inputfields. This seem to work good. Can not find any errors with this feature.</td>    
   </tr>
+       <tr>
+    <td>20230313</td>
+    <td>10:43 GMT</td>
+    <td>RN</td>
+    <td>Removed "South" checkbox from Simple dialog and allow to push time and declination from SUN dialog to Simple dialog.</td>    
+  </tr>
+
 </table> 
 <hr>
 <big># Valid DMS format</big>

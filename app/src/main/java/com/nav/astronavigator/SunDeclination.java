@@ -46,6 +46,7 @@ public class SunDeclination extends DialogFragment {
 
 
     CheckBox cbTimerOnOff;
+    CheckBox cbPublishSunData;
     Button pbBack;
     TextView dfDate;
     TextView dfTime;
@@ -219,6 +220,7 @@ public class SunDeclination extends DialogFragment {
         dfTime.setTextSize(pxFromDp(dp, getActivity()));
         dfTZ.setTextSize(pxFromDp(dp, getActivity()));
         cbTimerOnOff.setTextSize(pxFromDp(dp, getActivity()));
+        cbPublishSunData.setTextSize(pxFromDp(dp, getActivity()));
         dfLongByPureMath.setTextSize(pxFromDp(dp, getActivity()));
         dfLatByPureMath.setTextSize(pxFromDp(dp, getActivity()));
     }
@@ -268,6 +270,8 @@ public class SunDeclination extends DialogFragment {
         }
 
         cbTimerOnOff=view.findViewById(R.id.cbTimerOnOff);
+        cbPublishSunData=view.findViewById(R.id.cbPublishSunData);
+        cbPublishSunData.setChecked(false);   // This is always false. User have to be forced to decide this if he want this again, again and again
 
 
         pbBack=view.findViewById(R.id.pbSunBack);
@@ -443,6 +447,17 @@ public class SunDeclination extends DialogFragment {
             pbBack.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    if (cbPublishSunData.isChecked()) {  //If user want to push the data to "Simple Navigation (SUN)" than it happens.
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        //Editor editor = sharedpreferences.edit();
+
+                        editor.putString("declination", dfDeclination.getText().toString());   // Data pushed to Simple Navigation Dialog
+                        editor.putString("LocalHighNoon", dfTime.getText().toString());        // Data pushed to Simple Navigation Dialog
+
+                        editor.apply();
+                    }
+
                     NavHostFragment.findNavController(SunDeclination.this).navigate(R.id.FirstFragment);
                 }
 
@@ -458,43 +473,7 @@ public class SunDeclination extends DialogFragment {
     }
 
 
-    private class ViewHolder extends RecyclerView.ViewHolder {
 
-        final TextView text;
-
-        ViewHolder(FragmentSunDeclinationListDialogItemBinding binding) {
-            super(binding.getRoot());
-            text = binding.text;
-        }
-
-    }
-
-    private class ItemAdapter extends RecyclerView.Adapter<ViewHolder> {
-
-        private final int mItemCount;
-
-        ItemAdapter(int itemCount) {
-            mItemCount = itemCount;
-        }
-
-        @NonNull
-        @Override
-        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-            return new ViewHolder(FragmentSunDeclinationListDialogItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
-
-        }
-
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.text.setText(String.valueOf(position));
-        }
-
-        @Override
-        public int getItemCount() {
-            return mItemCount;
-        }
-    }
     class cTime
     {
         public int iYear;
@@ -703,6 +682,8 @@ public class SunDeclination extends DialogFragment {
         return cTime;
     }
 
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -713,6 +694,9 @@ public class SunDeclination extends DialogFragment {
         editor.putString("SunDate",dfDate.getText().toString());
         editor.putString("SunTime",dfTime.getText().toString());
         editor.putString("SunTimer", (cbTimerOnOff.isChecked() == true ? "1":"0"));
+
+        //editor.putString("declination",dfDeclination.getText().toString());   // Data pushed to Simple Navigation Dialog
+        //editor.putString("LocalHighNoon",dfTime.getText().toString());        // Data pushed to Simple Navigation Dialog
 
         editor.putString("SunTZ",dfTZ.getText().toString());
         editor.apply();

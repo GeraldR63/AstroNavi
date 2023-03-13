@@ -543,7 +543,7 @@ public class AstroNavigator extends Fragment  {
         {  mcbSouth.setChecked(true);        }
         else
         { mcbSouth.setChecked(false);}
-         //calculate(View);
+         calculate(view);
     }
 
     @Override

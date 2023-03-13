@@ -273,6 +273,7 @@ public class AstroNavigator extends Fragment  {
 
         mdfGHA.setEnabled(false);
         mcbSouth=view.findViewById(R.id.cbNS);
+        mcbSouth.setVisibility(View.INVISIBLE);
         //mcbSouth=view.findViewById(R.id.cbNS);
         mdfLatitude=view.findViewById(R.id.dfLatitude);
 
@@ -475,6 +476,9 @@ public class AstroNavigator extends Fragment  {
             public void onClick(View v)
             {
                 try {
+                    if (!Character.isDigit(mdfDeclination.getText().charAt(0))) {  // If there is a sign in front of the DMS than ignore settings in SharePrefs
+                        mcbSouth.setChecked(false);
+                    }
                     calculate(v);
                 } catch (Exception e)
                 {
@@ -498,6 +502,9 @@ public class AstroNavigator extends Fragment  {
 
 
                 NavHostFragment.findNavController(AstroNavigator.this).navigate(R.id.action_FirstFragment_to_frameSunDialog);
+                mcbSouth.setChecked(false); // If SUN dialog pushes data than data come with correct sign. mcbSouth is not required
+                                            // ToDo: Concider to remove the mcbSouth checkbox! It was just useful as the project started
+                                            // and this software wasn't able to deal with +-NSEW.
 
 
 
@@ -536,14 +543,21 @@ public class AstroNavigator extends Fragment  {
         //SharedPreferences prefs = this.getSharedPreferences("general_settings", Context.MODE_PRIVATE);
         mdfSextant.setText( sharedpreferences.getString("sextant", "021°00'00.00\""));
         mdfDeclination.setText( sharedpreferences.getString("declination", "022°00'00.00\""));
-        mdfLocalHighNoon.setText( sharedpreferences.getString("LocalHighNoon", "12:00:00"));
+        mdfLocalHighNoon.setText( sharedpreferences.getString("LocalHighNoon", "11:24:00"));
         setTextSize(Integer.valueOf(sharedpreferences.getString(sCharSetSizeName, "9")));
 
-        if (sharedpreferences.getString("NS", "S").equals("S"))
-        {  mcbSouth.setChecked(true);        }
+        if (Character.isDigit(mdfDeclination.getText().charAt(0))) {  // If there is a sign in front of the DMS than ignore settings in SharePrefs
+            if (sharedpreferences.getString("NS", "S").equals("S")) {
+                mcbSouth.setChecked(true);
+            } else {
+                mcbSouth.setChecked(false);
+            }
+            calculate(view);
+        }
         else
-        { mcbSouth.setChecked(false);}
-         calculate(view);
+        {
+            mcbSouth.setChecked(false);
+        }
     }
 
     @Override
@@ -558,8 +572,8 @@ public class AstroNavigator extends Fragment  {
         editor.putString("declination",mdfDeclination.getText().toString());
         editor.putString("NS", (mcbSouth.isChecked() == true ? "S":"N"));
 
-        editor.putString("SimpleLatitude",mdfDeclination.getText().toString());
-        editor.putString("SimpleLongitude",mdfDeclination.getText().toString());
+        //editor.putString("SimpleLatitude",mdfDeclination.getText().toString());
+        //editor.putString("SimpleLongitude",mdfDeclination.getText().toString());
 
         editor.putString("LocalHighNoon",mdfLocalHighNoon.getText().toString());
         editor.putString("WhoAmI","SIMPLE");

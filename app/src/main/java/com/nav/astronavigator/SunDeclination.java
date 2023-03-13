@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.nav.astronavigator.databinding.FragmentSunDeclinationListDialogItemBinding;
 import com.nav.astronavigator.databinding.FragmentSunDeclinationListDialogBinding;
 
@@ -442,6 +443,17 @@ public class SunDeclination extends DialogFragment {
                                                 }
                                             }
                                         });
+        cbPublishSunData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (cbPublishSunData.isChecked())
+                {
+                    Snackbar snackbar = Snackbar.make(view, "Pushes declination and Time. Remember GMT!", Snackbar.LENGTH_LONG);
+                    snackbar.show();
+                }
+
+            }
+        });
 
 
             pbBack.setOnClickListener(new View.OnClickListener() {
@@ -454,6 +466,7 @@ public class SunDeclination extends DialogFragment {
 
                         editor.putString("declination", dfDeclination.getText().toString());   // Data pushed to Simple Navigation Dialog
                         editor.putString("LocalHighNoon", dfTime.getText().toString());        // Data pushed to Simple Navigation Dialog
+                        //editor.putString("sextant", dfSunElevation.getText().toString());    // This is not a good idea because Simple and Sun Dialog depend on each other!
 
                         editor.apply();
                     }

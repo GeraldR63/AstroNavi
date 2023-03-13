@@ -125,7 +125,7 @@ public class NauticalAlmanac extends Fragment {
         mdfFixTime.setText( sharedpreferences.getString("FixTime", "11:55:00"));
         mdfObservedTime.setText( sharedpreferences.getString("ObservedTime"+postFix, "11:55:00"));
         mdfObservedDate.setText( sharedpreferences.getString("ObservedDate"+postFix, "01.01.2023"));
-        mdfHo.setText( sharedpreferences.getString("Ho"+postFix, "22.5°"));
+        mdfHo.setText( sharedpreferences.getString("Ho"+postFix, "22.5"));
         //mdfCBBearing.setText( sharedpreferences.getString("Bearing"+postFix, "-21.5°"));
         mdfGHAAries.setText( sharedpreferences.getString("GHAAries"+postFix, "359°59'59.99\""));
         mdfGHAAriesPlus1.setText( sharedpreferences.getString("GHAAriesPlus1"+postFix, "359°59'59.99\""));

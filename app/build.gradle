@@ -59,8 +59,8 @@ android {
         applicationId "com.nav.astronavigator"
         minSdk 21
         targetSdk 32
-        versionCode 25
-        versionName "Holy Moly 1.0"
+        versionCode 26
+        versionName "Holy Moly 1.1 (KISS)"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

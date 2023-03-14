@@ -411,11 +411,13 @@ public class fragment_sextant extends Fragment {
         pbReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               if (bCalledByNa==false) {  // If the click was simulated than do not reset these fields.
+                /*
+                if (bCalledByNa==false) {  // If the click was simulated than do not reset these fields.
                    dfIndexCorrectionIC.setText("000°00'00.00\"");
                    dfDIP.setText("000°00'00.00\"");
-               }
+                }
                 bCalledByNa=false;
+                */
 
                dfLIMB.setText("000°00'00.00\"");
                dfAtmosphericCorrections.setText("000°00'00.00\"");

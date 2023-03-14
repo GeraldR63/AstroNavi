@@ -200,7 +200,7 @@ Version History Log:
     <td>20230314</td>
     <td>09:44 GMT</td>
     <td>RN</td>
-    <td>Changed some background colors. The computation of GHA Sun and Declination do not depend anymore on data calculated in them "Simple Navigation (SUN) dialog. Because this potential source of a lot of trouble. User expect data calculated for a given point in time as provided by Nautical Almanac and now it's always sure that only these figures are shown.</td>    
+    <td>Changed some background colors. The computation of GHA Sun and Declination do not depend anymore on data calculated in "Simple Navigation (SUN)" dialog. Because this is a potential source of a lot of trouble. User expect data calculated for a given point in time as provided by Nautical Almanac and now it's always sure that only these figures are shown.</td>    
   </tr>
   
 

@@ -196,6 +196,13 @@ Version History Log:
     <td>RN</td>
     <td>Fixed some bugs related to the deletion of the "South" checkbox. Shit happened. Now the software shows proper GHA Aries, GHA for the SUN and declination. Holy moly. "Kayshon, his eyes open." (more or less)</td>    
   </tr>
+  <tr>
+    <td>20230314</td>
+    <td>09:44 GMT</td>
+    <td>RN</td>
+    <td>Changed some background colors. The computation of GHA Sun and Declination do not depend anymore on data calculated in them "Simple Navigation (SUN) dialog. Because this potential source of a lot of trouble. User expect data calculated for a given point in time as provided by Nautical Almanac and now it's always sure that only these figures are shown.</td>    
+  </tr>
+  
 
 </table> 
 <hr>

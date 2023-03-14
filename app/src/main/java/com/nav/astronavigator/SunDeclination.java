@@ -178,17 +178,20 @@ public class SunDeclination extends DialogFragment {
             try{
                     /*
                            longitude here by -1 because the algorithm expect negative values for west longitudes!
+                           To keep it simple:
+                           Longitude and TZ have to been set to Greenwich Meridian! If not Declination, GHA and GHA sun are not same as in Nautical Almanac.
                      */
+
                     dfSunElevation.setText(getElevation(longitude*-1, latitude, date, time, Double.valueOf(dfTZ.getText().toString())));
                     dfSunBearing.setText(getAzimuth(longitude*-1, latitude, date, time, Double.valueOf(dfTZ.getText().toString())));
-                    dfDeclination.setText(getDeclination(longitude*-1, latitude, date, time, Double.valueOf(dfTZ.getText().toString())));
+                    dfDeclination.setText(getDeclination(/* longitude*-1*/ 0.0, latitude, date, time, 0.0 /* Double.valueOf(dfTZ.getText().toString())*/ ));
                     NADataAndCalc na=new NADataAndCalc();
 
                     dfGHA.setText(calculus.Real2DMS(na.GHAAries(dfDate.getText().toString(),dfTime.getText().toString())));
                     calculate();
                     dfLongByPureMath.setText(tLong);
                     dfSunGHA.setText(calculus.Real2DMS(
-                        getSHA(longitude*-1, latitude, date, time, Double.valueOf(dfTZ.getText().toString()))
+                        getSHA(/* longitude*-1*/ 0.0, latitude, date, time,0.0 /* Double.valueOf(dfTZ.getText().toString())*/)
                                 ));
             } catch (Exception e)
             {
@@ -293,12 +296,12 @@ public class SunDeclination extends DialogFragment {
         dfDeclination=view.findViewById(R.id.dfSunDeclination);
         dfDeclination.setEnabled(false);
         dfDeclination.setTextColor(Color.BLACK);
-        dfDeclination.setBackgroundColor(Color.rgb(128,255, 128));
+        dfDeclination.setBackgroundColor(Color.rgb(128,128, 255)); //Blue. Because it's same as Nautical Almanac
 
         dfGHA=view.findViewById(R.id.dfSunGHAAries);
         dfGHA.setEnabled(false);
         dfGHA.setTextColor(Color.BLACK);
-        dfGHA.setBackgroundColor(Color.rgb(128,255, 128));
+        dfGHA.setBackgroundColor(Color.rgb(128,128, 255));  //Blue. Because it's same as Nautical Almanac
 
         dfSunBearing=view.findViewById(R.id.dfSunBearing);
         dfSunBearing.setEnabled(false);
@@ -322,7 +325,7 @@ public class SunDeclination extends DialogFragment {
         dfSunGHA=view.findViewById(R.id.dfSunGHA);
         dfSunGHA.setEnabled(false);
         dfSunGHA.setTextColor(Color.BLACK);
-        dfSunGHA.setBackgroundColor(Color.rgb(128,255, 128));
+        dfSunGHA.setBackgroundColor(Color.rgb(128,128, 255));  //Blue. Because it's same as Nautical Almanac
 
         dfLongByPureMath=view.findViewById(R.id.dfSunLongitude);
         dfLongByPureMath.setEnabled(false);

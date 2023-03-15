@@ -283,7 +283,7 @@ public class SunDeclination extends DialogFragment {
 
         cbTimerOnOff=view.findViewById(R.id.cbTimerOnOff);
         cbPublishSunData=view.findViewById(R.id.cbPublishSunData);
-        cbPublishSunData.setChecked(false);   // This is always false. User have to be forced to decide this if he want this again, again and again
+        cbPublishSunData.setChecked(false);   // This is always false. User have to be forced to decide this if they want this again, again and again
 
 
         pbBack=view.findViewById(R.id.pbSunBack);
@@ -295,13 +295,18 @@ public class SunDeclination extends DialogFragment {
 
         dfDeclination=view.findViewById(R.id.dfSunDeclination);
         dfDeclination.setEnabled(false);
-        dfDeclination.setTextColor(Color.BLACK);
-        dfDeclination.setBackgroundColor(Color.rgb(128,128, 255)); //Blue. Because it's same as Nautical Almanac
+        dfDeclination.setTextColor(Color.WHITE);
+        dfDeclination.setBackgroundColor(Color.rgb(0,0, 255)); //Blue. Because it's same as Nautical Almanac
 
         dfGHA=view.findViewById(R.id.dfSunGHAAries);
         dfGHA.setEnabled(false);
-        dfGHA.setTextColor(Color.BLACK);
-        dfGHA.setBackgroundColor(Color.rgb(128,128, 255));  //Blue. Because it's same as Nautical Almanac
+        dfGHA.setTextColor(Color.WHITE);
+        dfGHA.setBackgroundColor(Color.rgb(0,0, 255));  //Blue. Because it's same as Nautical Almanac
+
+        dfSunGHA=view.findViewById(R.id.dfSunGHA);
+        dfSunGHA.setEnabled(false);
+        dfSunGHA.setTextColor(Color.WHITE);
+        dfSunGHA.setBackgroundColor(Color.rgb(0,0, 255));  //Blue. Because it's same as Nautical Almanac
 
         dfSunBearing=view.findViewById(R.id.dfSunBearing);
         dfSunBearing.setEnabled(false);
@@ -313,24 +318,13 @@ public class SunDeclination extends DialogFragment {
         dfSunElevation.setTextColor(Color.BLACK);
         dfSunElevation.setBackgroundColor(Color.rgb(128,255, 128));
 
-        /*
-           ToDO: This Latitude depends on the Elevation taken at the position in the Simple Navigation Dialog.
-                 That's why this Latitude is probably "bullshit".
-                 Hheck the math behind the scenes.
 
-                 Assume you are  at long/lat and see the sun at bearing and elevation and than you calculate
-                 the Latitude of the position where the sun reaches at this point in time the highest point.
-                 Well...that's what I need here. Maybe the related calculation is true. I've not checked this.
-         */
-        dfSunGHA=view.findViewById(R.id.dfSunGHA);
-        dfSunGHA.setEnabled(false);
-        dfSunGHA.setTextColor(Color.BLACK);
-        dfSunGHA.setBackgroundColor(Color.rgb(128,128, 255));  //Blue. Because it's same as Nautical Almanac
+
 
         dfLongByPureMath=view.findViewById(R.id.dfSunLongitude);
         dfLongByPureMath.setEnabled(false);
         dfLongByPureMath.setTextColor(Color.BLACK);
-        dfLongByPureMath.setBackgroundColor(Color.rgb(255,165, 0));
+        dfLongByPureMath.setBackgroundColor(Color.rgb(255,128, 0));
 
 
 

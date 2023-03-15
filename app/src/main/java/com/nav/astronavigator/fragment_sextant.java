@@ -17,8 +17,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.nav.astronavigator.databinding.FragmentSextantBinding;
 
 import org.w3c.dom.Text;
@@ -59,6 +61,7 @@ public class fragment_sextant extends Fragment {
     TextView dfCB;
     TextView dfHo;
     TextView dfIndexCorrectionIC;
+    TextView dfDIPmeter;
     TextView dfDIP;
     TextView dfSextantAltitudeSA;
     TextView dfLIMB;
@@ -75,6 +78,7 @@ public class fragment_sextant extends Fragment {
     // all the other data must'nt be reseted.
     // That's not user friendly.
 
+    CheckBox cbUpperLowerLimb;
     Boolean back2Simple=false;
 
     Button pbIncrCharset;
@@ -93,6 +97,7 @@ public class fragment_sextant extends Fragment {
         dfCB.setTextSize(pxFromDp(dp, getActivity()));
         dfHo.setTextSize(pxFromDp(dp, getActivity()));
         dfIndexCorrectionIC.setTextSize(pxFromDp(dp, getActivity()));
+        dfDIPmeter.setTextSize(pxFromDp(dp, getActivity()));
         dfDIP.setTextSize(pxFromDp(dp, getActivity()));
         dfSextantAltitudeSA.setTextSize(pxFromDp(dp, getActivity()));
         dfLIMB.setTextSize(pxFromDp(dp, getActivity()));
@@ -216,6 +221,19 @@ public class fragment_sextant extends Fragment {
     }
 
 
+    void CalculateAndSetDIP()
+    {
+        NADataAndCalc na=new NADataAndCalc();
+        try {
+
+                dfDIP.setText("-"+String.valueOf(calculus.Real2DMS(na.dDIP2(Double.valueOf(dfDIPmeter.getText().toString())))));
+            } catch (Exception e)
+            {
+
+            }
+
+    }
+
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -255,9 +273,13 @@ public class fragment_sextant extends Fragment {
 
         dfHo=initTextView( R.id.dfCorrectionDeclination, true, true);
         dfIndexCorrectionIC=initTextView(  R.id.dfCorrectionDeclCorr, true, true);
+        dfDIPmeter=initTextView(  R.id.dfDIPmeter, true, true);
         dfDIP=initTextView(  R.id.dfDIPCorr, true, true);
         dfSextantAltitudeSA=initTextView(  R.id.dfSextantAltitude, false, false, Color.WHITE,Color.BLACK);
         dfLIMB=initTextView(  R.id.dfLIMB, true, true);
+
+        cbUpperLowerLimb=getView().findViewById(R.id.cbLimb);
+
         dfAtmosphericCorrections=initTextView(  R.id.dfAtmosphericCorr, true, true);
         dfAdditionalCorrections=initTextView(  R.id.dfAdditionalCorr, true, true);
         dfHc=initTextView(  R.id.dfCorrectionSHAcorr, false, false, Color.WHITE,Color.BLACK);
@@ -296,6 +318,22 @@ public class fragment_sextant extends Fragment {
             public void afterTextChanged(Editable s) {
                 //do here your calculation
                 displayCalculation(dfHc, dfSextantAltitudeSA, dfIndexCorrectionIC);
+            }
+        });
+
+        dfDIPmeter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                //do here your calculation
+
+                    CalculateAndSetDIP();
             }
         });
 
@@ -453,9 +491,23 @@ public class fragment_sextant extends Fragment {
             }
         });
 
+        cbUpperLowerLimb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*
+                     ToDo: Calculate limb
+                 */
+                Snackbar snackbar = Snackbar.make(view, "Under construction!", Snackbar.LENGTH_LONG);
+                snackbar.show();
+            }
+        });
+
+
         ReadCBrelatedData(postFix);
         setTextSize(Integer.valueOf(sharedpreferences.getString(sCharSetSizeName, "9")));
         displayCalculation(dfHc, dfSextantAltitudeSA, null);
+        CalculateAndSetDIP();
+
     }
 
     public void SaveCBrelatedData(String postFix)
@@ -470,6 +522,7 @@ public class fragment_sextant extends Fragment {
             editor.putString("HCCalc" + postFix, dfHc.getText().toString());
             editor.putString("HOCalc" + postFix, dfHo.getText().toString());
             editor.putString("IndexErrorIC" + postFix, dfIndexCorrectionIC.getText().toString());
+            editor.putString("DIPmeter" + postFix, dfDIPmeter.getText().toString());
             editor.putString("DIP" + postFix, dfDIP.getText().toString());
             editor.putString("SextantAlltitude" + postFix, dfSextantAltitudeSA.getText().toString());
             editor.putString("LIMB" + postFix, dfLIMB.getText().toString());
@@ -491,6 +544,7 @@ public class fragment_sextant extends Fragment {
         dfHc.setText( sharedpreferences.getString("HCCalc"+postFix, "000°00'00.00\""));
         dfHo.setText( sharedpreferences.getString("HOCalc"+postFix, "000°00'00.00\""));
         dfIndexCorrectionIC.setText( sharedpreferences.getString("IndexErrorIC"+postFix, "000°00'00.00\""));
+        dfDIPmeter.setText( sharedpreferences.getString("DIPmeter"+postFix, "2.8\""));
         dfDIP.setText( sharedpreferences.getString("DIP"+postFix, "000°00'00.00\""));
         dfSextantAltitudeSA.setText( sharedpreferences.getString("SextantAltitude"+postFix, "000°00'00.00\""));
         dfLIMB.setText( sharedpreferences.getString("LIMB"+postFix, "000°00'00.00\""));

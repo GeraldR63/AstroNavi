@@ -11,18 +11,6 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <EditText
-        android:id="@+id/dfCBCorrName"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="165dp"
-        android:layout_marginTop="4dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="CB#1/CB#2/CB#3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/textView117"
         android:layout_width="wrap_content"
@@ -30,18 +18,6 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="12dp"
         android:text="Celestial Body"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/dfCorrectionDeclination"
-        android:layout_width="150dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="165dp"
-        android:layout_marginTop="152dp"
-        android:ems="10"
-        android:inputType="text|time"
-        android:text="000°00'00.00&quot;"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,59 +31,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/dfCorrectionDeclCorr"
-        android:layout_width="150dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="165dp"
-        android:layout_marginTop="196dp"
-        android:ems="10"
-        android:inputType="text|time"
-        android:text="000°00'00.00&quot;"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/pbCRBackToSecondFrag"
         android:layout_width="180dp"
         android:layout_height="40dp"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="484dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="548dp"
         android:text="Back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/dfLIMB"
-        android:layout_width="150dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="165dp"
-        android:layout_marginTop="328dp"
-        android:ems="10"
-        android:inputType="text|time"
-        android:text="000°00'00.00&quot;"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/dfAtmosphericCorr"
-        android:layout_width="150dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="165dp"
-        android:layout_marginTop="372dp"
-        android:ems="10"
-        android:inputType="text|time"
-        android:text="000°00'00.00&quot;"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView31"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="428dp"
-        android:text="Additional Corrections"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -122,111 +52,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView27"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="252dp"
-        android:text="DIP"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/dfDIPCorr"
-        android:layout_width="150dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="165dp"
-        android:layout_marginTop="240dp"
-        android:ems="10"
-        android:inputType="datetime|text|time"
-        android:text="000°00'00.00&quot;"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView30"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="388dp"
-        android:text="Atmospheric Correction"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/dfAdditionalCorr"
-        android:layout_width="150dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="165dp"
-        android:layout_marginTop="416dp"
-        android:ems="10"
-        android:inputType="text|time"
-        android:text="000°00'00.00&quot;"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView29"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="340dp"
-        android:text="LIMB (SUN/MOON)"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView28"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="296dp"
-        android:text="Sextant Altitude SA"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/dfSextantAltitude"
-        android:layout_width="150dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="165dp"
-        android:layout_marginTop="284dp"
-        android:ems="10"
-        android:inputType="text|time"
-        android:text="000°00'00.00&quot;"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/dfCorrectionSHAcorr"
-        android:layout_width="150dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="165dp"
-        android:layout_marginTop="108dp"
-        android:editable="false"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="000°00'00.00&quot;"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/textView132"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="112dp"
         android:text="Hc Decimal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/pbReset"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginStart="301dp"
-        android:layout_marginTop="4dp"
-        android:text="Reset"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -244,11 +75,152 @@
         android:id="@+id/dfCorrectionSHA"
         android:layout_width="150dp"
         android:layout_height="43dp"
-        android:layout_marginStart="165dp"
+        android:layout_marginStart="128dp"
         android:layout_marginTop="64dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="000°00.0'00.00\&quot;"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfLIMB"
+        android:layout_width="151dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="372dp"
+        android:ems="10"
+        android:inputType="text|time"
+        android:text="000°00'00.00&quot;"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfSextantAltitude"
+        android:layout_width="151dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="328dp"
+        android:ems="10"
+        android:inputType="text|time"
+        android:text="000°00'00.00&quot;"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfCBCorrName"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="CB#1/CB#2/CB#3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfDIPmeter"
+        android:layout_width="151dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="240dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:text="2.8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfAdditionalCorr"
+        android:layout_width="151dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="468dp"
+        android:ems="10"
+        android:inputType="text|time"
+        android:text="000°00'00.00&quot;"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/pbReset"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginStart="264dp"
+        android:layout_marginTop="4dp"
+        android:text="Reset"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfDIPCorr"
+        android:layout_width="151dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="284dp"
+        android:ems="10"
+        android:inputType="datetime|text|time"
+        android:text="000°00'00.00&quot;"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfCorrectionSHAcorr"
+        android:layout_width="150dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="108dp"
+        android:editable="false"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="000°00'00.00&quot;"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfCorrectionDeclCorr"
+        android:layout_width="150dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="196dp"
+        android:ems="10"
+        android:inputType="text|time"
+        android:text="000°00'00.00&quot;"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfCorrectionDeclination"
+        android:layout_width="150dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="152dp"
+        android:ems="10"
+        android:inputType="text|time"
+        android:text="000°00'00.00&quot;"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/dfAtmosphericCorr"
+        android:layout_width="151dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="420dp"
+        android:ems="10"
+        android:inputType="text|time"
+        android:text="000°00'00.00&quot;"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/cbLimb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="280dp"
+        android:layout_marginTop="372dp"
+        android:text="Upper"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -257,7 +229,7 @@
         android:layout_width="60dp"
         android:layout_height="40dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="484dp"
+        android:layout_marginTop="548dp"
         android:text="+"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -267,8 +239,68 @@
         android:layout_width="60dp"
         android:layout_height="40dp"
         android:layout_marginStart="288dp"
-        android:layout_marginTop="484dp"
+        android:layout_marginTop="548dp"
         android:text="-"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView27"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="300dp"
+        android:text="DIP"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="436dp"
+        android:text="App. Altitude CB"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="344dp"
+        android:text="Sextant Altitude SA"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="388dp"
+        android:text="App. Altitude SUN"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="476dp"
+        android:text="Additional Corr."
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView46"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="252dp"
+        android:text="Height Sea m"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

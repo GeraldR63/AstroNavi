@@ -600,6 +600,14 @@ public class NADataAndCalc {
         return range_degrees(c1+c2*(dWhole+dFrac));
     }
 
+    public double dDIP(double dHeightMeter)
+    {
+        return 1.77*Math.pow(dHeightMeter,2);
+    }
 
+    public double dDIP2(double hHeightMeter)                //Height above sealevel
+    {
+        return ( /* 2.821615622e-4*/ 2.821615622e-4 *  Math.sqrt(hHeightMeter * 3.2808333333 )*60);  // To feet!
+    }
 
 }

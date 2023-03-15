@@ -365,32 +365,50 @@ void initStartable()
 
     class planets {
         private static final int SUN = 0;
-        private static final int EARTH = 0;
-        private static final int MERCURY = 1;
-        private static final int VENUS = 2;
-        private static final int MARS = 3;
-        private static final int JUPITER = 4;
-        private static final int SATURN = 5;
-        private static final int URANUS = 6;
-        private static final int NEPTUNE = 7;
-        private static final int PLUTO = 8;
+        private static final int EARTH = 1;
+        private static final int MERCURY = 2;
+        private static final int VENUS = 3;
+        private static final int MARS = 4;
+        private static final int JUPITER = 5;
+        private static final int SATURN = 6;
+        private static final int URANUS = 7;
+        private static final int NEPTUNE = 8;
+        private static final int PLUTO = 9;
 
 
-        HMS ascending_node[]=new HMS[9];
-        HMS perihelion[]=new HMS[9];
-        HMS inclination[]=new HMS[9];
-        HMS epoch_longitude[]=new HMS[9];
+         HMS ascending_node[]=new HMS[10];
+        HMS perihelion[]=new HMS[10];
+        HMS inclination[]=new HMS[10];
+        HMS epoch_longitude[]=new HMS[10];
 
-        String planet_name []=new String[9];
+        String planet_name []=new String[10];
+        public int iGetCBidx (String sUpperName)
+        {
+            int ix;
+            for (ix=0;ix< planet_name.length; ix++)
+            {
+                if (planet_name[ix]==sUpperName.toUpperCase())
+                {
+                    return ix;
+                }
+            }
+           return -1;  // Not found!
+        }
         double orbital_period[]=new double[9];
         double eccentricity[]=new double[9];
         double distance[]=new double[9];
+        public double dGetDistance(int i) { return distance[i];}
         double albedo[]=new double[9];
         double radius[]=new double[9];
+        public double dGetRadius(int i) { return radius[i]*1.609344;} // To Kilometers!
+
+
+
 
         void initPlanetName()
         {
             planet_name[SUN] = new String("SUN");
+            planet_name[EARTH] = new String("EARTH");
             planet_name[MERCURY] = new String("MERCURY");
             planet_name[VENUS] = new String("VENUS");
             planet_name[MARS] = new String("MARS");
@@ -419,6 +437,7 @@ void initStartable()
 
         void initOrbital_Period()
         {
+              orbital_period[SUN]=-1; /* Earth */
               orbital_period[EARTH]=365.2596; /* Earth */
               orbital_period[MERCURY]=87.9693; /* Mercury */
               orbital_period[VENUS]=224.7009; /* Venus */
@@ -432,6 +451,7 @@ void initStartable()
 
         void initEccentricity()
         {
+               eccentricity[SUN]=0.0; /* Sun */
                eccentricity[EARTH]=.016755; /* Earth */
                eccentricity[MERCURY]=.205636; /* Mercury */
                eccentricity[VENUS]=.006759; /* Venus */
@@ -447,6 +467,7 @@ void initStartable()
 
         void initDistance()
         {
+            distance[SUN]=0.0; /* Sun */
             distance[EARTH]=.999994; /* Earth */
             distance[MERCURY]=.387098; /* Mercury */
             distance[VENUS]=.723330; /* Venus */
@@ -460,6 +481,7 @@ void initStartable()
         }
         void initAlbedo()
         {
+            albedo[SUN]= 0.0; /* Sun */
             albedo[EARTH]= 0.39; /* Earth */
             albedo[MERCURY]=.06; /* Mercury */
             albedo[VENUS]=.72; /* Venus */
@@ -473,10 +495,11 @@ void initStartable()
         }
 
 
-        void initRadius()
+        void initRadius() // Miles!!!!
         {
 
             radius[SUN]=432560.0; /* Sun */
+            radius[EARTH]=3958.9; /* Earth */
             radius[MERCURY]=1515.0; /* Mercury */
             radius[VENUS]=3760.0; /* Venus */
             radius[MARS]=2108.4; /* Mars */

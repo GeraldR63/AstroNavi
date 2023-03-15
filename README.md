@@ -202,6 +202,12 @@ Version History Log:
     <td>RN</td>
     <td>Changed some background colors. The computation of GHA Sun and Declination do not depend anymore on data calculated in "Simple Navigation (SUN)" dialog. Because this is a potential source of a lot of trouble. User expect data calculated for a given point in time as provided by Nautical Almanac and now it's always sure that only these figures are shown.</td>    
   </tr>
+  <tr>
+    <td>20230315</td>
+    <td>21:14 GMT</td>
+    <td>RN</td>
+    <td>Changed some Background and TextColor changes in SUN calculation. Added calculation of DIP in Sextant calculation. Just enter Height above sealevel in meter than DIP is calculated much better as in Nautical Almanac. Prepared App. Altitude calculation for SUN, Stars and Planets.</td>    
+  </tr>
   
 
 </table> 

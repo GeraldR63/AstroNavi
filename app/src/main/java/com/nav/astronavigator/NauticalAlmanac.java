@@ -247,7 +247,9 @@ public class NauticalAlmanac extends Fragment {
         CelestialBodys=new CelestialBodys(sharedpreferences);
 
         mdfDate=getView().findViewById(R.id.dfDate);
+        mdfDate.setTooltipText("Enter date of report");
         mdfTime=getView().findViewById(R.id.dfTime);
+        mdfTime.setTooltipText("Enter time of report");
 
         /*
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
@@ -260,11 +262,15 @@ public class NauticalAlmanac extends Fragment {
 
 
         mdfDRLat=getView().findViewById(R.id.dfDRLat);
+        mdfDRLat.setTooltipText("Enter DR positions latitude. To know the degree is good enough!");
         mdfDRLat.setFilters(new InputFilter[] { new DMSFilter(), new InputFilter.LengthFilter(17)});
         mdfDRLong=getView().findViewById(R.id.dfDRLong);
+        mdfDRLong.setTooltipText("Enter DR positions longitude. To know the degree is good enough!");
         mdfDRLong.setFilters(new InputFilter[] { new DMSFilter(), new InputFilter.LengthFilter(17)});
         mdfHeading=getView().findViewById(R.id.dfHeading);
+        mdfHeading.setTooltipText("Enter heading of your vessel in degree!");
         mdfSpeed=getView().findViewById(R.id.dfSpeed);
+        mdfSpeed.setTooltipText("Enter speed of your vessel in knots!");
         pbCalcNA=getView().findViewById(R.id.pbCalcNA);
 
 
@@ -285,8 +291,11 @@ public class NauticalAlmanac extends Fragment {
         pbIncrCharset=getView().findViewById(R.id.pbIncrNACharset);
         pbDecrCharset=getView().findViewById(R.id.pbDecrNACharset);
         CB1=getView().findViewById(R.id.cb1);
+        CB1.setTooltipText("Select first of three celestial bodys you need to calculate your position!");
         CB2=getView().findViewById(R.id.cb2);
+        CB2.setTooltipText("Select second of three celestial bodys you need to calculate your position!");
         CB3=getView().findViewById(R.id.cb3);
+        CB3.setTooltipText("Select third of three celestial bodys you need to calculate your position!");
         mdfCBName=getView().findViewById(R.id.dfCBName);
         mdfCBName.setEnabled(false);
         mdfCBName.setTextColor(Color.BLACK);
@@ -294,10 +303,14 @@ public class NauticalAlmanac extends Fragment {
         CB1.setChecked(true);
 
         mdfFixTime=getView().findViewById(R.id.dfFixTime);
+        mdfFixTime.setTooltipText("The time for which the software calculate the position.");
         mdfObservedTime=getView().findViewById(R.id.dfObservedTime);
+        mdfObservedTime.setTooltipText("The time when you shot the celestial body.");
         mdfObservedDate=getView().findViewById(R.id.dfObservedDate);
+        mdfObservedDate.setTooltipText("The date when you shot the celestial body.");
 
         mdfHo=getView().findViewById(R.id.dfHo);
+        mdfHo.setTooltipText("The angle between horizon and celestial body. Use HO2HC to add corrections to your sighting.");
         // mdfCBBearing=getView().findViewById(R.id.dfCBbearing);
 
         TextView21=getView().findViewById(R.id.textView21);
@@ -306,12 +319,16 @@ public class NauticalAlmanac extends Fragment {
         TextView24=getView().findViewById(R.id.textView24);
 
         mdfGHAAries=getView().findViewById(R.id.dfGHAAries);
+        mdfGHAAries.setTooltipText("GHA Aries from the full hour (round down) of your sighting! NA or calculated.");
         mdfGHAAries.setFilters(new InputFilter[] { new DMSFilter(), new InputFilter.LengthFilter(17)});
         mdfGHAAriesPlus1=getView().findViewById(R.id.dfGHAAriesPlus1);
+        mdfGHAAriesPlus1.setTooltipText("GHA Aries+1 is full hour (round up) of your sighting! NA or calculated.");
         mdfGHAAriesPlus1.setFilters(new InputFilter[] { new DMSFilter(), new InputFilter.LengthFilter(17)});
         mdfSHA=getView().findViewById(R.id.dfSHA);
+        mdfSHA.setTooltipText("SHA Aries for the CB at the day of the sighting! NA or calculated.");
         mdfSHA.setFilters(new InputFilter[] { new DMSFilter(), new InputFilter.LengthFilter(17)});
         mdfDeclinationNA=getView().findViewById(R.id.dfDeclinationNA);
+        mdfDeclinationNA.setTooltipText("Declination for the CB at the day of the sighting! NA or calculated.");
         mdfDeclinationNA.setFilters(new InputFilter[] { new DMSFilter(), new InputFilter.LengthFilter(17)});
 
         mdfPosition=getView().findViewById(R.id.dfPosition);

@@ -292,9 +292,15 @@ public class fragment_sextant extends Fragment {
 
 
         dfHo=initTextView( R.id.dfCorrectionDeclination, true, true);
+        dfHo.setTooltipText("Enter Ho here or take it from caller dialog.");
+
         dfIndexCorrectionIC=initTextView(  R.id.dfCorrectionDeclCorr, true, true);
+        dfIndexCorrectionIC.setTooltipText("Enter the index correction of your sextant.");
         dfDIPmeter=initTextView(  R.id.dfDIPmeter, true, true);
+        dfDIPmeter.setTooltipText("Enter DIP in meter above sea level and compute the DIP in degree.");
+
         dfDIP=initTextView(  R.id.dfDIPCorr, true, true);
+        dfDIP.setTooltipText("Enter DIP from Nautical Almanac or compute it with \"Height Sea m\".");
         dfSextantAltitudeSA=initTextView(  R.id.dfSextantAltitude, false, false, Color.WHITE,Color.BLACK);
 
         /*
@@ -308,10 +314,13 @@ public class fragment_sextant extends Fragment {
         cbUpperLowerLimb.setVisibility(View.INVISIBLE);
 
         dfTemperature=getView().findViewById(R.id.dfTemperature);
+        dfTemperature.setTooltipText("Enter temperature in Celsius to calculate refraction.");
         dfAirpressure=getView().findViewById(R.id.dfAirPressure);
-
+        dfAirpressure.setTooltipText("Enter airpressure in hPa/mBar to calculate refraction.");
         dfAtmosphericCorrections=initTextView(  R.id.dfAtmosphericCorr, true, true);
+        dfAtmosphericCorrections.setTooltipText("Enter correction from Nautical Almanac or compute it by Ho,°C and hPa.");
         dfAdditionalCorrections=initTextView(  R.id.dfAdditionalCorr, true, true);
+        dfAdditionalCorrections.setTooltipText("Enter for Celestial Bodys the correction for month or other corrections if you use NA instead of internal calculation.");
         dfHc=initTextView(  R.id.dfCorrectionSHAcorr, false, false, Color.WHITE,Color.BLACK);
         dfHcDMS=initTextView( R.id.dfCorrectionSHA, false, false, Color.WHITE,Color.BLACK);
 

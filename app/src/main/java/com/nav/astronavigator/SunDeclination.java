@@ -282,14 +282,19 @@ public class SunDeclination extends DialogFragment {
         }
 
         cbTimerOnOff=view.findViewById(R.id.cbTimerOnOff);
+        cbTimerOnOff.setTooltipText("If checked system date and time is used to calculate data at this dialog!");
         cbPublishSunData=view.findViewById(R.id.cbPublishSunData);
         cbPublishSunData.setChecked(false);   // This is always false. User have to be forced to decide this if they want this again, again and again
+        cbPublishSunData.setTooltipText("If checked Declination is pushed to \"Simple Navigation\" dialog!");
 
 
         pbBack=view.findViewById(R.id.pbSunBack);
         dfDate=view.findViewById(R.id.dfSunDate);
+        dfDate.setTooltipText("Date of calculation. By timer or manual!");
         dfTime=view.findViewById(R.id.dfSunTime);
+        dfTime.setTooltipText("Time of calculation. By timer or manual!");
         dfTZ=view.findViewById(R.id.dfTZ);
+        dfTZ.setTooltipText("TZ relative to Greenwich. - is East. + is West. Recommendation set this to 0 and compute with GMT!");
         //ToDo: preset TZ by long/lat
         dfTZ.setText("1");
 

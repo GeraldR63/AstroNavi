@@ -207,22 +207,29 @@ public class Fragment_CBCorrection extends Fragment {
 
         dfSHA = getView().findViewById(R.id.dfCorrectionSHA);
         dfSHA.setFilters(new InputFilter[] { new DMSFilter(), new InputFilter.LengthFilter(17)});
-
+        dfSHA.setTooltipText("Enter SHA from NA if data calculated here is false.");
         dfSHACorr = getView().findViewById(R.id.dfCorrectionSHAcorr);
+        dfSHACorr.setTooltipText("Enter SHA correction multiplier to give the software the ability to calculate the SHA for a day.");
+
         dfSHAToday= getView().findViewById(R.id.dfSHAToday);
         dfSHAToday.setEnabled(false);
         dfSHAToday.setTextColor(Color.BLACK);
         dfDeclination = getView().findViewById(R.id.dfCorrectionDeclination);
         dfDeclination.setFilters(new InputFilter[] { new DMSFilter(), new InputFilter.LengthFilter(17)});
+        dfDeclination.setTooltipText("Enter Declination from NA if data calculated here is false.");
+
         dfDeclCorr = getView().findViewById(R.id.dfCorrectionDeclCorr);
+        dfDeclCorr.setTooltipText("Enter declination correction to give the software the ability to calculate the CB's declination for a day.");
         dfDeclinationToday= getView().findViewById(R.id.dfDeclinationToday);
         dfDeclinationToday.setEnabled(false);
         dfDeclinationToday.setTextColor(Color.BLACK);
         dfTestDate=getView().findViewById(R.id.dfCorrectionTestDate);
+        dfTestDate.setTooltipText("Enter a date and compare calculated data for example by using Nautical Almanac.");
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         String date = sdf.format(new Date());
         dfTestDate.setText( date);
         dfTestTime=getView().findViewById(R.id.dfCorrectionTestTime);
+        dfTestTime.setTooltipText("Enter a time and compare calculated data for example by using Nautical Almanac. (Time do not really matter)");
         sdf = new SimpleDateFormat("HH:mm:ss");
         String time = sdf.format(new Date());
         dfTestTime.setText( time);

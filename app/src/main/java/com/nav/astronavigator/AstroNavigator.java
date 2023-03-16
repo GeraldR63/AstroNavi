@@ -17,6 +17,7 @@ import android.text.TextWatcher;
 import android.text.method.NumberKeyListener;
 import android.text.style.BackgroundColorSpan;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsoluteLayout;
@@ -289,12 +290,13 @@ public class AstroNavigator extends Fragment  {
 
         mdfSextant=view.findViewById(R.id.dfSextant);
         mdfSextant.setFilters(new InputFilter[] { new DMSFilter(), new InputFilter.LengthFilter(17)});
+        mdfSextant.setTooltipText("Enter Sextant sighting. This is pushed to Sextant Correction as Ho and come back as Hc.");
 
         mdfDeclination=view.findViewById(R.id.dfDeclination);
         mdfDeclination.setFilters(new InputFilter[] { new DMSFilter(), new InputFilter.LengthFilter(17)});
+        mdfDeclination.setTooltipText("Enter declination from Nautical Almanac or compute it by pressing SUN button");
 
         mdfGHA=view.findViewById(R.id.dfGHA);
-
         mdfGHA.setEnabled(false);
 
         mdfLatitude=view.findViewById(R.id.dfLatitude);
@@ -304,6 +306,7 @@ public class AstroNavigator extends Fragment  {
 
         mdfLongitude.setEnabled(false);
         mdfLocalHighNoon=view.findViewById(R.id.dfLocalHighNoon);
+        mdfLocalHighNoon.setTooltipText("Enter time of highest elevation of the Sun in GMT. Computation in this dialog is valid at High Noon.");
 
         pbButtonFirst=view.findViewById(R.id.button_first);
         pbHo2Hc=view.findViewById(R.id.pbHo2Hc);

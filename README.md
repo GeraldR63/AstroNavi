@@ -214,6 +214,12 @@ Version History Log:
     <td>RN</td>
     <td>Added refraction calculator. User can use the refraction calculation by Meeus or just the figures from the Nautical Almanac.</td>    
   </tr>
+  <tr>
+    <td>20230316</td>
+    <td>17:48 GMT</td>
+    <td>RN</td>
+    <td>Added Tooltips to all of the input fields. Hope tha the tips will help someone.</td>    
+  </tr>
   
 
 </table> 

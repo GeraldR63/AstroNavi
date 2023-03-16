@@ -394,12 +394,12 @@ void initStartable()
             }
            return -1;  // Not found!
         }
-        double orbital_period[]=new double[9];
-        double eccentricity[]=new double[9];
-        double distance[]=new double[9];
+        double orbital_period[]=new double[10];
+        double eccentricity[]=new double[10];
+        double distance[]=new double[10];
         public double dGetDistance(int i) { return distance[i];}
-        double albedo[]=new double[9];
-        double radius[]=new double[9];
+        double albedo[]=new double[10];
+        double radius[]=new double[10];
         public double dGetRadius(int i) { return radius[i]*1.609344;} // To Kilometers!
 
 

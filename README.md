@@ -208,6 +208,12 @@ Version History Log:
     <td>RN</td>
     <td>Changed some Background and TextColor changes in SUN calculation. Added calculation of DIP in Sextant calculation. Just enter Height above sealevel in meter than DIP is calculated much better as in Nautical Almanac. Prepared App. Altitude calculation for SUN, Stars and Planets.</td>    
   </tr>
+  <tr>
+    <td>20230316</td>
+    <td>07:48 GMT</td>
+    <td>RN</td>
+    <td>Added refraction calculator. User can use the refraction calculation by Meeus or just the figures from the Nautical Almanac.</td>    
+  </tr>
   
 
 </table> 

@@ -617,13 +617,13 @@ public class fragment_sextant extends Fragment {
         dfHc.setText( sharedpreferences.getString("HCCalc"+postFix, "000°00'00.00\""));
         dfHo.setText( sharedpreferences.getString("HOCalc"+postFix, "000°00'00.00\""));
         dfIndexCorrectionIC.setText( sharedpreferences.getString("IndexErrorIC"+postFix, "000°00'00.00\""));
-        dfDIPmeter.setText( sharedpreferences.getString("DIPmeter"+postFix, "2.8\""));
+        dfDIPmeter.setText( sharedpreferences.getString("DIPmeter"+postFix, "2.8"));
         dfDIP.setText( sharedpreferences.getString("DIP"+postFix, "000°00'00.00\""));
         dfSextantAltitudeSA.setText( sharedpreferences.getString("SextantAltitude"+postFix, "000°00'00.00\""));
         dfLIMB.setText( sharedpreferences.getString("LIMB"+postFix, "000°00'00.00\""));
 
-        dfTemperature.setText( sharedpreferences.getString("Temperature"+postFix, "18.0\""));
-        dfAirpressure.setText( sharedpreferences.getString("Airpressure"+postFix, "948\""));
+        dfTemperature.setText( sharedpreferences.getString("Temperature"+postFix, "18.0"));
+        dfAirpressure.setText( sharedpreferences.getString("Airpressure"+postFix, "948"));
 
         dfAtmosphericCorrections.setText( sharedpreferences.getString("AtmosphericCorrection"+postFix, "000°00'00.00\""));
         //dfAtmosphericCorrections.setText( "000°00'00.00\"");

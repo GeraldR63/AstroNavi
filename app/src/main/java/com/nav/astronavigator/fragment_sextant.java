@@ -64,11 +64,16 @@ public class fragment_sextant extends Fragment {
     TextView dfDIPmeter;
     TextView dfDIP;
     TextView dfSextantAltitudeSA;
+    TextView dfTextLimb;
     TextView dfLIMB;
+    CheckBox cbUpperLowerLimb;
     TextView dfAtmosphericCorrections;
     TextView dfAdditionalCorrections;
     TextView dfHc;
     TextView dfHcDMS;
+
+    TextView dfTemperature;
+    TextView dfAirpressure;
 
     Button pbBack;
     Button pbReset;
@@ -78,7 +83,7 @@ public class fragment_sextant extends Fragment {
     // all the other data must'nt be reseted.
     // That's not user friendly.
 
-    CheckBox cbUpperLowerLimb;
+
     Boolean back2Simple=false;
 
     Button pbIncrCharset;
@@ -101,6 +106,8 @@ public class fragment_sextant extends Fragment {
         dfDIP.setTextSize(pxFromDp(dp, getActivity()));
         dfSextantAltitudeSA.setTextSize(pxFromDp(dp, getActivity()));
         dfLIMB.setTextSize(pxFromDp(dp, getActivity()));
+        dfTemperature.setTextSize(pxFromDp(dp, getActivity()));
+        dfAirpressure.setTextSize(pxFromDp(dp, getActivity()));
         dfAtmosphericCorrections.setTextSize(pxFromDp(dp, getActivity()));
         dfAdditionalCorrections.setTextSize(pxFromDp(dp, getActivity()));
         dfHc.setTextSize(pxFromDp(dp, getActivity()));
@@ -234,6 +241,19 @@ public class fragment_sextant extends Fragment {
 
     }
 
+    void CalculateAndSetRefraction() {
+        try {
+            NADataAndCalc na = new NADataAndCalc();
+            String res="-"+calculus.Real2DMS(na.dRefraction(calculus.DMS2Real(dfHo.getText().toString()),
+                    Double.valueOf(dfAirpressure.getText().toString()),
+                    Double.valueOf(dfTemperature.getText().toString())));
+            dfAtmosphericCorrections.setText(res);
+        } catch (Exception e)
+        {
+            dfAtmosphericCorrections.setText("000°00'00.00\"");
+        }
+    }
+
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -276,14 +296,61 @@ public class fragment_sextant extends Fragment {
         dfDIPmeter=initTextView(  R.id.dfDIPmeter, true, true);
         dfDIP=initTextView(  R.id.dfDIPCorr, true, true);
         dfSextantAltitudeSA=initTextView(  R.id.dfSextantAltitude, false, false, Color.WHITE,Color.BLACK);
-        dfLIMB=initTextView(  R.id.dfLIMB, true, true);
 
+        /*
+            ToDo: Remove LIMB correction because Meeus Atmnospheric Correction is much better!
+         */
+        dfTextLimb=getView().findViewById(R.id.textViewLIMB);
+        dfTextLimb.setVisibility(View.INVISIBLE);
+        dfLIMB=initTextView(  R.id.dfLIMB, true, true);
+        dfLIMB.setVisibility(View.INVISIBLE);
         cbUpperLowerLimb=getView().findViewById(R.id.cbLimb);
+        cbUpperLowerLimb.setVisibility(View.INVISIBLE);
+
+        dfTemperature=getView().findViewById(R.id.dfTemperature);
+        dfAirpressure=getView().findViewById(R.id.dfAirPressure);
 
         dfAtmosphericCorrections=initTextView(  R.id.dfAtmosphericCorr, true, true);
         dfAdditionalCorrections=initTextView(  R.id.dfAdditionalCorr, true, true);
         dfHc=initTextView(  R.id.dfCorrectionSHAcorr, false, false, Color.WHITE,Color.BLACK);
         dfHcDMS=initTextView( R.id.dfCorrectionSHA, false, false, Color.WHITE,Color.BLACK);
+
+        //public double dRefraction (double h, double P, double T) // Height Pressure Temperature
+        // ToDo: Add Temperature and Airpressure and calculate Refraction using function above.
+
+        dfTemperature.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                //do here your calculation
+                //displayCalculation(dfHc, dfSextantAltitudeSA, dfHo);
+                CalculateAndSetRefraction();
+            }
+        });
+        dfAirpressure.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                //do here your calculation
+                //displayCalculation(dfHc, dfSextantAltitudeSA, dfHo);
+                CalculateAndSetRefraction();
+            }
+        });
+
+
 
         dfHo.addTextChangedListener(new TextWatcher() {
             String old;
@@ -300,6 +367,7 @@ public class fragment_sextant extends Fragment {
                 public void afterTextChanged(Editable s) {
                     //do here your calculation
                     displayCalculation(dfHc, dfSextantAltitudeSA, dfHo);
+                    CalculateAndSetRefraction();
                 }
         });
 
@@ -373,6 +441,7 @@ public class fragment_sextant extends Fragment {
             }
         });
 
+
         dfAtmosphericCorrections.addTextChangedListener(new TextWatcher() {
             String old;
             DMSFilter DMSFilter=new DMSFilter();
@@ -390,6 +459,7 @@ public class fragment_sextant extends Fragment {
                 displayCalculation(dfHc, dfSextantAltitudeSA, dfAtmosphericCorrections);
             }
         });
+
 
         dfAdditionalCorrections.addTextChangedListener(new TextWatcher() {
             String old;
@@ -507,6 +577,7 @@ public class fragment_sextant extends Fragment {
         setTextSize(Integer.valueOf(sharedpreferences.getString(sCharSetSizeName, "9")));
         displayCalculation(dfHc, dfSextantAltitudeSA, null);
         CalculateAndSetDIP();
+        CalculateAndSetRefraction();
 
     }
 
@@ -526,6 +597,8 @@ public class fragment_sextant extends Fragment {
             editor.putString("DIP" + postFix, dfDIP.getText().toString());
             editor.putString("SextantAlltitude" + postFix, dfSextantAltitudeSA.getText().toString());
             editor.putString("LIMB" + postFix, dfLIMB.getText().toString());
+            editor.putString("Temperature" + postFix, dfTemperature.getText().toString());
+            editor.putString("Airpressure" + postFix, dfAirpressure.getText().toString());
             editor.putString("AtmosphericCorrection" + postFix, dfAtmosphericCorrections.getText().toString());
             editor.putString("AdditionalCorrection" + postFix, dfAdditionalCorrections.getText().toString());
 
@@ -548,7 +621,12 @@ public class fragment_sextant extends Fragment {
         dfDIP.setText( sharedpreferences.getString("DIP"+postFix, "000°00'00.00\""));
         dfSextantAltitudeSA.setText( sharedpreferences.getString("SextantAltitude"+postFix, "000°00'00.00\""));
         dfLIMB.setText( sharedpreferences.getString("LIMB"+postFix, "000°00'00.00\""));
+
+        dfTemperature.setText( sharedpreferences.getString("Temperature"+postFix, "18.0\""));
+        dfAirpressure.setText( sharedpreferences.getString("Airpressure"+postFix, "948\""));
+
         dfAtmosphericCorrections.setText( sharedpreferences.getString("AtmosphericCorrection"+postFix, "000°00'00.00\""));
+        //dfAtmosphericCorrections.setText( "000°00'00.00\"");
         dfAdditionalCorrections.setText( sharedpreferences.getString("AdditionalCorrection"+postFix, "000°00'00.00\""));
 
         try {

@@ -610,4 +610,32 @@ public class NADataAndCalc {
         return ( /* 2.821615622e-4*/ 2.821615622e-4 *  Math.sqrt(hHeightMeter * 3.2808333333 )*60);  // To feet!
     }
 
+
+    public double dRefraction (double h, double P, double T) // Height Pressure Temperature
+    {
+        /*
+         ToDo: Add Temperature and Pressure to Sextant Dialog
+
+         R=1.02/tan(h+(10.3/(h+5.11)))
+         h is the true (airless) elevation in degrees,
+         R is in minutes of arc.
+         The apparent (observed) elevation is h+R.
+
+         P (hPa= mBar)
+         T (°C),
+
+
+         (P/1010)*(283/(273+T))
+
+         R should be multiplied by the approximate factor (Meeus, Astronomical Algorithms):
+
+         */
+        double res=0.0;
+
+            res=(1.02/Math.tan((h+10.3)/(h+5.11)))*((P/1010)*(283/(273+T)));
+
+
+        return res;
+    }
+
 }

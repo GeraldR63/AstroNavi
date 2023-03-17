@@ -215,7 +215,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="308dp"
-        android:text="GHA SUN NA"
+        android:text="GHA SUN NA "
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -258,6 +258,26 @@
         android:layout_marginStart="192dp"
         android:layout_marginTop="500dp"
         android:text="Publish data"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="344dp"
+        android:layout_marginTop="308dp"
+        android:text="Longitude!"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="344dp"
+        android:layout_marginTop="452dp"
+        android:text="Ancient."
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

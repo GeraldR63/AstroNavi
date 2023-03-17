@@ -153,11 +153,15 @@ public class SunDeclination extends DialogFragment {
         String  tLong="";
         try {
             double LocalTimeHighNoon = (calculus.HMS2Real(dfTime.getText().toString()) * 60 * 60)+(-1*Double.valueOf(dfTZ.getText().toString())*60*60);
+            double GMT = (calculus.HMS2Real(dfTime.getText().toString()) * 60 * 60); //+(-1*Double.valueOf(dfTZ.getText().toString())*60*60);
             double DegreePerSecond = 360. / 24.00 / 60.00 / 60.00;
             double GMT_ZERO=12.*60.*60.;  // 12:00:00 in Greenwich
 
-            double tLongitude = Math.abs((GMT_ZERO - LocalTimeHighNoon) * DegreePerSecond);
-
+            // This tLongitude is calculated by a very simple method to calculate longitude.
+            // To know this is good and better than nothing. That's the way sailors calculated
+            // Longitude since humans have mechanical watches.
+            // It's up to three degree false but it's simple!
+            double tLongitude = Math.abs(( GMT_ZERO - GMT) * DegreePerSecond);
             if (LocalTimeHighNoon < GMT_ZERO) {
                 //tDir="E";
                 tLong = "E " + (calculus.Real2DMS(tLongitude));

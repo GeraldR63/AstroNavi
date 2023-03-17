@@ -304,7 +304,7 @@ I attached also an ooCalc document which can also be used by Navigators. It's do
 
 See: https://github.com/GeraldR63/AstroNavi/blob/main/Position.20211217.inkl.2.Iteration.Grad.Minutes.BestOf.ods
 
-Process flow to get and calculate a position by classic Astronavigation.
+Process flow to get and calculate a position by classic Astronavigation. This computation is only valid if shot was taken exactly at the highest point of the Sun. Than the Sun ist 180° below or above your current position. This is the way it is calculated in the dialog "Simple Navigation (SUN)".
 
 <img src="https://github.com/GeraldR63/AstroNavi/blob/main/process%20flow.png" width="900" height="550">
 

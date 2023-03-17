@@ -152,7 +152,7 @@ public class SunDeclination extends DialogFragment {
 
         String  tLong="";
         try {
-            double LocalTimeHighNoon = (calculus.HMS2Real(dfTime.getText().toString()) * 60 * 60)+(-1*Double.valueOf(dfTZ.getText().toString())*60*60);
+            double LocalTimeHighNoon = (calculus.HMS2Real(dfTime.getText().toString()) * 60 * 60)+(-1*(Double.valueOf(dfTZ.getText().toString())*60*60));
             double GMT = (calculus.HMS2Real(dfTime.getText().toString()) * 60 * 60); //+(-1*Double.valueOf(dfTZ.getText().toString())*60*60);
             double DegreePerSecond = 360. / 24.00 / 60.00 / 60.00;
             double GMT_ZERO=12.*60.*60.;  // 12:00:00 in Greenwich
@@ -161,7 +161,7 @@ public class SunDeclination extends DialogFragment {
             // To know this is good and better than nothing. That's the way sailors calculated
             // Longitude since humans have mechanical watches.
             // It's up to three degree false but it's simple!
-            double tLongitude = Math.abs(( GMT_ZERO - GMT) * DegreePerSecond);
+            double tLongitude = Math.abs(( GMT_ZERO - LocalTimeHighNoon) * DegreePerSecond);
             if (LocalTimeHighNoon < GMT_ZERO) {
                 //tDir="E";
                 tLong = "E " + (calculus.Real2DMS(tLongitude));
@@ -186,16 +186,15 @@ public class SunDeclination extends DialogFragment {
                            Longitude and TZ have to been set to Greenwich Meridian! If not Declination, GHA and GHA sun are not same as in Nautical Almanac.
                      */
 
-                    dfSunElevation.setText(getElevation(longitude*-1, latitude, date, time, Double.valueOf(dfTZ.getText().toString())));
-                    dfSunBearing.setText(getAzimuth(longitude*-1, latitude, date, time, Double.valueOf(dfTZ.getText().toString())));
-                    dfDeclination.setText(getDeclination(/* longitude*-1*/ 0.0, latitude, date, time, 0.0 /* Double.valueOf(dfTZ.getText().toString())*/ ));
+                    dfSunElevation.setText(getElevation(-1*longitude, latitude, date, time, Double.valueOf(dfTZ.getText().toString())));
+                    dfSunBearing.setText(getAzimuth(-1*longitude, latitude, date, time,  Double.valueOf(dfTZ.getText().toString())));
+                    dfDeclination.setText(getDeclination(/* longitude*-1*/ 0.0, latitude, date, time,  Double.valueOf(dfTZ.getText().toString()) ));
                     NADataAndCalc na=new NADataAndCalc();
-
-                    dfGHA.setText(calculus.Real2DMS(na.GHAAries(dfDate.getText().toString(),dfTime.getText().toString())));
+                    dfGHA.setText(calculus.Real2DMS(na.GHAAries(dfDate.getText().toString(),dfTime.getText().toString(), Integer.valueOf(dfTZ.getText().toString()))));
                     calculate();
                     dfLongByPureMath.setText(tLong);
                     dfSunGHA.setText(calculus.Real2DMS(
-                        getSHA(/* longitude*-1*/ 0.0, latitude, date, time,0.0 /* Double.valueOf(dfTZ.getText().toString())*/)
+                        getSHA(/* longitude*-1*/ 0.0, latitude, date, time, Double.valueOf(dfTZ.getText().toString()))
                                 ));
             } catch (Exception e)
             {

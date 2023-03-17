@@ -12,6 +12,8 @@ import android.view.View;
 
 //import java.text.SimpleDateFormat;
 //import java.util.Date;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
     /*
        (w) 2022 to 2023 by Gerald Roehrbein
@@ -541,7 +543,7 @@ public class NADataAndCalc {
         return range_degrees(c1+c2*(dWhole+dFrac));
     }
 
-    public double GHAAries(String Date, String Time, String tz)
+    public double GHAAries(String Date, String Time, int tz)
     /*
            This function give the same results as Stellarium give. This code is NOT taken from Stelarium.
            It's my own stuff.
@@ -579,7 +581,7 @@ public class NADataAndCalc {
         int hour, minute, seconds;
         double c1=280.46061837;
         double c2=360.98564736629;
-        //int  itz= Integer.valueOf(tz)*-1;  // Timezone to seconds
+        int  itz= (int)tz;  // Timezone to seconds
 
 
 
@@ -594,6 +596,34 @@ public class NADataAndCalc {
         day  =  Integer.valueOf(Date.substring(0,position));
         month = Integer.valueOf(Date.substring(position + 1, position=Date.indexOf(".", position+1)));
         year= Integer.valueOf(Date.substring(position+1, Date.length()));
+
+        /*
+            ToDo: Quick and dirty solution to add  TimeZone.
+         */
+
+        Calendar calendar = Calendar.getInstance();
+        java.util.Date dateIn=new Date(), dateOut=new Date();
+        dateIn.setYear(year);
+        dateIn.setMonth(month);
+        dateIn.setDate(day);
+        dateIn.setSeconds(seconds);
+        dateIn.setHours(hour);
+        dateIn.setMinutes(minute);
+        calendar.setTime(dateIn);
+        calendar.add(Calendar.HOUR_OF_DAY, -itz);
+        calendar.add(Calendar.HOUR_OF_DAY, 1);
+        dateOut=calendar.getTime();
+
+
+
+
+        year=dateOut.getYear();
+        month=dateOut.getMonth();
+        day=dateOut.getDay();
+        hour=dateOut.getHours();
+        minute=dateOut.getMinutes();
+        seconds=dateOut.getSeconds();
+
 
         double dWhole=367*year-(int)(7*(year+(int)((month+9)/12))/4)+(int)(275*month/9)+day-730531.5;
         double dFrac=((double)hour+((double)minute/60.+(double)seconds/3600.))/24.;

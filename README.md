@@ -231,6 +231,13 @@ Version History Log:
     <td>RN</td>
     <td>Minor bug fix. Longitude at SUN dialog do not depend on TZ.</td>    
   </tr>
+  <tr>
+    <td>20230317</td>
+    <td>13:54 GMT</td>
+    <td>RN</td>
+    <td>Major bug fix. TZ field in SUN dialog have now an impact on Declination, GHA Aries, GHA SUN, Bearing, Elevation and also the poor persons Longitude at the bottom. For me is this field a "visual" helper. I made a huge mistake because the emulator ran at GMT. This was the soure of some difficulties.</td>    
+  </tr>
+  
   
 
 </table> 

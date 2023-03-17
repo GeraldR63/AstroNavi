@@ -220,6 +220,12 @@ Version History Log:
     <td>RN</td>
     <td>Added Tooltips to all of the input fields. Hope tha the tips will help someone.</td>    
   </tr>
+  <tr>
+    <td>20230317</td>
+    <td>06:15 GMT</td>
+    <td>RN</td>
+    <td>Minor bug fix. Longitude at SUN dialog do not depend on TZ.</td>    
+  </tr>
   
 
 </table> 

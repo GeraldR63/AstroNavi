@@ -1,5 +1,9 @@
 # AstroNavi
 
+===========================================================================================================
+All of the computations require GMT! There is a TZ field but this is only for bearing and elevation useful!
+You have to have a clock at GMT!
+===========================================================================================================
 
 <center>
  

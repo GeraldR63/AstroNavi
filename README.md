@@ -3,10 +3,7 @@
 
 <center>
 
-============================================================================================<br>
-All of the computations require GMT! There is a TZ field but this is only for bearing and elevation useful!<br>
-You have to have a clock at GMT!<br>
-============================================================================================<br>
+
 
 <a href="https://www.hamqsl.com/solar.html" title="Click to add Solar-Terrestrial Data to your website!"><img src="https://www.hamqsl.com/solar101vhfpic.php"></a>
 </center>

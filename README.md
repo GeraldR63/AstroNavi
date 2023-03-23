@@ -229,6 +229,13 @@ Version History Log:
     <td>RN</td>
     <td>Major bug fix. TZ field in SUN dialog have now an impact on Declination, GHA Aries, GHA SUN, Bearing, Elevation and also the poor persons Longitude at the bottom. For me is this field a "visual" helper. I made a huge mistake because the emulator ran at GMT. This was the soure of some difficulties.</td>    
   </tr>
+  <tr>
+    <td>20230323</td>
+    <td>16:12 GMT</td>
+    <td>RN</td>
+    <td>If the sun was nearby Equator but below the Equator from -000"00'00.1" to -000"59'59.9" than the software did not show a minus in front of the degrees. Fixed this. Now you can check why 20.03.2023 is start of spring and not 21.03.2023. Because the sun will move at 21:00 over the Equator.</td>    
+  </tr>
+  
   
   
 

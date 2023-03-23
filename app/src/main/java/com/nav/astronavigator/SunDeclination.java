@@ -186,15 +186,15 @@ public class SunDeclination extends DialogFragment {
                            Longitude and TZ have to been set to Greenwich Meridian! If not Declination, GHA and GHA sun are not same as in Nautical Almanac.
                      */
 
-                    dfSunElevation.setText(getElevation(-1*longitude, latitude, date, time, Double.valueOf(dfTZ.getText().toString())));
-                    dfSunBearing.setText(getAzimuth(-1*longitude, latitude, date, time,  Double.valueOf(dfTZ.getText().toString())));
-                    dfDeclination.setText(getDeclination(/* longitude*-1*/ 0.0, latitude, date, time,  Double.valueOf(dfTZ.getText().toString()) ));
+                    dfSunElevation.setText(getElevation(-1*longitude, latitude, date, time, Integer.valueOf(dfTZ.getText().toString())));
+                    dfSunBearing.setText(getAzimuth(-1*longitude, latitude, date, time,  Integer.valueOf(dfTZ.getText().toString())));
+                    dfDeclination.setText(getDeclination(/* longitude*-1*/ 0.0, latitude, date, time,  Integer.valueOf(dfTZ.getText().toString()) ));
                     NADataAndCalc na=new NADataAndCalc();
                     dfGHA.setText(calculus.Real2DMS(na.GHAAries(dfDate.getText().toString(),dfTime.getText().toString(), Integer.valueOf(dfTZ.getText().toString()))));
                     calculate();
                     dfLongByPureMath.setText(tLong);
                     dfSunGHA.setText(calculus.Real2DMS(
-                        getSHA(/* longitude*-1*/ 0.0, latitude, date, time, Double.valueOf(dfTZ.getText().toString()))
+                        getSHA(/* longitude*-1*/ 0.0, latitude, date, time, Integer.valueOf(dfTZ.getText().toString()))
                                 ));
             } catch (Exception e)
             {
@@ -508,7 +508,7 @@ public class SunDeclination extends DialogFragment {
         public  double dHours;
         public  double dMinutes;
         public  double dSeconds;
-        public  double dTimeZone;
+        public  int dTimeZone;
     };
 
     class cLocation
@@ -551,7 +551,7 @@ public class SunDeclination extends DialogFragment {
 
         //Decimal hour of the day at Greenwich
 
-        utim=udtTime.dHours - udtTime.dTimeZone + udtTime.dMinutes/60+udtTime.dSeconds /3600;
+        utim=(udtTime.dHours - udtTime.dTimeZone) + (udtTime.dMinutes/60)+(udtTime.dSeconds /3600);
 
         // Das from J2000 good for 1901 to 2099
 
@@ -563,21 +563,29 @@ public class SunDeclination extends DialogFragment {
 
         // Mean longitude of the sun
 
-        slon=rnge(dnum * 0.01720279239 + 4.894967873, 0, tau);
+        //slon=rnge(dnum * 0.01720279239 + 4.894967873, 0, tau);
+        // PSA+
+        slon=rnge(dnum * 1.720279602e-2 + 4.895036035, 0, tau);
 
         //System.out.println("slon="+slon);
 
         // Mean anomaly of the Sun
 
-        sano=rnge(dnum * 0.01720197034 + 6.240040768, 0 ,tau);
+        //sano=rnge(dnum * 0.01720197034 + 6.240040768, 0 ,tau);
+        // PSA+
+        sano=rnge(dnum * 1.720200135e-2 + 6.239468336, 0 ,tau);
         //System.out.println("sano="+sano);
 
         // Ecliptic longitude of the Sun
-        ecli = slon + 0.03342305518 * Math.sin(sano)+0.0003490658504 * Math.sin(2 * sano);
+        //ecli = slon + 0.03342305518 * Math.sin(sano)+0.0003490658504 * Math.sin(2 * sano);
+        // PSA+
+        ecli = slon + 3.338320972e-2 * Math.sin(sano)+3.497596876e-4 * Math.sin(2 * sano);
         //System.out.println("ecli="+ecli);
 
         // Obliquity of the ecliptic
-        obli= 0.4090877234 - 0.000000006981317008 * dnum;
+        //obli= 0.4090877234 - 0.000000006981317008 * dnum;
+        // PSA+
+        obli= 4.090904909e-1  -6.213605399e-9 * dnum;
         //System.out.println("obli="+obli);
 
         //Right ascension f the sun
@@ -595,6 +603,8 @@ public class SunDeclination extends DialogFragment {
 
         //Local sideral tim
         stim=rnge(4.894961213+(6.300388099*dnum)+rlon,0,tau);
+        //PSA+ Complete false 6.239468336
+        //stim=rnge(4.895036035+(6.239468336*dnum)+rlon,0,tau);
         //System.out.println("stim="+stim);
 
         //Hour angle of sun
@@ -633,7 +643,7 @@ public class SunDeclination extends DialogFragment {
         return (((shiftedX % delta) +delta)%delta)+rMin;
     }
 
-    public   String getAzimuth(Double longitude, Double latitude, String iDate, String iTime, double tz)
+    public   String getAzimuth(Double longitude, Double latitude, String iDate, String iTime, int tz)
     {
 
         cTime udtTime=new cTime();
@@ -652,7 +662,7 @@ public class SunDeclination extends DialogFragment {
         return calculus.Real2DMS(udtSunCoordinates.dAzimuth);
     }
 
-    public   String getElevation(Double longitude, Double latitude, String iDate, String iTime, double tz)
+    public   String getElevation(Double longitude, Double latitude, String iDate, String iTime, int tz)
     {
 
         cTime udtTime=new cTime();
@@ -671,7 +681,7 @@ public class SunDeclination extends DialogFragment {
         return calculus.Real2DMS(udtSunCoordinates.dElevation);
     }
 
-    public   String getDeclination(Double longitude, Double latitude, String iDate, String iTime, double tz)
+    public   String getDeclination(Double longitude, Double latitude, String iDate, String iTime, int tz)
     {
 
         cTime udtTime=new cTime();
@@ -690,7 +700,7 @@ public class SunDeclination extends DialogFragment {
         return calculus.Real2DMS(udtSunCoordinates.dDeclination);
     }
 
-    public   double getSHA(Double longitude, Double latitude, String iDate, String iTime, double tz)
+    public   double getSHA(Double longitude, Double latitude, String iDate, String iTime, int tz)
     {
 
         cTime udtTime=new cTime();

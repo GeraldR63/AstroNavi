@@ -119,11 +119,13 @@ public class calculus {
         int iminutes;
         double seconds;
         int iseconds;
-        double sign;
+        int sign;
 
 
         //
         try {
+            if (dms<0.0) {sign=-1;} else {sign=1;}
+
             degrees = (int) dms;
             minutes = Math.abs((dms - degrees) * 60);
             iminutes = (int) minutes;
@@ -159,7 +161,7 @@ public class calculus {
             }
 
 
-            return String.format("%03d",degrees)+"°"+String.format(Locale.ROOT,"%02.0f",Math.abs(minutes))+"'"+String.format(Locale.ROOT,"%02.2f",Math.abs(seconds))+"\"";
+            return ((degrees==0 && sign==-1)?"-":"")+  String.format("%03d",degrees)+"°"+String.format(Locale.ROOT,"%02.0f",Math.abs(minutes))+"'"+String.format(Locale.ROOT,"%02.2f",Math.abs(seconds))+"\"";
         }
         catch (Exception e)
         {

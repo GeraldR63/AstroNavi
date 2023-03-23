@@ -233,7 +233,7 @@ Version History Log:
     <td>20230323</td>
     <td>16:12 GMT</td>
     <td>RN</td>
-    <td>If the sun was nearby Equator but below the Equator from -000"00'00.1" to -000"59'59.9" than the software did not show a minus in front of the degrees. Fixed this. Now you can check why 20.03.2023 is start of spring and not 21.03.2023. Because the sun will move at 21:00 over the Equator.</td>    
+    <td>If the sun was nearby Equator but below the Equator from -000"00'00.1" to -000"59'59.9" than the software did not show a minus in front of the degrees. Fixed this. Now you can check why 20.03.2023 is start of spring and not 21.03.2023. Because the sun will move at 21:00 over the Equator. The failure in seconds for the declination is 000°00'9.00". In the Nautical Almanac your will find for 20.02.2023 a declination of 0°00.4' that's S000°00'24" and my software calculate -000°00'5.14". There is a small difference but in my opinion this do not realy matter. It's almost nearby. A few "meters".</td>    
   </tr>
   
   

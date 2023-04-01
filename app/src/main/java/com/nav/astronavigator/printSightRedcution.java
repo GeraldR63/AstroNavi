@@ -2,6 +2,7 @@ package com.nav.astronavigator;
 
 import android.app.Activity;
 import android.content.Context;
+import android.icu.text.SimpleDateFormat;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintJob;
@@ -10,6 +11,8 @@ import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
+
+import java.util.Date;
 
 import kotlinx.coroutines.Delay;
     /*
@@ -131,7 +134,11 @@ public class printSightRedcution {
                  PrintManager printManager = (PrintManager) this.activity.getSystemService(Context.PRINT_SERVICE);
 
                  PrintDocumentAdapter printAdapter=null;
-                 printAdapter = webView.createPrintDocumentAdapter("SightReductionForm");
+                 //SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                 SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd.HHmmss");
+                 Date date = new Date();
+                 //System.out.println(formatter.format(date));
+                 printAdapter = webView.createPrintDocumentAdapter("SRF_"+ formatter.format(date));
                  String jobName = this.activity.getString(R.string.app_name) + " SRF";
                  printManager.print(jobName, printAdapter,new PrintAttributes.Builder().build());
              } else {
